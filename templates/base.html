@@ -1,0 +1,15 @@
+<html>
+<head>
+    {% block head %}
+    <title>Космограмма и Формула Души, авторский метод Александра Астрогора</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}" type="image/x-icon"/>
+    <link rel="icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}" type="image/x-icon"/>
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='favicon/apple-icon.png') }}" type="image/x-icon">
+    <style>* {font-family: Montserrat; src: url("{{ url_for('static', filename='fonts/Montserrat-Light.ttf') }}"}</style>
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+{% endblock %}
+</body>
+</html>
