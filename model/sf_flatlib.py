@@ -1,3 +1,4 @@
+import configparser
 from datetime import datetime
 
 import swisseph
@@ -6,7 +7,7 @@ from flatlib.chart import Chart
 from flatlib.datetime import Datetime
 from flatlib.geopos import GeoPos
 
-from ext.sf_geocoder import get_geo_position
+from ext.sf_geocoder import SFGeocoder
 from model.sf import SoulFormula, SIGN_TO_HOUSE, SoulFormulaBuilder, PLANET_POWER, Cosmogram, CosmogramPlanet
 
 
@@ -176,8 +177,14 @@ class FlatlibBuilder(SoulFormulaBuilder):
 
 
 if __name__ == '__main__':
+    config = configparser.RawConfigParser()
+    config.read('sf_config.ini')
+    config.read('sf_config_local.ini')
+
+    geocoder = SFGeocoder(config.get('Geocoder', 'token'))
+
     builder = FlatlibBuilder()
-    geo_data = get_geo_position('Тобольск')
+    geo_data = geocoder.get_geo_position('Тобольск')
     dt = datetime.strptime('1987-01-10 12:00 ' + geo_data.utc_offset, '%Y-%m-%d %H:%M %z')
 
     formula = builder.build_formula(

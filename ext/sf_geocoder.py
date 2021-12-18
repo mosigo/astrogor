@@ -23,31 +23,36 @@ class GeocoderResult:
         return self.__str__()
 
 
-def get_geo_position(address: str, dt_str: str) -> GeocoderResult:
-    r = requests.get(
-        'https://geocode-maps.yandex.ru/1.x',
-        params={
-            'geocode': address,
-            'apikey': '',
-            'format': 'json',
-            'lang': 'ru_RU'
-        }
-    )
-    if r.status_code == 200:
-        rj = r.json()
-        addresses = rj['response']['GeoObjectCollection']['featureMember']
-        if len(addresses) > 0:
-            address = addresses[0]['GeoObject']['metaDataProperty']['GeocoderMetaData']['Address']['formatted']
-            point = addresses[0]['GeoObject']['Point']['pos']
+class SFGeocoder:
 
-            lon, lat = point.split(' ')
-            lon, lat = float(lon), float(lat)
-            tz_finder = TimezoneFinder()
-            tz_name = tz_finder.timezone_at(lng=lon, lat=lat)
-            tz = pytz.timezone(tz_name)
-            dt = tz.localize(datetime.strptime(dt_str, '%Y-%m-%d %H:%M'))
-            offset = dt.strftime('%z')
-            return GeocoderResult(address, lat, lon, offset)
-    else:
-        print(r.text)
-    return None
+    def __init__(self, token) -> None:
+        self.token = token
+
+    def get_geo_position(self, address: str, dt_str: str) -> GeocoderResult:
+        r = requests.get(
+            'https://geocode-maps.yandex.ru/1.x',
+            params={
+                'geocode': address,
+                'apikey': self.token,
+                'format': 'json',
+                'lang': 'ru_RU'
+            }
+        )
+        if r.status_code == 200:
+            rj = r.json()
+            addresses = rj['response']['GeoObjectCollection']['featureMember']
+            if len(addresses) > 0:
+                address = addresses[0]['GeoObject']['metaDataProperty']['GeocoderMetaData']['Address']['formatted']
+                point = addresses[0]['GeoObject']['Point']['pos']
+
+                lon, lat = point.split(' ')
+                lon, lat = float(lon), float(lat)
+                tz_finder = TimezoneFinder()
+                tz_name = tz_finder.timezone_at(lng=lon, lat=lat)
+                tz = pytz.timezone(tz_name)
+                dt = tz.localize(datetime.strptime(dt_str, '%Y-%m-%d %H:%M'))
+                offset = dt.strftime('%z')
+                return GeocoderResult(address, lat, lon, offset)
+        else:
+            print(r.text)
+        return None

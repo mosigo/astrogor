@@ -272,7 +272,7 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
         cr.select_font_face("Gotham Pro Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         date_font_size = 0.06
         cr.set_font_size(date_font_size)
-        self.add_text_by_center(cr, cosmogram2.dt.strftime('%d.%m.%Y'), 0.5 + date_font_size * 0.8 / 2)
+        self.add_text_by_center(cr, cosmogram2.dt.strftime('%d.%m.%Y %H:%M'), 0.5 + date_font_size * 0.8 / 2)
 
         # отмечаем соединения
         lons = []

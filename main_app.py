@@ -1,4 +1,5 @@
 import base64
+import configparser
 import os
 import tempfile
 import cairo
@@ -7,11 +8,9 @@ import pytz
 from flask import Flask, request, render_template
 from datetime import datetime
 
-from main_user_info import get_borders
 from model.sf import SoulFormulaWithBorders, NumericInfo
 from model.sf_flatlib import FlatlibBuilder
-from view.sf_cosmogram import DefaultCosmogramDrawer
-from ext.sf_geocoder import get_geo_position
+from ext.sf_geocoder import SFGeocoder
 from view.sf_printer import OneCirclePrinter
 
 app = Flask(__name__)
@@ -60,7 +59,7 @@ def create_card():
 
 def generate_card(name, birthday_time, city, death_time=None):
 
-    geo_res = get_geo_position(city, birthday_time)
+    geo_res = geocoder.get_geo_position(city, birthday_time)
     print(f'UTC => {geo_res}')
 
     w, h = 210 * 10, 297 * 10
@@ -94,4 +93,10 @@ def generate_card(name, birthday_time, city, death_time=None):
 
 
 if __name__ == '__main__':
+    config = configparser.RawConfigParser()
+    config.read('sf_config.ini')
+    config.read('sf_config_local.ini')
+
+    geocoder = SFGeocoder(config.get('Geocoder', 'token'))
+
     app.run(debug=True, port=8080)

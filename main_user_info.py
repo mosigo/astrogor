@@ -1,10 +1,11 @@
+import configparser
 from datetime import datetime, timedelta
 
 import cairo
 from flatlib import const
 from transliterate import translit
 
-from ext.sf_geocoder import get_geo_position
+from ext.sf_geocoder import SFGeocoder
 from model.sf import SoulFormulaWithBorders, NumericInfo
 from model.sf_flatlib import FlatlibBuilder
 from utils.sf_csv import read_csv_file
@@ -38,7 +39,7 @@ def print_user_info(name, birthday_time, city, death_time=None):
     name_tr = name_tr.replace(' ', '_').replace('\'', '').lower()
     name_tr += '.pdf'
 
-    geo_res = get_geo_position(city, birthday_time)
+    geo_res = geocoder.get_geo_position(city, birthday_time)
     print(f'UTC => {geo_res}')
 
     builder = FlatlibBuilder()
@@ -63,6 +64,11 @@ def print_user_info(name, birthday_time, city, death_time=None):
 
 
 if __name__ == '__main__':
+    config = configparser.RawConfigParser()
+    config.read('sf_config.ini')
+    config.read('sf_config_local.ini')
+
+    geocoder = SFGeocoder(config.get('Geocoder', 'token'))
 
     row = read_csv_file('in_data/user_info.csv')[-1]
     print(row)

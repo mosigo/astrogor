@@ -1,31 +1,660 @@
-{% extends "base.html" %}
-{% block head %}
-    {{ super() }}
-<style>
+<!DOCTYPE HTML SYSTEM>
+<html lang="ru">
+<head>
+<title lang="ru">Астрогор.Онлайн. Обучение Формуле Души. Вебинары. Рассчитать Формулу Души на сайте</title>
 
+<link rel="icon" href="{{ url_for('static', filename='old/favicon_.ico') }}" type="image/x-icon" />
+<link rel="shortcut icon" href="{{ url_for('static', filename='old/favicon_.ico') }}" type="image/x-icon" />
+<META NAME="Keywords" CONTENT="вебинары, учебный, курс, обучение, занятия, формула, душа, души, астрогор, астрология, космограмма, планета, гороскоп, сила, метод, цепочка, диспозитор, владение, astrogor, astrology, astrological, soul, formula, planet, horoscope, method" />
+<META Name="description" Content="Школа Русской Астрологии Волхвы. Метод Александра Астрогора 'Формула Души'" />
+<META Name="author" Lang="ru" Content="Александр Астрогор" />
+<META Name="copyright" Lang="ru" Content="c 2021, Александр Астрогор" />
+<META Name="Document-state" content ="Dynamic" />
+<META Name="Revisit" content="7" />
+<META NAME="Robots" CONTENT="INDEX,FOLLOW" />
+<style type="text/css">
+<!--
+body table tr td table tr td {
+	font-family: Trebuchet MS, Arial, Helvetica, sans-serif;
+}
 </style>
-{% endblock %}
-{% block body %}
-<h1>Космограмма и Формула Души — авторский метод Александра Астрогора</h1>
-<form action="/card" method="get">
-    <div>
-        <span>Имя</span>
-        <input type="text" name="fio"/>
-    </div>
-    <div>
-        <span>Место рождения</span>
-        <input type="text" name="city"/>
-    </div>
-    <div>
-        <span>День</span>
-        <input type="text" placeholder="01.01.2000" name="birthday"/>
-    </div>
-    <div>
-        <span>Время</span>
-        <input type="text" placeholder="11:00" name="birth_time"/>
-    </div>
-    <div>
-        <input type="submit"/>
+</head>
+
+<body bgcolor=white background="{{ url_for('static', filename='old/Backg.gif') }}" topmargin="0" leftmargin="0" bottommargin="0" rightmargin="0" onLoad="doLoad()" onResize="reSize()">
+<basefont face="Trebuchet MS, Arial, Helvetica, sans-serif" color="#000000" size="3" />
+
+<table width=100% border=0 cellspacing=0 cellpadding=0>
+<tr height=100% valign="top">
+<td width="58" height=100% background="{{ url_for('static', filename='old/fdl.gif') }}" valign="top">
+<a href="http://astrofd.ru/index.html#addr"><IMG SRC="{{ url_for('static', filename='old/fdh.gif') }}" border="0" HSPACE="0" VSPACE="0" alt="Разработчики" align="top" /></a>
+<a href=http://astrofd.ru><IMG SRC="{{ url_for('static', filename='old/butm.gif') }}" title="Перейти на сайт программы AstroFD (профессиональный инструмент для вычисления Формулы Души)" border="0" HSPACE="0" VSPACE="0" alt="на главную" align="top" /></a>
+<a href=http://astrofd.ru/AstroFD_Setup.exe><IMG SRC="{{ url_for('static', filename='old/but011.gif') }}" title="Скачать программу AstroFD для Windows" border="0" HSPACE="0" VSPACE="0" alt="скачать" align="top" /></a>
+<IMG SRC="/but05.gif" border="0" HSPACE="0" VSPACE="0" alt="" align="top" />
+</td>
+<td width="100%">
+<table width=100% height = "130" border=0 cellspacing=0 cellpadding=0>
+<tr>
+<td background="{{ url_for('static', filename='old/fdr.gif') }}" valign="top">
+<center>
+  <IMG SRC="{{ url_for('static', filename='old/mtitle.png') }}" border="0" HSPACE="0" VSPACE="0" alt="Александр Астрогор" />
+</center>
+</td>
+</tr>
+</table>
+<table border=0><tr><td width=100% height=100% align="left" border=0 cellspacing=0 cellpadding=0>
+<a name="consult"></a><a name="contacts"></a><a name="консультация"></a><a name="контакты"></a>
+<p align="center"><img align=center style="margin:16px 0px 0px 10px; float:left;" src="{{ url_for('static', filename='old/astrogor_logo_full.png') }}"><br><font size=5><strong>Александр Александрович Астрогор</strong><br><font size=3><i>Астролог, профессиональный психолог, писатель. Автор метода "Формула Души"</i><br></font>Личная консультация 1 час 5000 р : Skype&nbsp;<b><a href="skype:astrogor4949?call">astrogor4949</a></b>,<br>тел. <a href="tel://+79265382525">8-926-538-25-25</a>, <a href="tel://+79772777749">8-977-2-7777-49</a><br>
+Электронная почта : <a href=mailto:astrogor49@mail.ru>astrogor49@mail.ru</a></font></p>
+<p align="center">Обучение у Александра Астрогора в 2021 году<br>
+<font size=5><strong>Школа Русской Астрологии &quot;ВОЛХВЫ&quot;</strong></font><br>
+<font size=5>&#10031;&nbsp;&nbsp;&nbsp;&#10031;&nbsp;&nbsp;&nbsp;&#10031;&nbsp;&nbsp;&nbsp;&#10031;&nbsp;&nbsp;&nbsp;&#10031;</font><br>
+
+ <table width=90% border=0 align="center"><tr><td width=50%><a name="курсы"></a><a name="занятия"></a><a name="расписание"></a><a name="new"></a><a name="новости"></a><a name="news"></a>
+ <p align=center>
+ <table width=100%><tr width=100%>
+
+
+<p align=center><a name="calculator"></a><a name="формула_онлайн"></a>
+
+<font size=5>Планируемые курсы</font><br><br>
+
+&bull;&nbsp;&nbsp;<font size=5 color=blue><b>МОСКВА, 17 января 2021 года &#8212; 11 февраля 2022 года</b> &#8212; очный курс "Кармическая Медицина" </b></font><font size=5 color=black> в <b>12</b> занятиях, <b>3</b> раза в неделю с <b>19</b> до <b>21</b> часа. Москва, м. Краснопресненская.<br><br>
+
+&bull;&nbsp;&nbsp;<font size=5 color=blue><b>МОСКВА, 21 февраля 2022 года &#8212; 28 марта 2022 года</b> &#8212; очный курс "Формула Души" </b></font><font size=5 color=black> в <b>16</b> занятиях, <b>3</b> раза в неделю с <b>19</b> до <b>21</b> часа. Москва, м. Краснопресненская.<br><br>
+
+Запись и справки у администратора : Галина Ивановна Дмитриева,<br>тел. <b>+7-916-147-9-147</b>.</font><br><br>
+<img src="{{ url_for('static', filename='old/a_hr.jpeg') }}"></a><br>
+<font size=2><i>Рисунок худ. Людмилы Кузнецовой (Пенза)</i></font><br><br>
+
+<b><font size=5>Набор авторских книг по темам <font color=blue>Формула Души и кармическая медицина</font>, для тех, кто желает пройти обучение, можно заказать у Галины Ивановны.<br>
+</b></font><br><br>
+
+<img src="{{ url_for('static', filename='old/a_win.jpeg') }}"></a><br>
+
+</font>
+
+<br>
+
+
+ <font size=3>
+ <iframe src="https://player.vimeo.com/video/280072759" width="380" height="260" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+ </td></tr>
+ <tr align=center width=100%><td>
+ </td></tr></table>
+
+ <p align=center><strong><font size=5 color=blue>Дистанционное обучение методу "Формула Души"</font></strong><br><br>
+ </p>
+<font size=4>
+Онлайн курс состоит из 16 занятий (в записи), стоит 24 тыс. рублей, выдается весь курс сразу, без разрыва платежа, на просмотр курса даётся три месяца, после чего доступ к нему прекращается.  Заранее приобретайте учебник: ФОРМУЛА ДУШИ, пособие к нему: СИЛА ФОРМУЛЫ ДУШИ и цветной альбом: АСТРОЛОГИЯ В СХЕМАХ И ТАБЛИЦАХ. Все эти книги есть в книжных магазинах и легко найти в интернете.<br><br>
+&bull;&nbsp;&nbsp;Справки и связь с администратором курса по ватсапу тел. <b>+7-977-262-69-90</b> - <b>Анна Дунаева</b> - сайт: <a href=http://www.Astrogor.com>Astrogor.com</a><br>
+&bull;&nbsp;&nbsp;Группа поддержки: <b>Евгений Климантов</b>, Viber, WhatsApp, Telegram <b>+7-982-141-00-21</b>, Скайп: <a href=skype:baikal_86>baikal_86</a><br><br>
+&bull;&nbsp;&nbsp;Дополнительное образование по Формуле Души (для консультантов, курсы повышения квалификации) - Сергей Дресвянников, <a href=http://formula.careers/contacts>http://formula.careers/plan</a>, e-mail : <a href=mailto:nnrusp@gmail.com>nnrusp@gmail.com</a><br>
+</font>
+
+<p align=center>
+<br>
+<font size=4 color=blue><b>СТРАНИЦЫ В СОЦИАЛЬНЫХ СЕТЯХ</b></font><br><br>
+<font size=4>
+&bull;&nbsp;&nbsp;Сан Саныч Астрогор <a href="https://vk.com/aleksandrastrogor" target=_blank>ВКонтакте</a>, в
+<a href="https://ok.ru/profile/571254010128" target=_blank>Одноклассниках</a>, <a href="https://www.facebook.com/profile.php?id=100003433644428&ref=br_rs" target=_blank>Facebook'е</a>.<br><br>
+&bull;&nbsp;&nbsp;<a href="https://vk.com/astrotales" target=_blank>Группа ВКонтакте для изучающих Формулу Души — полезные видеоуроки, встречи поддержки для учащихся.</a><br><br>
+</font><br>
+
+<script>
+   var numPool = [ 314354084, 243202249, 243202178, 243202096, 243202033, 243201940, 243201882, 243201817, 243201688, 242507853, 242498436, 242493709, 263643401, 280072759, 275211531];
+   rand = numPool[Math.floor(Math.random() * numPool.length)];
+   var s = new String(rand);
+   document.write('<iframe src=https://player.vimeo.com/video/');
+   document.write(s);
+   document.write(" width=360 height=260 frameborder=0 webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>");
+</script>
+</p>
+
+<br>
+<p align=center><font size=4 color=blue><b>ОТКРЫТЫЕ ВСТРЕЧИ</b></font></p>
+
+<div align=center>
+<script>
+   var numPool = [ 243220780, 243210147, 243209973, 243209856, 243209740, 243209595, 243209389, 243209213, 243209066, 243208877, 243208724, 243208598, 243201213, 242497274, 241863550, 242498436 ];
+   rand = numPool[Math.floor(Math.random() * numPool.length)];
+   var s = new String(rand);
+   document.write('<iframe src=https://player.vimeo.com/video/');
+   document.write(s);
+   document.write(" width=380 height=280 frameborder=0 webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>");
+</script>
+</div>
+
+ <br>
+ <p align=center><font size=4 color=blue><b>СО-ТВОРЧЕСТВО</b></font><br><br>
+
+ <img src="{{ url_for('static', filename='old/spsp2.jpeg') }}" border=0 align=center><br><br>
+
+ <br><br><img src="{{ url_for('static', filename='old/sfd4.jpeg') }}" border=2 align=center>
+
+ <br><br>
+ <img src="{{ url_for('static', filename='old/s_zod.jpeg') }}" border=2 align=center><br><br>
+
+ <img src="{{ url_for('static', filename='old/elements.jpeg') }}" border=2 align=center>
+ <img src="{{ url_for('static', filename='old/krz.jpeg') }}" border=2 align=center><br><br>
+
+ <iframe src="https://player.vimeo.com/video/242497874" width="340" height="250" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><br>
+
+<img title="Летняя Школа Астрогора" src="{{ url_for('static', filename='old/fd2015.jpeg') }}" width=315 height=192><br><br>
+<img title="Летняя Школа Астрогора" src="{{ url_for('static', filename='old/astrogor2015n.jpeg') }}" width=315 height=245><br><br>
+
+ </p>
+ </p>
+</td><td width=50% align="center">
+<br>
+<img src="{{ url_for('static', filename='old/kc01.jpeg') }}" wight=400px height=275px><br>
+
+<b><font size=4 color=green><br>&bull;&nbsp;&nbsp;Вышла первая книга из новой серии: Кармическая медицина по знакам Зодиака. Первая из 12-ти : Овен, голова, ум и мозг, зрение и слух, нос, зубы, физиогномика. Цена в издательстве Амрита-Русь - 247 рублей.<br></font><br>
+<b><font size=4 color=green>&bull;&nbsp;&nbsp;Книга "Кармическое Целительство" (320 стр.) вышла в издательстве "Амрита-Русь" в декабре 2020 года.</font><br>
+<b><font size=4 color=green>&bull;&nbsp;&nbsp;Книга "Ирония судьбы российских правителей" вышла дополнительным тиражом.<br>Спрашивайте в сети "Читай-Город"</font></b>
+<br><br>
+<font size=5><a href="http://astrofd.ru/calm.html" target=_blank><b><font size=4><font Color=#407AFA> [ НАЖМИТЕ ]</font></b></a>, чтобы построить Формулу Души</font>
+<br><br>
+
+<!-- Begin MailChimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif;  width:350px;}
+	/* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="//Онлайн.us15.list-manage.com/subscribe/post?u=547efa4c21d3bbdf66f6dc913&amp;id=0d1ab6b5f5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<h2><i>Рассылка от Сан Саныча</i></h2>
+<div class="mc-field-group">
+	<label for="mce-EMAIL">Здесь введите свой E-mail - адрес электронной почты - чтобы получать новостную рассылку</label>
+	<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+</div>
+	<div id="mce-responses" class="clear">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_547efa4c21d3bbdf66f6dc913_0d1ab6b5f5" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Подписаться на рассылку Астрогора" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
     </div>
 </form>
-{% endblock %}
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+
+<a href="/#личная_консультация"><img src="{{ url_for('static', filename='old/consult.gif') }}"></a><br>
+<a href="/#домашнее_обучение"><img src="{{ url_for('static', filename='old/distance_education.gif') }}"></a><br>
+<a href="/#news"><img src="{{ url_for('static', filename='old/lessons.gif') }}"></a><br>
+<br>
+
+<font size=2>Переизданы и <a href="http://www.ozon.ru/context/detail/id/143298393/?partner=astrogor_online" target=_blank>поступили в продажу</a> в книги серии<br>"Кармическая Медицина" :</font><br>
+<img src="{{ url_for('static', filename='old/profit-style.png') }}" width=400 height=476><br>
+<font size=5><a name="goto"></a><i><br><b>Сан Саныч рекомендует</b></i></font><br><br>
+<font size=4 color=blue><b>КНИГИ</b></font><br><br>
+<font size=3>
+
+&bull;&nbsp;&nbsp;Спрашивайте книгу "Ирония судьбы российских правителей : от Рюрика до Путина"</b> издательства АСТ.<br><br>
+&bull;&nbsp;&nbsp;Пособие к учебнику, <b>"Сила Формулы Души"</b>, третьим дополнительным тиражом выходит в издательстве "Амрита-Русь".<br><br>
+&bull;&nbsp;&nbsp;6-я книга по Кармической медицине <b>"Сказы Владиславы с озера Светлояр"</b> вышла в издательстве "Профит Стайл". Спрашивайте в магазинах города :)<br><br>
+<br>
+<font size=4 color=blue><b>ДОПОЛНИТЕЛЬНЫЕ КУРСЫ И НАПРАВЛЕНИЯ</b></font><br><br>
+
+<font size=3>
+<table><tr><td align=center><img width=159 height=186 src="{{ url_for('static', filename='old/s_z.jpeg') }}" alt="Зотова Светлана"><br>
+<br><i>Светлана Зотова</i></td><td>
+&bull;&nbsp;&nbsp;Авторская <a href="http://ludkin.justclick.ru/order/FDshkolaABONEMENT/acathead7/" target=_blank>Школа Светланы Зотовой</a> (подготовка к экзаменам ФД, иные вспомогательные курсы - <a href=http://ludkin.justclick.ru/aff/sl/DIPLOM/acathead7/ target=_blank>подготовка к диплому</a>).<br><br>
+&bull;&nbsp;&nbsp;Вебинар Светланы Зотовой <a href="http://ludkin.justclick.ru/aff/sl/MagikPlanet/acathead7/" target=_blank>"Магия Планет"</a>. Авторский курс раскрывает темы, как использовать планетарные качества для решения жизненных задач. Курс <a href=http://ludkin.justclick.ru/aff/sl/zzdorovayaCons/acathead7/ target=_blank>"Здоровая женщина"</a>.
+</td></tr></table>
+</font>
+<br>
+<font size=3>&#10031;&nbsp;&nbsp;&nbsp;&#10031;&nbsp;&nbsp;&nbsp;&#10031;&nbsp;&nbsp;&nbsp;&#10031;&nbsp;&nbsp;&nbsp;&#10031;</font><br>
+<br>
+<font size=4 color=blue><b>ОНЛАЙН ОБУЧЕНИЕ + ЛЕТНЯЯ ШКОЛА НА ОЗЕРЕ СВЕТЛОЯР</b></font><br><br>
+<table><tr><td align=center><a href=http://formula.careers/>"Формула Души", онлайн-отделение. Практические технологии консультирования<br><img width=159 height=259 src="{{ url_for('static', filename='old/sd2.jpeg') }}" alt="Сергей Дресвянников"><br>
+<br><a href=https://www.youtube.com/watch?v=sUSK-7VC53s><i>Сергей Дресвянников</i></a>, разработчик методов "Формула Карьеры" и"Конкорд.Метрика</td><td>
+Авторские курсы повышения квалификации для астропсихологов-консультантов, применяющих "Формулу Души" :<br><br>
+&bull;&nbsp;&nbsp;Метод прогнозирования "Аспекты к Точке Жизни. Событийные ряды. Быстрая Точка Жизни" (18 часов)<br>
+&bull;&nbsp;&nbsp;"Селена и Лилит. Верхний Зодиак или Созвездия на куспидах" (23.5 часов)<br>
+&bull;&nbsp;&nbsp;"Руны и Зодиак" (15 часов)<br>
+&bull;&nbsp;&nbsp;"12 тайн Зодиака. Информация из домов космограммы" (12 часов)<br>
+&bull;&nbsp;&nbsp;"Карта Личного Пространства. Планеты на местности. Релокация (карта переезда)" (20 часов)<br>
+&bull;&nbsp;&nbsp;"Формула Карьеры. Формула Силы и Счастья" (62 часа)<br><br>
+Заказать вебинары можно <a href="http://formula.careers/contacts" target=_blank>здесь</a>.
+</td></tr></table>
+<br>
+<font size=3>&#10031;&nbsp;&nbsp;&nbsp;&#10031;&nbsp;&nbsp;&nbsp;&#10031;&nbsp;&nbsp;&nbsp;&#10031;&nbsp;&nbsp;&nbsp;&#10031;</font><br>
+<br>
+<table>
+<tr>
+<td align=center><b>Москва</b><br><br>
+<i>Иван Шишкин</i>, психолог, выпускник школы Астрогора.
+Преподавал метод Формула души в Институте Психотерапии и Клинической Психологии.
+<div align=center>
+<iframe width="350" height="220" src="https://www.youtube.com/embed/LAL81CpgsRw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+Разработал собственный метод МАК терапии, в котором объединил астрологию и психотерапию.
+Семинары, консультации, обучение ФД в Москве в группах и индивидуально. +79263357575 (WhatsApp), инстаграмм <a href="https://www.instagram.com/ivanshishkin.pro/" target=_blank>shishkin.pro</a>, e-mail: achernar999@gmail.com.
+</td>
+</tr>
+<tr>
+<td align=center>
+<br>
+<b>Санкт-Петербург</b><br><br>
+<img src="{{ url_for('static', filename='old/svs.jpeg') }}" width=400px height=242px border=0 align=center>
+Дорогие друзья, приглашаем Вас на обучающий курс по АСТРОПСИХОЛОГИИ по методу А.А. Астрогора "ФОРМУЛА ДУШИ" в г. САНКТ-ПЕТЕРБУРГ.<br>
+Ведущая : Светлана Старцева. Контактный телефон <b>8(962)5087899</b>.</td></tr></table><br>
+<font size=4 color=blue><b>ПОСОБИЯ</b></font><br><br>
+<table><tr><td>
+&bull;&nbsp;&nbsp;Ключи к программе AstroFD</b> приобретаются в Москве у разработчика программы <a href=mailto:dtma@yandex.ru>Андрея Сучкова</a> или в <a href=http://www.astrolog.ru/index.php/onlajn-magazin/programmy/klyuch-k-programme-astrofd-detail target=_blank>интернет-магазине Высшей Школы Классической Астрологии (ВШКА)</a>.<br>
+Контакты : Почта <a href=mailto:fd@asta.su>fd@asta.su</a> Мобильный тел. <b>+7 (995) 120-46-30</b> Skype : <a href=skype:suchkovandrey?call>suchkovandrey</a>
+</td><td><img src="{{ url_for('static', filename='old/suchk.jpeg') }}"></td>
+</tr></table>
+<br><br>
+<table width=100%><tr><td>
+<img src="{{ url_for('static', filename='old/jzl.jpeg') }}" width=160 height=160 border=1>
+</td><td width=20px></td><td>&bull;&nbsp;&nbsp;Астрологические жезлы можно приобрести у Светланы Старцевой.<br><br>Заказ по тел. 8 962 508 78 99,<br><br>Электронная почта <a href=mailto:svetlana.startseva1@yandex.ru>svetlana.startseva1@yandex.ru</a>.
+</td></tr></table><br>
+&bull;&nbsp;&nbsp;В <b>Высшей Школе Классической Астрологии (ВШКА)</b> <a href=http://www.astrolog.ru/index.php/onlajn-magazin/knigi-po-astrologii/astrogor-a-yumanov-n-sila-formuly-dushi-detail target=_blank>можно приобрести</a> обновленное издание методического пособия "<b>Сила Формулы Души</b>".</a>
+</font>
+<br><br>
+&bull;&nbsp;&nbsp;Скачайте <a href="{{ url_for('static', filename='old/blankfd.jpeg') }}" target=_blank>бланк</a> для самостоятельного составления формулы.
+
+<br><br>
+<font size=4 color=blue><b>НАПИТКИ</b></font><br><br>
+<b>Натуральные напитки на растительной основе "ASTROGOR"<br>
+Цена: 50.00 руб / шт.</b>
+<img src="{{ url_for('static', filename='old/astrogor_drinks.jpeg') }}" width=100%><br><br>
+<font size=2>Напитки "ASTROGOR" создаются исключительно на натуральной основе.<br>В состав входят полезные микроэлементы и экологически чистое растительное сырье( лекарственные растения, корни, цветки, стебли, плоды), оказывающие поливитаминное, антиоксидантное, адаптогенное и общеукрепляющее действие. Сроки годности до марта 2021 года. В наличии 40 000 штук в ассортименте. Вопросы можно направлять на почту el.salnickowa2012@yandex.ru или по телефону <b>+79374439575</b>.<b>
+Елена. Пенза, Пензенская обл., Россия <b>+7(937)443-95-750</b></font><br><br>
+
+</td></tr></table>
+
+<table width=90% border=0 align="center"><tr><td width=50%>
+
+ <iframe src="https://player.vimeo.com/video/242496827" width="380" height="240" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><br><br>
+ </div>
+
+ <p align=center>
+ <table width=100%><tr width=100%><td>
+ <div align=center><img src="{{ url_for('static', filename='old/sk.jpeg') }}" align=center></div>
+ </td><td>
+ </td></tr>
+ </table>
+ <br><font size=2><i>Студенты из Академии Ильи Глазунова учились на курсе астропсихологии, и к последнему занятию сделали автору подарок. Автор скульптуры Святослав Клиндухов.</i></a>
+ </p>
+
+</td><td width=50% align="center">
+
+<a name="bio"></a><a name="биография"></a>
+
+<img src="{{ url_for('static', filename='old/astrogor.jpeg') }}" align=left>
+
+<font color=blue><b>БИОГРАФИЯ АСТРОГОРА</b></font><br><br>
+<font size=2><b>Астрогор, Александр Александрович</b> &#8212; <i>астролог и астропсихолог, целитель, исследователь. По собственному определению: Человек, говорящий языком звезд.
+<br><br>
+Руководитель Школы русской астрологии &laquo;Волхвы&raquo;. Член Содружества Профессиональных Астрологов России.<br><br>
+Преподаватель Открытой Славянской Академии по предметам : классическая астрология, кармическая медицина, формула души.
+<br><br>
+Родился в Иркутске 28 декабря 1949 года, проживает в Москве. По первому образованию режиссер. Работал с детьми в студии-театре &laquo;Каморка Папы Карло&raquo; (близ м. Варшавская, Москва).
+<br><br>
+Начиная с первой половины 80-х гг становится известен как астролог-консультант, исследователь взаимосвязей здоровья, образа и целей жизни. Разработал аналитическую методику оценки потенциала личности и событий <a href="http://астрогор.онлайн/#формула_души">&laquo;Формула Души&raquo;</a>, в основе которой авторская система толкований цепочек астрологических планетарных диспозиторов по владению.
+<br><br>
+Автор 17 книг : <a href=http://www.ozon.ru/context/detail/id/142724173/?partner=astrogor_online>&laquo;Формула Души&raquo;</a>, &laquo;Душа и карма&raquo;, <a href="{{ url_for('static', filename='old/putin_mystery.pdf') }}" target=_blank>&laquo;Мистика Путина&raquo;</a>, <a href="http://www.phantastike.com/link/other/energetic_vampirism.zip" target=_blank>&laquo;Энергетический вампиризм&raquo;</a>, <a href="http://www.phantastike.com/link/other/ispoved_bolyachki.zip" target=_blank>&laquo;Исповедь болячки&raquo;</a>, &laquo;Книга чувств&raquo;, <a href="http://www.razym.ru/chelob/ezoterika/240648-astrogor-a-kresty-zodiaka.html" target=_blank>&laquo;Кресты Зодиака&raquo;</a>, <a href="http://mexalib.com/view/18854" target=_blank>&laquo;Астрологическое учение о химических элементах&raquo;</a>, учебных альбомов &laquo;Астрология в схемах и таблицах&raquo;, &laquo;Сила Формулы Души&raquo; и др.
+<br><br>
+Область исследований : периодическая система химических элементов на основе Зодиакального круга, кармическая медицина.
+<br><br>
+Увлечения: работа по дереву, сбор афоризмов, вождение автомобиля.</i></font>
+
+
+</td></tr></table><br>
+</p>
+
+<p align=center><a name="school"></a><a name="школа_Светлояр"></a><font size=5>Летняя Школа на Светлояре - подробности</font></p>
+Адрес: <b>606755, Нижегородская область, Воскресенский район, деревня Шадрино, ул. Фабричная дом 15.</b><br>
+Астрогор Александр Александрович : телефон +7-977-277-77-49.<br><br>
+Проезд: От Нижнего Новгорода на электричке (1 час ) до г. Семёнов (родина Хохломской Росписи - возможны экскурсии), далее автобусом "Семенов-Воскресенское" или маршрутным такси 45 км до села Владимирское (озеро Светлояр) и 5 км до д. Шадрино. <br><br>
+Астрогор или администратор встретят в с. Владимирское и довезут до места. Размещение в гостиницу или в частный сектор, объяснит Галина Ивановна - тел. +7-916-147-9-147. Если ехать самостоятельно по навигатору, в поиске укажите "Шадрино Вос-кресенский район", ибо в Нижегородской области три Шадрино! :)<br><br>
+
+<p align=center><a name="astrogor_consult"></a><a name="личная_консультация"></a><font size=5>Личная консультация у Астрогора</font></p>
+<p align=center>
+<img src="{{ url_for('static', filename='old/a2018.jpeg') }}" align=center width=156px height=225px>
+<img src="{{ url_for('static', filename='old/astrogor_100.jpeg') }}" alt="Автор фото Головченко Владимир" align=center width=250px height=225px>
+<img src="{{ url_for('static', filename='old/gr2.jpeg') }}" align=center width=340px height=225px>
+</p>
+Александр Астрогор (<i>Сан Саныч</i>) проводит индивидуальные консультации по личным и деловым вопросам на очном приеме либо по Скайпу. Договориться о встрече можно <a href="mailto:astrogor49@mail.ru">написав письмо</a> или позвонив по телефону <a href=tel://+79265382525><b>8&nbsp;(926)&nbsp;538&nbsp;25&nbsp;25</b></a>.<br>
+Обычная консультация длится <b>60 минут</b>.<br>
+Электронная почта - <a href="mailto:astrogor49@mail.ru"><b>astrogor49@mail.ru</b></a>. <b>Skype</b> - <b><a href="skype:astrogor4949?call">astrogor4949</a></b>.<br>
+<br>
+
+<p align=center><font size=5>Отзывы</font></p>
+
+<p align=center>
+<table>
+<tr>
+<td align=center>
+<iframe src="https://player.vimeo.com/video/243228498" width="380" height="260" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><br>
+<font size=2>Ученицы из Екатеринбурга</font>
+</td>
+<td align=center>
+<iframe src="https://player.vimeo.com/video/243229553" width="380" height="260" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><br>
+<font size=2>Отзыв слушателя Максима</font>
+</td>
+</tr>
+</table>
+</p>
+
+<p align=center><a name="distance_education"></a><a name="домашнее_обучение"></a><font size=5>Обучение на дому. Записи лекций. Вебинары</font></p>
+Лекции и слайды, разработанные Александром Астрогором специально для домашнего обучения, позволяют изучить основные курсы, преподаваемые в Школе Русской Астрологии "Волхвы", заочно.<br><br>
+
+Чтобы записаться в школу, получить расширенный семинар "Формула Души", обращайтесь
+администратору курса по ватсапу тел. <b>+7-977-262-69-90</b> - <b>Анна Дунаева</b> - сайт: <a href="http://www.Astrogor.com">Astrogor.com</a><br>
+Группа поддержки (вопросы по базовому курсу) : <b>Евгений Климантов</b>, Viber, WhatsApp, Telegram <b>+7-982-141-00-21</b>, Скайп: <a href=skype:baikal_86>baikal_86</a><br><br>
+
+Курсы повышения квалификации для консультантов по астропсихологии и международный клуб - Сергей Дресвянников, <a href=http://formula.careers/contacts>http://formula.careers/plan</a>, e-mail : <a href=mailto:nnrusp@gmail.com>nnrusp@gmail.com</a><br>
+</p>
+<p align=center>
+<font size=5>Астрологические пособия, полезные предметы<a name="tools"></a><a name="полезности"></a></font></p>
+<table width="100%" border="0">
+  <tr>
+    <td width=33% align=center>Обновленный учебник "Формула Души".<br><br><a href=http://www.ozon.ru/context/detail/id/142724173/?partner=astrogor_online target=_blank><IMG SRC="{{ url_for('static', filename='old/fd_book2.jpeg') }}" width=279px height=359px border="0" HSPACE="0" VSPACE="0" alt="учебник Формула Души" align="center"/></a></td>
+    <td width=33% align=center>Альбом &quot;Сила Формулы Души&quot;. Методическое пособие для обучающихся : основной материал из учебника, собранный в таблицы.<br><br><a href=http://www.astrolog.ru/index.php/onlajn-magazin/knigi-po-astrologii/astrogor-a-yumanov-n-sila-formuly-dushi-detail target=_blank> Заказать в Высшей Школе Классической Астрологии (ВШКА).</a><br><br><a href="http://www.astrolog.ru/index.php/onlajn-magazin/knigi-po-astrologii/astrogor-a-yumanov-n-sila-formuly-dushi-detail" target=_blank><IMG SRC="{{ url_for('static', filename='old/sfd4.jpeg') }}" width=202px height=274px border="0" HSPACE="0" VSPACE="0" alt="Учебное пособие Сила Формулы Души" align="center" /></a></td>
+    <td width=33% align=center>Альбом-справочник "Астрология в схемах и таблицах".<br><br><a href=http://www.ozon.ru/context/detail/id/138019277/?partner=astrogor_online target=_blank><img src="{{ url_for('static', filename='old/album2017s.jpeg') }}" width=260px height=382px alt="Альбом 'Говорю Языком Звезд'" align=center></a></td>
+  </tr>
+</table>
+
+<p align=center><a name="video"></a><a name="видео"></a><font size=5>Видео</font></p>
+<p align=center>
+<table><tr>
+<td>
+<iframe src="https://player.vimeo.com/video/243186959" width="370" height="260" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><br>
+<font size=2>Лекция "Как не стать мытарем"</font>
+</td>
+<td>
+<iframe src="https://player.vimeo.com/video/242493709" width="370" height="260" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><br>
+<font size=2>Лекция "Энергетический вампиризм в семейных<br>отношениях"</font>
+</td>
+</tr><tr>
+<td>
+<iframe src="https://player.vimeo.com/video/242503300" width="370" height="260" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><br>
+<font size=2>Беседа "Ирония судьбы Российских правителей", ч. 1</font>
+</td>
+<td>
+<iframe src="https://player.vimeo.com/video/242503234" width="370" height="260" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><br>
+<font size=2>Беседа "Ирония судьбы Российских правителей", ч. 2</font>
+</td>
+</tr><tr>
+<td>
+<iframe src="https://player.vimeo.com/video/242497500" width="370" height="260" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><br>
+<font size=2>"Формула Души" и женское счастье.<br>Венера и Марс.</font>
+</td>
+<td>
+<iframe src="https://player.vimeo.com/video/242507853" width="370" height="260" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><br>
+<font size=2>Лекция "Кармическая медицина".</font>
+</td>
+</tr>
+<tr>
+<td>
+<iframe src="https://player.vimeo.com/video/242498567" width="370" height="260" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><br>
+<font size=2>Кармическая медицина. Часть лекции.<br>"Сила мысли и сила слова".</font>
+</td>
+<td>
+
+<script>
+   var numPool = [ 243197246, 243197053, 243196868, 243196700, 243196587, 242498919 ];
+   rand = numPool[Math.floor(Math.random() * numPool.length)];
+   var s = new String(rand);
+   document.write('<iframe src=https://player.vimeo.com/video/');
+   document.write(s);
+   document.write(" width=370 height=260 frameborder=0 webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>");
+</script>
+<br>
+<font size=2>Доктор психологических наук Н.А. Юманов<br>о методике "Формула Души".</font>
+</td>
+</tr>
+</table>
+</p>
+
+<p align=center><a name="travel"></a><a name="поездки"></a><font size=5>Обучение Формуле Души в вашем городе</font></p>
+<p align=center>
+<img src="{{ url_for('static', filename='old/astrogor_300.jpeg') }}" alt="Автор фото Головченко Владимир" align=center width=138px height=225px>
+<img src="{{ url_for('static', filename='old/astro_car.jpeg') }}" align=center width=300px height=225px>
+<img src="{{ url_for('static', filename='old/astrogor_200.jpeg') }}" alt="Автор фото Головченко Владимир" align=center width=159px height=225px><br>
+<img src="{{ url_for('static', filename='old/road_s1.jpeg') }}" align=center width=262px height=225px>
+<img src="{{ url_for('static', filename='old/gr1.jpeg') }}" align=center width=340px height=225px></p>
+Много лет Александр Астрогор регулярно проводил выездные семинары и индивидуальные консультации по заявкам из регионов России, зарубежных стран, по коллективным заявкам.
+Теперь он сосредоточил свои занятия в Москве. Однако, в разных частях страны и зарубежья проживает много качественных учеников и преподавателей. Для по обучению "Формуле Души" в регионах, администраторы могут <a href="#contacts">обращаться</a> к Сан Санычу - он порекомендует качественных преподавателей метода.
+
+<p align=center><a name="karma_medicine"></a><a name="кармическая_медицина"></a><a name="лекция"></a><font size=5>Что такое Кармическая Медицина</font><p>
+Кармическая медицина - новое учение о возникновении болезней.
+Это закон Кармы - закон причин и следствий. Болезнь прячет в себе ваши мысли, эмоции, чувства и желания, каждое из которых имеет своё уязвимое место в организме.<br><br>
+Вы узнаете о любой болезни с точки зрения Кармы, об энергетическом вампиризме, о тайнах рождения и смерти, о перерождении и наследственных заболеваниях, о кармических причинах детских болезней, о влиянии на наше здоровье параллельного мира, как избежать всего этого шквала следствий, поняв причины.<br><br>
+<p align=center>
+<iframe src="https://player.vimeo.com/video/242495713" width="800" height="480" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><br>
+<font size=2><i>Вводная лекция о кармической медицине.<br>Екатеринбург, 4-5 октября 2014 года. Фестиваль "Здоровый образ жизни. Эко-Мир"</i><br></font></p>
+Эти знания доступны и необходимы всем людям, они нужны специалистам - врачам и народным целителям, астрологам и экстрасенсам, психологам и педагогам.
+Скоро придёт время, когда нам стыдно будет сказать о своей болезни, ибо все будут знать чем мы плохи и грешны перед собой, перед другими людьми, перед Природой и перед Богом.<br><br>
+<img src="{{ url_for('static', filename='old/medhorar1.jpeg') }}" alt="Медицинский хорар и Зодиак" title="Медицинский хорар и Зодиак" width=100%>
+<br><br>
+<font size=5>Исповедь болячки</font><i> (глава из книги)</i><br><br>
+<font size=2>
+<img align="left" src="{{ url_for('static', filename='old/isp.jpeg') }}">
+Сегодня мне, болячке предоставили место на этих страницах, чтобы я могла вылить душу, выплеснуть на вас всё, что накопилось. Мне очень хочется поплакаться вам в жилетку, и, следуя вашей логике, себя похвалить, а вас обвинить во всех смертных грехах.<br><br>
+Я расскажу вам, за что я полюбила того или иного человека, какую благоприятную среду мыслей, чувств, эмоций и желаний он создал для моего процветания. Именно эти четыре главных качества каждого человека создают для меня - болячки нишу благоприятных возможностей резвиться в вашем теле.<br><br>
+Я с помощью своего здорового воображения расскажу вам о своих повадках и пристрастиях. Вы узнаете как и почему я хожу по людям. Вы поймёте, что заставляет меня прицепляться к одним людям и обходить других. У меня тоже есть свои цели и задачи. Я планирую своё развитие, привязывая его к движению планет. Я болячка - живое воплощение ваших чувств, эмоций, мыслей и желаний. Это такие надёжные уголки вашей души, что спрятаться или затаиться в них мне не доставляет больших трудностей. Там я могу накапливать силу, созревать, чтобы потом выплеснуть всю эту силу, и придавить человека к постели. Правда, всякое ваше покаяние вычищает сор "из избы", и я даже могу потерять насиженное место, но, видит Бог, это бывает так редко, что я привыкла действовать смело и напористо.<br><br>
+Я всего лишь болячка, маленькая и противная, как и ты, подхвативший меня. Это ты создал для меня благоприятные условия, чтобы я расцвела в твоём теле и наслаждалась твоими мучениями. Мне приятно, когда в тебе что-то болит, зудит, чешется, колит, ломит и ноет.<br><br>
+Вы же знаете, что всё есть вибрации, а вибрация - это энергия, которой я питаюсь. У вас пять органов чувств, и каждое из них способно вибрировать на разных частотах. Мне больше нравится, когда вы вибрируете своими чувствами с надрывом, тяжело, но искренне. Меня восхищает ваша искренность в том, как вы ненавидите друг друга, завидуете, злобствуете по любому поводу. Ох, сколько живительной силы я - ваша болячка - получаю в этот момент, чтобы все мои бациллы, гнойники, давление, температура и тому подобное могли испытывать комфорт и веселье в вашем теле. Часто вам больно от нашего веселья, но эту боль вы сами носите в себе.<br><br>
+Даже ваши мысли несут в себе энергию, которая включает какое-то действие. Уже в ходе принятия какого-то решения в вашем мозгу с помощью химических процессов порождается электричество, которое готовит ваши мышцы к предполагаемому действию. Насколько чисты и легки ваши мысли, настолько хватит энергии для поддержания здоровья. Например, жена всё время говорит и думает о своём муже плохое. Может это так и есть: совсем плохой человек по натуре своей, мыслям и характеру. Но женщина ежедневно с утра до ночи "зудит" в мыслях своих о его плохих качествах. "Руки мои не поднимаются, - говорит она всем подряд, - чтобы что-то хорошее сделать для него". Приходит время, когда она начинает физически ощущать, что сильно болит левая рука и её трудно согнуть и поднять. Но ведь она сама заложила в себе эту программу, давая команду мышцам, чтобы те не работали для обслуживания мужа.<br><br>
+Если рыба ищет, где глубже, а человек, где лучше, то и я постоянно ищу себе человека, который выносит меня от зачатия до созревания. Мне очень важно перейти в хроническую стадию, вот тогда-то уж точно вы от меня не избавитесь. Поймите, я всего лишь поселяюсь там и у того, кто, как хороший музыкант, всё время играет на своих чувствах, мыслях, эмоциях и желаниях. Это ему кажется, что он играет на струнах других людей, а на самом деле, он и есть тот рассадник, который нужно выкорчёвывать из вашего общества, на долго уложить его в постель, или сделать его физически неполноценным. Не случайно вы говорите, что кто-то вас заразил. Но зараза или другая болезнь перейдёт только на того, кто уподобился этим энергиям. Вот почему вас всё время учат, говоря: не уподобляйся.<br><br>
+Я люблю мучить свою жертву, как и ты любил мучить тех людей, с которыми живёшь, работаешь и общаешься. Ты диктовал им свои правила, но при этом не слышал вопли страдания людей. Теперь я диктую тебе свои условия существования. После общения с тобой у людей поднималась температура, давление, повышался гемоглобин, безобразничал холестерин, закупоривались вены, на коже расцветала зараза. Теперь ты сам мой заложник. <br><br>
+Я болячка, маленькая, но сильная. Попробуй меня побороть. Хватит ли у тебя сил? Я сильнее тебя, ибо сижу в тебе благодаря той слабости, которую ты носишь в себе. Я сильная и поэтому полностью изменяю твою жизнь, но только в свою пользу, и спасибо тебе за это! Я полюбила тебя за это, мне удобно и комфортно в твоём теле, ибо ты прекрасно подпитываешь меня своими чувствами, мыслями, эмоциями и желаниями. Когда тебя что-то очень долго напрягает, то происходит срыв, твои органы, системы или функции ослабевают и открывают дорогу или лазейку для меня, ибо внутри твоего тела уже подготовлено тёплое место для меня - твоей ненавистной болячки. <br><br>
+Я - болезнь, коварная и без души, во мне дух, который ты никогда не сломишь, как не могли сломить те, кто ушёл из этой жизни в болях и страданиях. Кто-то должен был остановить тебя от тех безобразий, которые ты чинил в своей жизни. Вот почему я выбрала тебя. Теперь попробуй побороться со мной, но знай, что я непобедима. Я уложу тебя в постель, прикую тебя параличом, от тебя отвернутся все родственники, забудут друзья, которых у тебя и не было. Всё будет с точностью до наоборот, о чём ты мечтал, чего желал, чего добивался. Сейчас ты добился моего покровительства, от которого тебе стало тошно. Поэтому, как говорил ваш "Великий Кормчий", вам придётся лечиться, лечиться и лечиться.<br><br>
+Боль и болячка имеют один корень: это боль, которую мы доставляем телу, душе и духу. <br><br>
+Поэтому,<br><br>
+Я твоя головная боль, когда горе от ума.<br><br>
+Я твоя зубная боль, когда ты грызёшь себя или других людей. <br><br>
+Я твоя сердечная боль, когда сердце любит только себя или страдает от грубого давления окружающих. <br><br>
+Я и давление твоё, то повышенное, то пониженное, всё зависит от того, как ты оцениваешь себя в повседневной жизни. <br><br>
+Я твоя истерия, гордыня, печаль, уныние и твой страх.<br><br>
+Я боль, которую приходится терпеть и добрым, благим людям. От своей доброты и сострадательности они много лишней и грязной энергии берут на себя. Они болеют, потому что душа болит за всех. И тогда я - боль, сигналю им о той излишне затраченной силе, которую они потеряли, выжали и обесточили себя. Как правило, это люди-доноры, отдающие себя другим. Они болеют оттого, что рядом с ними всегда есть кто-то, от кого нет защиты. Они страдают от грубости и хамства, от издевательств физических и душевных, и при этом они ничего не могут поделать с ними и справиться со своим миром раненых чувств. Эти боли мои особенно ноют, будоражат чувства, эмоции и сознание. <br><br>
+Я та боль, с которой добрые люди живут и ходят по жизни не за себя, а за работу, родственников, друзей и знакомых, они болеют за всех, беря на себя их несчастья. Мне очень жалко этих людей, но благодаря боли я останавливаю их, чтобы они не могли куда-то или к кому-то пойти, я учу их тому, чтобы они поняли, что нельзя для всех быть хорошей, ибо тебя будут только корыстно использовать. Я учу их принимать решения, вырабатывать твёрдость характера, верить в себя. И я знаю: как только они этому научатся, я ухожу от них и больше не возвращаюсь. <br><br>
+Я боль, которую вы наносите другим. <br><br>
+Я боль, которую вы носите с жалостью к себе. <br><br>
+Я боль, которую вы испытываете от безысходности. <br><br>
+Я боль, которую вы держите от сострадания.<br><br>
+Я боль, которую вы вынашиваете завистью.<br><br>
+Я боль, которую вы формируете упрямством своего духа.<br><br>
+Я боль, которую вы создали слабостью своего духа. <br><br>
+Я боль, от которой вы хотите избавиться, но не знаете как. <br><br>
+А для этого мы должны изучить не историю болезни, а историю вашей жизни, которая превратилась в многотомную историю болезни, да не одной, а с множественными именами. <br><br>
+Вы говорите, что беда не приходит одна, поэтому меня называют разными именами, я многолика, но я их мама, а все остальные болезни и болячки - мои дочери и сыновья, братья и сёстры, племянники и племянницы. Их у меня две тысячи. Я люблю все свои имена, всех своих родственников, хотя люди и говорят, что хорошего человека "Язвой" не назовут. Но раз звучит это моё имя, то я принимаю это, как приглашение, поселяюсь в столь родном мне человеке с именем Язва и говорю ему: "Здравствуй, дорогой, я вся твоя! Мы с тобой - одно целое. Я - твой характер, твой дух и твоя душа. Я тобой переболею, ненаглядный мой". <br><br>
+Чтобы мне не одиноко было в твоём теле, я приглашаю своих братьев и сестёр. И тогда человек говорит, что у него болезней целый букет, а на кого-то сваливаю целый мешок болезней. Это подобно тому, как ты сваливаешь все проблемы на других людей, грузишь их своими грязными мыслями, чувствами, желаниями и эмоциями, от этого мне легче размножаться в грязи твоих чувств. <br><br>
+Вы - люди так искренни в своих жалких желаниях, что на этой благодатной почве я легко нахожу своё место. <br><br>
+Мне очень нравится слушать людей, которые любят рассказывать о своих болячках. Они не ведают того, что ещё сильнее и больше будут болеть, только оттого, что рассказывают другим, ибо своими рассказами они подпитывают не только свою болячку, но и того, с кем разговаривают. Я слышу, как один человек, слушая другого, мысленно говорит: "Так тебе и надо! Чтоб тебя:!" Слушая их, я каждому шепчу на ухо о том, какой он мерзавец, грешник, как он ненавидит людей, работу и так далее. Мне хочется, чтобы вам стыдно было рассказывать о том, какая у вас болезнь. <br><br>
+Я не просто поселяюсь в вашем теле, но и начинаю размножаться в нём, расцветать всеми красками своего безобразия. Мало того, я начинаю ползать в вашем теле или на его поверхности в виде глистов и вшей, блох и клещей, а это самые мерзкие мои посланцы, которых я насылаю на таких же мерзких людишек. <br><br>
+Я пытаюсь перекинуть своих родственников - бацилл на рядом живущих с вами людьми, ибо я зараза и ищу, и мечу подобных себе. <br><br>
+Я коварна и хитра, я пользуюсь всем набором пороков, которые вы носите в себе. И в каждый ваш душевный, физический или духовный порок я направляю своих братьев или сестёр, чтобы они не сгинули в вечность, как мамонты, а продолжали развиваться, размножаться и даже мутировать. Ни один ваш порок не ускользнёт от моего внимания.<br><br>
+Вы устроили для нас ловушки, западню в виде вакцин и прививок. Господи, как же вы слепы и глупы! Вы даже не догадываетесь, что мы мутируем, превращаясь в новые болезни, от которых вы вымираете ещё быстрее и в массовом порядке, а до нас долго не сможете добраться. Ума не хватит, мудрости нет, а о том, что болезни имеют духовную причину, которую видит и находит кармическая медицина, вы даже слушать не хотите.<br><br>
+Я пометила вас кармой ваших грехов, имя которых - болезнь. Каждая болезнь это целый комплекс грехов, которые вы, мягко говоря, называете вредными привычками. <br><br>
+Я ваш образ жизни. <br><br>
+Я качество ваших чувств.<br><br>
+Я сила ваших эмоций. <br><br>
+Я плачевный результат ваших желаний. <br><br>
+Я горе ваше, которое от ума.<br><br>
+Чтобы от меня избавиться, вы должны ломать себя, но вы слабы для этого. Вам легче было ломать других, унижать, растаптывать их человеческое достоинство. Теперь вы сами никто и имя вам - никак, ибо никак не можете со мною справиться. Глупцы помогут вам вставить новое сердце, заменят почку, выправят диоптрию, пересадят волосы, чтобы вы не стеснялись блеска своей головы; они сделают всё, за что вы заплатите. А пока вы сами расплачиваетесь своим здоровьем и пьёте лекарства, получаете болезненные уколы и т.п. <br><br>
+Я - капля вашего последнего терпения, поэтому вы по каплям принимаете лекарства.<br><br>
+Я ваша больная реакция на всё то, что или кого вы ненавидите.<br><br>
+Я ваша больная реакция на всё, кого или что вы не перевариваете.<br><br>
+Я ваша больная реакция на всё, что или кого вы терпеть не можете.<br><br>
+Я ваша больная реакция, когда вы задыхаетесь в присутствии кого-то.<br><br>
+Я ваша больная реакция, когда вам больно видеть или слышать что-то вокруг себя.<br><br>
+Я ваша больная реакция, когда вас начинает трясти при виде кого-то или чего-то. <br><br>
+Я ваша больная реакция, когда вы брезгуете тем, частью чего сами являетесь.<br><br>
+Я ваша больная реакция, когда вы что-то забыть и простить не можете.<br><br>
+И всё это каплями собирается в вашем организме, а потом нужны килограммы и тонны лекарств, чтобы изгнать вашу же вредность из вашего организма. Вот как вы заставляете свои мысли, чувства, эмоции и желания работать в напряжённом ритме. А ведь эти самые чувства должны наполнять вашу душу радостью и впечатлениями, от которых мы - все болячки - погибаем. Когда же вы поймёте и научитесь этому? Сколько ещё нам нужно мучить и терзать вас, чтобы вы преобразились телом, душой и духом своим?<br><br>
+Самое смешное для меня - это когда вы с умным видом рассказываете о болезнях. Я - болячка, хочу спросить вас всех, кто лечит: "Если вы всё про нас знаете, то почему же не излечиваете людей, почему мы - болячки - вновь и вновь возвращаемся к тому, кого вы, якобы, излечили? Вот и выходит, что вы не знаете, что у нас тоже есть душа, ведь мы живые, потому и живём с людьми, пусть не в ладу, но живём. Но вы при этом кичитесь своими дипломами и званиями, а это тоже создаёт для нас благоприятную среду обитания в вашем теле". Вы близоруки для понимания истин. Близорукость - самое распространённое заболевание, а если политик, начальник близорук, то чего же вы ждёте от жизни, работы, дождётесь ли вы излечения от близорукого доктора? Они не умеют видеть далеко и перспективно, а если и видят, то только то, что им выгодно. <br><br>
+Это я, мерзавка, иссушаю вас, источаю ваши силы, отнимаю надежду. Я наслаждаюсь вашей беспомощностью. О, как я блаженствую от этого. Но научилась этому я у вас. Это вы блаженствуете от наносимых людям оскорблений и унижений, от их трепета, это вы наслаждаетесь слабостью и беспомощностью этих людей перед своим натиском. Они не могут вам ответить на это, а, значит, для меня будет много работы с вашей прогнившей душой. <br><br>
+До некоторых людей я никак не могу добраться, ибо всякий раз, когда у них спрашивают: "Как ваше здоровье?", они отвечают: "Не дождётесь!" Но если эти люди живут греховной жизнью, то тогда я начинаю действовать на них через самых близких, родных. Так в мои объятия попадают дети, на которых нет греха, но они тяжело заболевают. Мне жалко их, но что-то я должна делать с их родителями, бабушками или дедушками, чтобы выровнять духовное и душевное качество этих самовлюблённых мерзавцев. Или я должна уложить в больную постель родителей, чтобы дети прошли очень важный для них урок сострадания. Если дети отказываются от больных родителей, то в старости или даже раньше, сами будут лежать на моём одре, но никто им не подаст стакан воды, некому будет сказать им доброе утешительное слово. Это Закон Кармы, закон воздаяния, при котором всё возвращается на круги своя: как аукнется, так и откликнется. <br><br>
+Однако есть люди, и их не мало, которые очень любят меня. Для них больное место - это центр удовольствия. Со мной они находят выгоду в повседневной жизни, не понимая того, что становятся моими заложниками и на следующую жизнь. Идиоты, они не знают, на что я способна! Я доведу их до такого состояния, что без жалости на них не взглянешь, но и поделать ничего не сможешь. А всё потому, что они очень жалеют себя, так жалеют, что хотят, чтобы все, весь мир их жалел. А мир не жалеет, но жалит их своим равнодушием, метит своими меткими и колкими словами, взглядами и жестами.<br><br>
+Я - болячка, я - метка ваших безнравственных поступков, ваших лживых чувств, вашего слабоумия, примитивного ума. И к таким обязательно привяжется моя сестра - Ипохондрия (в народе - чёрная немочь) - психическое расстройство, проявляющееся патологическим страхом или убеждённостью пациента в том, что у него есть серьёзное заболевание, хотя на самом деле его нет. Ипохондрики мои любимые пациенты: болезни нет, а они страдают от примитивного ума. Ведь сказал же вам Бог, что если он хочет наказать человека, то лишает его ума. Мне и такие нужны, я болячка сама буду вправлять им мозги, пока не поумнеют. <br><br>
+А как я испытываю вас, провоцирую деньгами, питанием, должностью, я ищу те слабые качества, от которых вы становитесь падкими на личную выгоду и превосходство. Мне даже не нужно много затрачивать на это сил, достаточно только поманить обнажённым телом, показать купюру, предложить бесплатный сыр:, многие ли устоят перед этим? Вот они-то и попадают в мои ловушки. Но за всем этим следует расплата здоровьем. Чем вы слабее, тем я сильнее. И тогда любую редкую болезнь я могу превратить в эпидемию. <br><br>
+Есть у вас выражение - "редкая болезнь", но при этом вы добавляете: редкий мерзавец, или напротив: редкой души человек. Всё это правильно. Посмотрите на себя со стороны, послушайте, о чём говорят про вас другие люди, как называют вас: вот вам и приговор того, насколько вы "редкий" человек или как все и всё у вас в жизни, как у всех. Тогда и болезни ваши будут как у всех: то волна гриппа заденет вас своим крылом, то радиация, экология, магнитные бури будут укладывать вас в больничную постель. <br><br>
+Я приживаюсь в экологически грязных средах. Вам всё время приходится бороться за выживание в агрессивной химической среде, ибо сами своими мыслями и поступками нахимичите, не ведая чего, но сваливаете всё это на грязную окружающую среду. Эта среда в душе вашей, в ваших мыслях и чувствах. Например, видит человек мир в грязных и серых тонах, значит, зрение станет той экологически благоприятной средой, в которой я пущу свои корни и начну свою самостоятельную жизнь. Вот что происходит, если человек не любит реальность, в которой живёт. И тогда он будет годами использовать для лечения таблетки, циклами пить травы и коренья, попытаться выгнать меня, как выгоняют вредителей с огорода и полей, но все попытки его будут тщетны. Я просто затаюсь, ведь корни его проблем помогли мне запустить свои корни глубоко в его грешное тело. Придёт время, и я вновь расцвету, ибо он опять создаст для меня благоприятную экологическую среду. Это как на огороде, когда мы сорную траву скашиваем, а корни остаются в земле.<br><br>
+Милый мой человечек, если ты даже не захочешь, чтобы я, твоя родная болячка в тебе жила, то этого захотят те, с кем ты живёшь или работаешь. Это они будут вновь и вновь провоцировать тебя, создавая напряжённое психическое поле тонких энергий, чтобы ты слился с ними, стал таким же, как и они. И тогда я вас всех помечу одним штаммом. Вы получите наследственную болезнь, ибо наследуете друг от друга одни и те же дурные качества характера и чувств. Я объединю вас профессиональными заболеваниями, пронесусь над вами эпидемией, а для многих застряну осложнениями в их организмах. Я такая же непокорная, как и вы все. <br><br>
+Я поселяюсь в вашем организме от магических заклятий, которые вы насылаете друг на друга, преследуя свою корысть. Ни один врач не спасёт вас от этих колдовских чар. Клин вышибают клином. И тогда вы идёте к другому магу, который снимет с вас это заклятие. <br><br>
+Мне очень нравится, когда вы занимаетесь самолечением, которое состоит из химии. Не случайно ваши доктора предупреждают: "Самолечение опасно для вашего здоровья!" В эти таблетки они такого намешивают, что сами боятся за вашу жизнь. Самое сильное средство, которое можно использовать против меня - это ваша молитва, молитва за ваше здоровье. Да будет вам по вере вашей! <br><br>
+Я - коварная болячка легко прицепляюсь к тому, кого люди начинают метить словами. И слова эти глубоко ранят, остро колют и царапают душу. Словами вы сыпете соль на раны, которые долго не заживают. Порой вы и слова не услышите или не поймёте, зато интонация, с которой слово произнесено, сделает своё чёрное дело, подготовит чёрное место в вашем теле для моего благополучного расцвета. Вот и выходит, что вас трясёт, колотит, бесит и дёргает каждое слово. Как же мне, болячке, не пометить вас своим клеймом. Врачи долго и безуспешно будут подбирать для вас свою отраву, чтобы изгнать из вас всё то, чем вы сами себя изводите и травите.<br><br>
+Я - слово, которое вы воспринимаете, как укол, укус и тогда даже от комариного укуса у вас будет много проблем с вашим здоровьем. <br><br>
+Вы ругаете друг друга, вцепившись, как бешенные собаки, а поэтому укус любой собаки вызовет у вас смертельное бешенство.<br><br>
+Пока вы не научитесь правильно воспринимать вибрацию слов и голоса, я всегда буду находить тёплое место в вашем грязном телесном сосуде. <br><br>
+Но ведь не только слова, но и жесты людей, их колющие взгляды также ранят душу, причиняя страдание телу. Здесь тоже я имею благоприятную почву, которую вы подпитываете своими чувствами, эмоциями и мыслями. Как легко вы умеете находить грязь и застревать в ней. Вот почему почти все органы свиньи вам подходят для восстановления здоровья. Перестаньте быть свиньями, но этому тоже нужно учиться. Кстати, лечение грязью помогает именно тем людям, кто постоянно ощущает это грязное соприкосновение с действительностью. А политики и политика - это тоже грязное дело, поэтому им всем нужно принимать грязевые ванны, чтобы я - грязь вашего тела - ушла в родную стихию. <br><br>
+Никто лучше меня не сплетает паутину интриг, чтобы поймать в неё самого хитрого, коварного и завистливого подобия человека. Вы говорите, что "человек - это звучит гордо", так от чего же вы, такие гордецы, пасуете от моего даже лёгкого прикосновения? <br><br>
+Я - болезнь, а значит, наказание за бездуховность. Я ваш гадкий утёнок, чтобы душа ваша превратилась в прекрасного лебедя. <br><br>
+Я инструмент в руках Бога, чтобы ремонтировать ваши души и чинить дух. Я выполняю Его Промысел. Моя задача - научить вас видеть и слышать те сокровенные знаки, которые Господь расставляет на вашем Пути. Ведь говорят вам: "Не плюй в колодец:", так нет, вы этого не видите и не слышите, от того-то и опускаетесь в бездну самости. <br><br>
+Я - ваше спасение, чтобы повернуть ваше сознание к чистым мыслям, к доброму уму. <br><br>
+Я - ваше спасение, чтобы в сердце вашем появился лучик любви. <br><br>
+Я - ваше спасение, чтобы тело ваше налилось живительной влагой. <br><br>
+Я - ваше спасение, чтобы люди могли восхищаться вами. Но как жаль, что ко всему этому вам пришлось идти через меня, через мою работу с вашим телом, сознанием и чувствами. <br><br>
+Я - болячка, я заставлю вас стать качественно другими людьми, чтобы вы сами себя не загнали в могилу. <br><br>
+Я болячка обязательно помогу вам чем-то, но если вы сделаете прививку, то я приду к вам белее страшным наказанием, ибо вы отодвинули момент прозрения и успели ещё больше нагрешить.<br><br>
+Я даю вам возможность отдохнуть от суеты житейской, полежать, подумать о чем-то сокровенном. Но вы лежите и проклинаете всех тех, кто мешает вам жить. Вы никак не можете понять того, что сами мешаете жить другим людям.<br><br>
+Мне искренне жалко вас, люди, жалко, что на пути творческого, физического, интеллектуального и духовного совершенства я вынуждена останавливать вас от непрерывной войны, которую вы ведёте внутри и вокруг себя. Я ставлю вам подножки, чтобы удержать от больших бед, которые могут ожидать вас в грешной жизни и на неправедном пути. <br><br>
+Вы говорите, что болезнь входит пудами, а выходит золотниками. Золотники - это лучи света вашего сознания. <br><br>
+Это я заставляю вас уволится с работы, ибо вы занимаете не своё место.<br><br>
+Это я заставляю вас болеть профессиональными заболеваниями, ибо вы не любите свою работу.<br><br>
+Это я принуждаю вас стесняться своего больного состояния, ибо до этого вы ничего и никого не стеснялись.<br><br>
+Это я отталкиваю от вас людей, ибо вы сам всегда это делали.<br><br>
+Это я разрушаю ваш брак, ибо вы не научились даже элементарно уважать ближнего.<br><br>
+Это я лишаю вас ума, ибо вы сами не ведали, как и для чего живёте.<br><br>
+Это я оберегаю других людей от вас, ибо вы нарушаете их покой.<br><br>
+Это я изолирую вас от общества, ибо вы ему не нужны, вы ненавидите его, вы тормоз всего прогрессивного.<br><br>
+Это я вынуждаю вас искать сострадания к себе, ибо сами вы никогда не умели сострадать. <br><br>
+Я - болезнь, я бываю многоликой и делаю своё святое дело добросовестно. Как только человек погряз в своих грехах или "созрел" в страданиях, я тут же ему с любовью напою: "Никуда не денешься, всё равно ты будешь мой!" Вот и выходит, что теперь ты - болезнь, а я - твоё лекарство.<br><br>
+Мне неважно, какая у вас работа или должность, образование или рост, красивы ли вы внешне или нет. Мне не важно, в какого Бога вы верите, в какой одежде вы ходите. Но мне важно следить за вашей гармоничной земной жизнью. Интересно, что ваши врачи тоже говорят, что им неважно, какой больной перед ними, но лечить причинные болезни они ещё не умеют. Я, болезнь и болячка, живу для того, чтобы человек обратил внимание на себя. Ведь ему уже многие говорят, что тебе давно лечиться надо, а он ещё этого не видит и не понимает. И тогда я берусь за дело. <br><br>
+Не люблю я астрологов, ибо им заранее ведомо какой болезнью вы можете заболеть. У них есть формула души, которую можно составить на любого человека, и через неё увидеть те ранимые точки, через которые вы становитесь нашими заложниками. А кармическая медицина - это самая страшная и быстрая погибель для нас, всех болячек, ибо эта медицина видит самые ранимые наши места и заставляет человека самого вычищать нас из вашего организма, наполняя больной орган, систему или функции новым содержанием ваших чувств, мыслей, эмоций и желаний. <br><br>
+Меня никто не упрекнёт, что я ни за что прицепилась к кому-либо. Нет, упрекнуть, конечно, могут и даже обвинить, что я виновата в их проблемах, но видит Бог, что я всего лишь выполняю Его завет: следить за гармоничным развитием человека. <br><br>
+Не всем из вас понравятся мои откровения. Кто-то из вас с брезгливостью и отвращением будет читать или слушать их. Но всё равно вы будете делать это, ибо больше нигде не узнаете кармическую причину своей болячки, отчего я к вам прицепилась. Я уже вижу, как от вашего неприятия моя сестра Изжога изливается в вашем желудке и поднимается к горлу, обжигая его. <br><br>
+Как бы вы ни ругали меня, называя паршивой гусеницей, но я знаю главную Истину: душа каждого человека приходит в эту жизнь, чтобы получить определённый опыт, урок. И у каждого он свой, индивидуальный. Часто этот урок проходит через болезнь, в которой я - главный Учитель, пусть даже и мучитель, но вы обязательно должны измениться, на то она и Школа, чтобы стать умней, а потом и мудрей, чтобы душа ваша, как бабочка легко и красиво летала по жизни. Вот и подумайте: мерзавка ли я?!<br><br>
+Я хочу, чтобы вы сияли радостью и любовью. Создайте купол любви над местом своего жительства, своей трудовой деятельности. Пусть это будет пространство любви, окутывающее всех и всё, что видят ваши глаза, слышат ваши уши, к чему прикасается ваша душа. И тогда любая инфекция погибнет в ауре вашей любви; геомагнитная, экологическая и прочие тяжёлые энергии отразятся от купола вашей любви, разрушая всех тех, кто не хочет любить, творить и созидать.<br><br>
+Однако есть много моих ликов, где я выступаю как священная болезнь, а это означает, что человек, носитель моих проблем, не грешник, а с болью расстаётся с нажитыми проблемами. Это мои очищающие боли, они во благо, врачи не умеют их лечить, но травники хорошо помогают человеку. <br><br>
+Вы сами говорите: отпусти проблему, прости, не обижайся, вот тогда-то и возникают мои священные боли, которые очищают организм. По окончании их человек начинает чувствовать и понимать мир и людей в нём совсем по-другому. Он как будто преображается: глаза начинают светиться, голос становится мягким и приятным для слуха, а походка становится лёгкой, летящей.<br><br>
+Я, ваша болячка, говорю вам: будьте здоровы!<br></font>
+
+<p align=center><a name="formula"></a><a name="формула_души"></a><a name="формула"></a><a name="about"></a><a name="лекция"></a><font size=5>Что такое Формула Души</font><p>
+<p align=right><i>Звёзды не только склоняют, но и заставляют нас делать то, что ими предначертано!<br /><a href=mailto:astrogor49@mail.ru>Александр Астрогор</a></i></p><a name="transit"></a><a name="формула_дня"></a><a name="формула_удачи"></a>
+<table width=100%><tr width=100%><td width=250px><img align=center src="{{ url_for('static', filename='old/astropaint.jpeg') }}" width=250 height=354></td>
+<td>
+<script type="text/javascript">
+  var nw = new Date();
+  var sDay = fmt(nw.getDate(), 2);
+  var sMonth = fmt(nw.getMonth()+1, 2);
+  var sYear = nw.getYear();
+  if (sYear < 1900) {sYear += 1900;}
+  var s = new String('<center>Формула Удачи (транзитная Формула Души) на полдень по Москве ' + sDay + '.' + sMonth + '.' + sYear + ' г. (сегодня) :<br><br><a href="http://astrofd.narod.ru/calm.html"><img alt="Формула Души на сегодняшний полдень" width=80% height=50% src="http://astrofd.narod.ru/Cal/'+sYear+'/'+sMonth+'/'+sDay+'.gif" /></a></center>');
+  document.write(s);
+function fmt(strin, n) {
+  var s = strin.toString();
+  var ln = s.length;
+  var ret = '';
+  if (ln < n) {for (var i = ln; i < n; i++) ret += '0';}
+  ret += s;
+  return ret;
+}
+</script></td></tr></table>
+<p>Как бы далеко ученые ни проникали в тайны мозга и молекул, тайна человека и его души остается непостижимой. Может быть, именно поэтому человечество так мучительно долго движется, идя по пути душевного и духовного совершенства. Сегодня мы можем говорить о том, что открыта &quot;формула души&quot;, толкование которой имеет метафизический характер. Ее пришлось долго искать, найти, провести тысячи исследований, чтобы она стала физической реальностью в повседневной практике. В формуле души спрятан код надсущностных причин, мотивов и целей, по которым живёт человек. И этот код является целостной закономерностью жизни человека, ее судьбоносным фактом.</p>
+<p>Тайны мироздания хранятся в &quot;банке космической информации&quot;, а это другая форма познания. Чтобы вскрыть этот &quot;банк&quot;, нужны ключи астрологии, её законы, законы Космоса и Вселенной. То есть с помощью инородного закона, но согласованного с законом Подобия, мы определяем ценности, благоприятствующие истинному духовному развитию человека. Наука еще не в силах контролировать духовный мир человека (и слава Богу!), иначе она начнёт делить и метить людей на белых и чёрных. Духовный мир лежит в области религии, мистики, оккультизма и эзотерических знаний, и правит здесь подсознание: интуиция и чутьё. В нём действуют другие законы, законы качества внутреннего мира. А это тонкий мир, где мир звёзд, планет, Бога, души и духа &ndash; есть концентрации тонких энергий.</p>
+<p>Великий Гермес Трисмегист, живший в четвёртом тысячелетии до новой эры, обратил внимание на единство законов Вселенной, поэтому он первый назвал человека &quot;микрокосмом&quot; и высказал идею, что если вы хотите познать Вселенную, то познайте себя. В &quot;Изумрудной скрижали&quot; он писал: &quot;Истинно &ndash; без всякой лжи, достоверно и в высшей степени истинно: то, что вверху, аналогично тому, что находится внизу. И то, что внизу, аналогично тому, что находится вверху, чтобы осуществить чудеса единой вещи&quot;. Эти слова должны стать базой, методологической основой для понимания формулы души.</p>
+<p>Формула души показывает нам ещё одну локализованную энергию планетарных влияний. Эти влияния обогатят психологию ещё более тонким инструментом, проникающим в глубину человеческого подсознания. Формула души приближает нас к пониманию сверхтонкой энергии, получившей название &quot;квантовая психология&quot; &ndash; психология &quot;глубокой реальности&quot;, которая объясняет другие реальности. Однако будем помнить, что вся квантовая теория строится на вероятности, что квантовые &quot;законы&quot; не имеют абсолютной природы законов Ньютона. Поэтому толкование формулы души и гороскопа мы строим на теории вероятности: возможного развития событий для данного стечения энергий. А здесь уже работает метафизический принцип, знающий надсущностные законы поведения частиц и энергий. </p>
+<p>В самом деле, если наука работает в теории вероятности, опираясь на цифры и формулы, то почему же астрологии нельзя работать в этом же ключе, добавляя к нему ещё и  яркий язык образов? Если бы математика, присвоившая себе звание &quot;Царицы наук&quot;, отобрав его у астрологии, умела бы в полной мере использовать язык образов, то она была бы бесспорной царицей. А пока математика признаёт, что работает в сухом и строгом языке цифр. А этого мало для лидерства, поэтому математиков лишили нобелевских премий.</p>
+<p>После долгого изгнания астрология вновь набирает силу, адаптируясь в сферах тех знаний и создавшихся на земле условий существования, которые раньше она не рассматривала. Многое изменилось в этом мире. Знания о душе превратились в психологию, а психология забыла о душе, о ее вечных скитаниях из одной жизни в другую, о ее Космическом и Божественном предназначении, о ее эволюции. Поэтому важнейшей задачей для астрологии является человек и его внутренний мир, его место под солнцем, цель и задачи его воплощения, методы, средства и возможности (вероятности) в реализации эволюционного развития. Вот почему в нашем арсенале появилась формула души.</p>
+<p>Формула души даёт нам визуальную, образную картину, которая позволяет вести психологическое исследование человеческой души. Формула души строится на точных, вплоть до секунд, математических расчётах, которые астрономы используют для запуска космических аппаратов. С помощью формулы души, как в космические глубины, мы проникнем в самые затаённые уголки человеческой психики, нам будут ясны мотивы поведения человека, его мысли и желания. С помощью астрологии психоаналитическая и психотерапевтическая школы обогатятся новыми возможностями. Формула души покажет связь рода человеческого с Космосом и Богом, чтобы пробудить спящее сознание.</p>
+<p>Спрашивается, а нужно ли это знать? Да, нужно, ибо живем и не ведаем, что творим, не отдаём отчёта последствиям своих мыслей и работе своих чувств. Астрология лаконично и ёмко даёт нам в руки то, над чем веками размышляет философия, то, куда так давно пытается заглянуть психология, то, что искали люди всегда, то, во что они пытались заглянуть, то, что является предметом вечного изучения, то, что изначально Бог дал людям. <i>Астрология даёт нам в руки понимание души человека и её формулу.</i> Школа русской астрологии &quot;Волхвы&quot; заглянула в самую глубину человеческой души и предоставила чудесную возможность: жить не в слепую, а осознанно, имея бесконечную возможность для самовыражения. </p>
+<p>Не строя гороскоп, можно за 1&ndash;3 минуты построить формулу души, имея  таблицы Эфемерид или компьютерную программу. Таким образом, мы получим экспресс&ndash;анализ самого главного и важного параметра: какая душа у человека, чем и как она может жить и утверждаться в реальной жизни и готовить себя к будущей жизни.</p>
+<p>Долгое время я (Астрогор) вынашивал идею о том, что астрологическая планетарная цепочка содержит в себе какую&ndash;то важную информацию. Я стал экспериментировать, проверять на конкретных людях и фактах. Издав три книги в серии &quot;Кармическая медицина&quot;, я получил большую почту. Люди писали о своей жизни, проблемах, радостях и болезнях. Рассматривая их формулы души, диву даёшься, насколько <b>все мы предсказуемы</b>: <i>звёзды не только склоняют, но и заставляют нас делать то, что ими предначертано.</i> &quot;Если бы люди могли осознать, что история человечества записана на звёздных рунах&quot;, &ndash; сокрушалась Е.И.Рерих. В этом&ndash;то, пожалуй, и состоит трагизм судьбы многих людей: хочется одно, а даётся совсем другое. Люди, приславшие письма, описывая своих родственников или знакомых, указывали их дни рождения, а возникающие трудности в общении точно высвечивали каждую грань их формулы души и то, каким крылом она касается родных и знакомых. Многолетняя работа с письмами дала огромный материал для исследования формулы души человека. А большая практика индивидуальных консультаций и исследования формул знаменитых людей планеты, доказала и утвердила правильность всего того, что вы прочтёте в этом астропсихологическом исследовании. </p>
+<p>Кроме того, можно даже не строить на человека гороскоп, а пользовался только формулой души. Если кто&ndash;либо, разговаривая со мной по телефону, называл свой день рождения, то при помощи эфемерид я моментально строил формулу души, не говоря об этом человеку, и происходило чудо. Человек говорил, что я ясновидящий, маг и прочее, но я отвечал, что вы разговариваете с астрологом, а астрологи пользуются знаниями. <i>Астрология даёт человеку яснознание, ибо звёзды обладают разумною силой</i><b>. Астрология &ndash; это Божественная Мудрость, сотканная из Звёзд</b>. Формула души  позволяет сразу увидеть внутреннюю сущность человека и идти в своих рассуждениях о его судьбе и проблемах от его внутреннего мира к внешнему. Ибо сам человек всегда говорит о том, что болит у него на душе, какие проблемы его гложут. Занимаясь формулой души, я быстро понял, что описать внутренний мир человека таким, каков он есть, легче через формулу души, чем через знак Зодиака или асцендент. Так формула души показала своеобразную перекличку земной жизни человека с космическими феноменами, а это позволило легко упорядочивать людей в унисон космическим образам. Ибо сам человек и есть та вселенная, которая растворилась в нём и постоянно откликается на его вибрации.</p>
+<p>В этом исследовании мы не просто дадим формулу души, а научим, как жить с ней, как оценивать свои возможности и способности. Мы проведём вас по лабиринтам человеческой души, и тогда утверждение о том, что душа человека &ndash; потёмки, навсегда исчезнет из вашего понимания. <i>Эта книга о том, как лучше воспользоваться тем, что уже изначально принадлежит вам со дня рождения. Формула души &ndash; это встреча с самим собой и верность себе, верность своим лучшим качествам, которые предначертаны звёздами.</i> Небо рисует нам формулу души, говоря: &quot;Человек, твоя судьба уже сложена, соткана и предначертана. Искать её ты будешь долго и часто мучительно. Пойди к астрологу для своего же блага, чтобы тебе было хорошо. Астролог поможет тебе найти твоё место под звёздами, чтобы стать звёздочкой, звездой, воплощённой в земной реальности, в человеческом сообществе&quot;. Формула души &ndash; есть программа выполнения миссии, справившись с которой человек может уйти из этой жизни, но у всех людей это происходит по&ndash;разному. Будем помнить, что физическое подчиняется Космическим законам, а душевное &ndash; Божественным.</p>
+<p>Однако в каждом человеке есть механизм, который управляется звёздами, планетами и Божественным Провидением. Имя этому феномену &ndash; интуиция. Слушая ее, человек всегда выполнит то, что предначертано звёздами, он реализует программу, положенную Богом на душу. Нужно еще и верить в высшие силы, господствующие над реальностью.</p>
+<p> Если космограмма &ndash; это космическое предначертание человеку, гороскоп &ndash; его земная суета, то <i>формула души &ndash; это божественное откровение человеку, это то, что Бог положил человеку на душу. Формула души &ndash; это Божья печать, которая фиксирует состояние и качества рожденного человека, в ней записана его судьба.</i> </p>
+<p>Психолог Карл Густав Юнг, занимаясь астрологией, выделил такую идею: &quot;Всё, что бы ни родилось или свершилось в определённый момент времени, имеет качество этого момента времени&quot;. Знание своей формулы души поможет человеку на раннем этапе жизни найти свой Путь, свою Стезю, понять свою Мечту, осознать свою Индивидуальность, укрепиться в вере в себя, развить определенные Богом и заложенные Космосом способности и таланты, здороветь телом, сохранять молодость и силу. И всё это будет с наименьшими затратами физических, психических и интеллектуальных сил.</p>
+<p>Как легко всё это сказать, но как трудно выполнить! Как много в жизни того, что не предначертано иметь сейчас и сразу, а хочется. Оттого и бьётся тело в судорогах, разрывается ум на части, а чувства не находят покоя. Остановить всё это поможет формула души. Она вернет человека к его началу, укажет на заложенный потенциал и научит менять его качество. <b>В формуле души заложено множество ошибок и трудностей, с которыми человеку придется столкнуться в своей жизни, и хорошо бы узнать об этом  заранее</b>. </p>
+<p> Школа русской астрологии &quot;Волхвы&quot; рассматривает реальность человеческой души и духа в данном воплощении. Формула души &ndash; это проявленная запись в Вечной Книге Жизни, очередного рождения в плотном теле. Жизней человеческих много, но в каждой из них нужно собрать крупицы опыта. Гороскоп и формула души помогут каждому человеку открыть в этой жизни присущий только ему мир душевных и духовных сил, заложенных изначально, чтобы что&ndash;то изменилось в жизни человека к лучшему, светлому и вечному. <b>Гороскоп и космограмма без формулы души &ndash; всё равно, что колесо без оси</b>. Школа русской астрологии &quot;Волхвы&quot; отличается от других астрологических школ тем, что начинает изучение астрологии с формулы души.</p>
+<p> Изменить формулу души нельзя, можно изменить только её качество: от плотного, физического и материального, к тонкому, лёгкому, НАДсущностному &ndash; духовному. Всё исследование данной темы будет посвящено качеству планет, формирующих качество человеческой души, духа и тела. Астрологи обратят внимание на то, что толкование планет в формуле души несколько отличается от привычных толкований их в гороскопе. А такое толкование даёт возможность пробуждать человека к новой жизни, вернуть ему силы, рассеивающиеся в напряжённой борьбе, бесплодной суете мучительных исканий, сомнений и опасений.</p>
+<p>Если гороскоп &ndash; это космический закон необходимости, то <i>формула души проявляется законом Божественного милосердия.</i> Задача каждого человека состоит в том, чтобы почувствовать и узнать, в чем именно Бог милосерден к нему. Божественное милосердие &ndash; это то, что человеку легко даётся, что исходит не от ума, а от сердца, от души. Больше всего мы теряем, когда перестаём искать, открывать и слушать себя. </p>
+<p>Исследования показали, что формула души психологически оказалась более важным и значимым астрологическим параметром, чем гороскоп или космограмма. Ибо в космограмме и домах гороскопа мы наблюдаем физическое движение реальности во времени и пространстве, но определить качество в этом вечном движении &ndash; довольно трудная задача. Вот тут&ndash;то и приходит на помощь формула души, заставляя человека прислушиваться к качеству, которое положил ему Бог на душу.</p>
+<p>Формула души &ndash; это Божье поручение человеку, высшая власть над ним. Мы носим в себе программу нашего будущего, открывающего путь к совершенству. Поэтому уже с рождения ребёнка родителям необходимо знать, как и к чему готовить его в жизни. Чтобы жизнь его стала не трагедией, а наполнилась бы смыслом, чтобы придать человеку уверенность в преддверии будущего. Формула души раскрывает в человеке то, на что наука не обращает внимания или пытается найти ответы при помощи тестов и анализов. </p>
+<p>Формула души &ndash; это уникальная разработка, навеянная космическими знаниями, практическим опытом, научным мировоззрением, религиозным и философским подходом. Через формулу души человек получает знание личной программы, а также возможностей, которые будут предоставлены ему в течение всей жизни. Чему быть, того не миновать. Христос сказал: &quot;Возьми свой крест и иди за мною&quot;. Нет никакого смысла предаваться желаниям, которые лежат вне вашей программы. Обманувшись в желаниях, человек может надолго выбить себя из ощущения радости жизни. <b>Формула души &ndash; это звучащая в человеке Вселенная</b>. О душе можно рассказывать только образами и символами. Идеалом для психологического портрета здесь выступают Планеты. В них музыка и поэзия, ими можно рисовать неповторимые портреты человеческого характера.</p>
+<p>Нет ничего сложнее, чем образование и воспитание человека. Можно и нужно с первых лет жизни ребёнка понять, чем и как звучит его душа, на какие вибрации она настроена. Что вкладывать в детскую душу, к чему она будет более склонна, а что будет отвергать изначально? Так мы избежим трагедии не только в будущей жизни ребёнка, но и в своей жизни. Формула души &ndash; это ключ к извечной теме &quot;отцы и дети&quot;. Функцию развития детей взяла на себя педагогика &ndash; она выполняет заказ общества, делая всех одинаковыми. Но педагогика &ndash; это движение плюс развитие, направленное к личности, чтобы сотворить из неё индивидуальность. Чем больше будет педагогов, умеющих творить, тем быстрее общество станет качественно новым. Но чтобы сотворить человека, нужно научить его питаться энергией для души. Она вокруг, везде и во всём. Воспитание должно развивать в человеке потребность в душевном и духовном питании, а это всегда &ndash; увлечённость. Воспитание &ndash; это восстановление питания, но не столько телесного, а больше духовного. Живя в мире материи человек получает материальное воспитание, которое всегда заводит в тупик. И только сознательное самовоспитание способно качественно изменить жизнь.</p>
+<p> Есть люди, которые уверяют нас, что им всё равно, как сложится их жизнь. Не верьте этому, ибо человеку свойственно мечтать, строить планы и сравнивать. Никто не хочет быть <b>как все</b>. Каждый мечтает быть индивидуальностью, но в жизни получается обратное: как всегда и как у всех, а всё потому, что не знают к чему приложить душу и куда устремить дух. Но есть много людей, которые хотят быть как все, чтобы на них не показывали пальцем, но ведь эти желания и мысли появляются от слабости духа и пустоты души. Всё это приводит к тому, что они сами начинают показывать на всех пальцем, да при этом ещё крутят его у своего виска. Жить нужно так, чтобы услышать и выполнить зов души, который звучит в каждом человеке.</p>
+<p>Неведомые и глубинные тайны человека открываются через формулу его души. То, что в ней записано, то, чем она наполнена, как чаша жизни, то и получит человек в своей судьбе. У каждого своя Голгофа. Поэтически можно сказать, что формула души &ndash; это &quot;судьбы священный приговор&quot;. Всё, с чем мы сталкиваемся в жизни, подчинено закону причинности. И нет в жизни следствий без причины. Когда человека преследуют одни и те же события, значит, они уже изначально заложены в его гороскопе и формуле души. Если через гороскоп мы видим <b>путь</b> жизни, то через формулу души &ndash; <b>качество</b> этого пути.  Формула души позволяет читать сердца людей, заглядывать в душу. Однако не прикасайтесь к душе грязными руками!</p>
+<p>Эту книгу нам хочется сделать не просто учебником астрологии, но и руководством на жизненном пути всякого человека. Чтобы каждый понял, как и в чём ему совершенствоваться; какие вещи в жизни будут человеку ближе и дороже, а какие малозначительны; как, казалось бы, в незначительных вещах приобретать значимость и силу, как идти от внутреннего к внешнему и наоборот. <b>Формула души &ndash; это формула силы, в ней скрыта великая идея роста и совершенства для каждого человека</b>. Если бы человек правильно владел всеми силами, что в нём заложены, в мире  было бы меньше страданий и скорби. Формула души поможет привести на своё место в жизни, увидеть мир внутри своего мира. И тогда человек уже не будет жить в мире, но мир будет жить в нём и жизнь станет целостной.</p>
+<p> Известно, что человеческий организм &ndash; это самонастраивающаяся, самопрограммирующаяся и самосовершенствующаяся система. Но организм всегда поставлен во внутренние и внешние условия. Формула души поможет увидеть энергетическую программу этих условий, а, стало быть, подскажет, как и чем можно повлиять на его слаженную работу и благоприятные условия развития. Она укажет на внутренние резервы, в чём они, какие, на что нужно опираться. Она подскажет способность к саморегуляции, заложенной в её форму.</p>
+<p>Формула души показывает, какое мнение будет иметь человек о себе и окружающем мире. Она также указывает и на то, насколько человек может заблуждаться в своих знаниях и желаниях. Ведь, в основном, люди постоянно задают себе вопросы: &quot;Как жить, чтобы выжить? Какую приобрести профессию? Чем заниматься? Куда податься?&hellip;&quot;. И на все эти вопросы ответит формула души. Тысячи формул, которые нам пришлось анализировать, убедительно показывают, что они являются идеальным тестом для профессиональной ориентации. Это ли не инструмент для профессионального отбора в высшие и средние учебные заведения? В школах уже начались тестирования старшеклассников на предмет поступления их в ВУЗы. Формула души, по сути своей, свидетельствует о том, что такое тестирование будет не полным, если не ввести в тест формулу души. Ибо, при любых отметках и баллах, формула покажет истинное место ребёнка в жизни.</p>
+<p>Как бы мы ни различались по формулам души, по расположению планет в гороскопе, нужно знать и помнить одно. К.Э. Циолковский говорил, что Бог создал людей для одной цели: вырастить, воспитать и развить новое &quot;лучистое человечество&quot;. Он ждет, когда мы принесём Ему на суд наши светящиеся сердца и чистое сознание.</p>
+<p>Мы можем составить не только формулу души, но и  формулу на день какого&ndash;либо события, назвав её &quot;формула события&quot; или &quot;формула успеха&quot;. Этому посвящена глава в книге.</p>
+<p>Подобно тому, как в молекуле ДНК записана информация всего человеческого существа с его чувствами, мыслями и поступками, так и в астрологической формуле души есть вся эта информация. Разгадать и соединить эти два учения &ndash; дело времени. Молекулу ДНК открыли биологи, а дальнейшее её изучение перешло к физикам и химикам. Сегодня этим занимаются и астрологи, чтобы говорить об алхимии и метафизике молекулы ДНК: о заложенных в ней душевных и духовных качествах. Так мы можем на раннем этапе человеческой жизни выявлять генетически заложенную информацию, знать где и что искать. Удивительно то, что формулы аминокислот выстроены так же, как и астрологическая формула души, значит, в ней заложен генетический код.</p>
+<p>Например, формула аминокислоты глицина:</p>
+<p><IMG SRC="{{ url_for('static', filename='old/fdbook01.gif') }}" border="0" HSPACE="0" VSPACE="0" alt="Глицин" /></p>
+<p>Чтение гена начинается с центрального места, называемого &quot;промотором&quot;, а боковые перпендикуляры в молекуле ДНК ученые назвали &quot;шпильками&quot; или &quot;крестами&quot;. Но ведь и астрологическая формула души начинается с чтения центра, а затем по боковым ответвлениям, которые образуют орбиты, по стрелкам&ndash;шпилькам, образующим кресты формулы, вновь приходим к центру&ndash;промотору. Как молекула ДНК, так и формула души &ndash; это своеобразные кроссворды. Химики, медики, физики и  астрологи одинаково работают над их разгадкой. Каждый ищет свой вариант ответов. Лента ДНК и формула души &ndash; это два полярных кода. Один код спрятан внутри человека, а другой &ndash; в Космосе. Эти коды содержат в себе инструкции, законы и исполнительную власть одновременно. Известно, что природа всегда выбирает оптимальные, наилучшие варианты, создавая свои творения. Просто люди создали разные языки, азбуки и символы для обозначения одних и тех же явлений. Но если эти символы раскрывают одну истину, значит ключ найден правильно.</p>
+<p>Известно, что каждый знак зодиака и управляющая им планета включает в себя целую группу элементов Периодической системы Д.И. Менделеева. Книга &quot;Эзотерическое учение о химических элементах&quot; уже издана. Инертность, изменчивость или устойчивость химических элементов, соответствуют тем же качествам зодиакальных знаков. Таким образом, мы можем говорить об устойчивых и неустойчивых биохимических процессах в организме человека, в зависимости от вида и построения его формулы души. Практика показывает, что именно от положения планет в формуле души формируются болезни органов, систем и функций в организме человека. Зная, как управлять энергиями планет, астролог может объяснить любому человеку, как избежать фатальности, казалось бы, неизбежной для тела, души и духа.</p>
+<p><IMG SRC="{{ url_for('static', filename='old/fdbook02.gif') }}" border="0" HSPACE="0" VSPACE="0" alt="Атом" /></p>
+<p>Формула души &ndash; как ядро атома, с вращающимися вокруг него электронами. Электроны движутся вокруг ядра подобно тому, как планеты обращаются вокруг Солнца. Поэтому модель атома была названа планетарной. Центр  её &ndash; это ядро&ndash;дух, а окружающие центр планеты, как и электроны, образуют ауру, физическое поле, которые и носят название &quot;душа&quot;. Вот и выходит, что у атома и формулы души одинаково есть центр&ndash;дух и обязательно заполненное пространство вокруг центра &ndash; душа. Атомы составляют основу мира вещества, а формула души &ndash; программную основу человека.</p>
+<p> С точки зрения физики мы можем говорить о том, что формула души, выстроенная из реальной материи планет, одновременно несёт в себе электромагнитные, гравитационные и торсионные поля. Любая материя &ndash; это объект физики.  Имея массу планет, мы получаем гравитационный фактор, а поскольку всё это находится в постоянном движении и вращении, то и торсионный эффект. Электрическое поле планет порождает магнитное поле. Все эти поля материальны, они существуют независимо от нас, от наших знаний о них, они действуют на тела и, следовательно, обладают силой, имеющей электромагнитные волны, на торсионной основе. Задача астролога &ndash; выяснить, поддерживает ли человек стабильность своих полей или пребывает на поле брани. Как это определить? В учебнике мы этот вопрос разберем подробно.</p>
+<p>Формула души представляет собой сложную пространственно&ndash;частотную структуру. Институт радиотехники и электроники Российской Академии Наук уже несколько лет исследует физические поля человека. Для этого создаются совершенно новые приборы, полностью исключающие субъективный фактор исследователя (а жаль). Вокруг человека, а также других живых организмов, возникает сложная картина физических полей и излучений, отражающая в реальном времени работу различных физиологических систем. Вот эти поля: инфракрасное тепловое излучение, радиотепловое электромагнитное излучение, электрическое поле, магнитное поле, акустическое и акустотепловое излучение и хемилюминисценция.</p>
+<p>Этот список может быть значительно увеличен, если принять во внимание программное космическое воздействие, посылаемое людям звездами и планетами. А если ещё принять во внимание Учения оккультных школ, раскрывающих всё многообразие энергетического состояния человеческого организма, получится великолепный &quot;Кристалл Разума&quot;. Уже сегодня результаты работы ученых показывают, что у разных людей величины физических полей и излучений разные, причём у некоторых они выражены более сильно, чем у других. Ту же самую картину мы наблюдаем в формуле души разных людей. Формула души &ndash; это своеобразный кластер. Понятие кластера существует в физике кристаллов и аморфных тел, а формула души  есть кристалл и аморфное тело одновременно. </p>
+<p>Физики начали утверждать, что основа всего материального имеет по меньшей мере 11 измерений. Свои выводы они делают из гипотетической теории единого поля, согласно которой мир состоит из тончайших вибрирующих нитей (так называемая &quot;теория струны&quot;) в многомерном пространстве. От характера колебания этих нитей зависит облик элементарных частиц. Теория получила своё название по аналогии с гитарной струной. Вот те раз! Но ведь одиннадцать реальных планет, включая Землю, имеется в нашей Вселенной. Отсюда выходит, что каждый человек не просто связан с Космосом, но эта связь держится на стальных струнах, оборвать которые не в силах никому. Когда мы строим гороскоп, то видим эти связи в аспектах, которые привязывают нас к планетам, домам и неподвижным звёздам. </p>
+<p>Наука рассматривает причины и следствия, отвечая только на вопрос &quot;как&quot;, то есть каким образом произошла данная цепь явлений, исключая возможность ответа &quot;почему&quot;. &quot;Почему&quot; всегда непонятно, на этот вопрос труднее ответить, ибо он лежит в другой сфере познания: в духовной. Мы постоянно задаём вопросы: &quot;почему ты так сделал&quot;, &quot;почему он меня не любит&quot;, &quot;почему так долго нет дождя&quot;, &quot;почему одни женщины могут часто менять своих мужчин, а у других &ndash; один, и тот фатальный&quot; и т.п. Причины всегда приходят со стороны, являясь внешними обстоятельствами по отношению к тем телам, где возникают следствия. На примере формулы души мы можем привести такой аргумент: если Сатурн в формуле души стоит рядом с Венерой, то он всегда сковывает ее мягкие качества. Вот почему всякая женщина с таким положением этих двух планет будет иметь холодные, скованные чувства, в этом сочетании планет заложена причина, рождающая красоту и строгость, строгое отношение к одежде, ее стилю и цвету. Благодаря формуле души, многие другие &quot;почему&quot; получают ответ, минуя строгие научные &quot;как&quot;.  Уже только ради этого стоит заниматься космической психологией.</p>
+<p>Особо хочется сказать о<i> квантовой медицине,</i> которая всё больше набирает очков в свою пользу, ибо проповедует абсолютно безвредное прикосновение самой Природы. Квантовая медицина представляет собой уникальный синтез вековой мудрости человечества с революционными откровениями квантовой физики! Квантовая медицина основана на комплексном, низкоэнергетическом, квантовом воздействии на организм больного совокупности экологически чистых электромагнитных полей &ndash; постоянного слабого магнитного поля Земли, инфракрасной и красной части спектра излучения Солнца и видимой его части. Кроме того, физические приборы полифакторного воздействия позволяют излечить не только тело пациента, но и то, что наши предки издавна называли &quot;душой&quot;, то есть информационно&ndash;энергетический каркас организма.</p>
+<p>Таким образом, через квантовую теорию физики и медики пришли к пониманию информационно&ndash;энергетического взаимообмена между субъектом (человеком) и объектом (Вселенной), что от их взаимодействия зависит состояние здоровья каждого из нас. На сегодня уже существует и квантовая психология. А ведь ещё 6000 лет назад великие китайские врачи и астрологи знали об этом. Но астрология не занималась лечением, она указывала на энергетические причины воздействия планет и способ эти причины качественно изменить. Сегодня астрология рассказывает о качественно новом планетарном воздействии, видимом в формуле души. Здесь вам и физика, и медицина, и химия, и психология, и многое другое одновременно.</p>
+<p>Часто мы сталкиваемся с таким понятием, как &quot;эгрегор&quot;. Эгрегор &ndash; есть скопление программной энергии определённого качества. Применительно к формуле души мы можем сказать, что она есть личный эгрегор человека. Наличие одинаковых планет в центре формулы души у разных людей способно по интересам резонансно объединять их в один эгрегор, но с распадом объединения эгрегор прекращает своё функционирование.</p>
+<p>Надеюсь, что со временем появится химическая, генетическая, физическая, магнитная, математическая, цветовая, волновая и многие другие формулы души. Но каждая из них будет иметь связь с астрологической формулой души. Ибо Космическое и Божественное начала, которые вобрала в себя предлагаемая вам формула души &ndash; первооснова всего сущего.</p>
+<p>Формула души &ndash; это схема уникального радиоприёмника: тела человека. Вибрации наших мыслей, чувств и желаний, будут определять настрой импульсов и вибраций планет для нашего приёмника. Формула души определяет точный диапазон настройки для каждого человека, чтобы петь <b>свою</b> песню, играть <b>свою</b> роль. Рассматривая формулы души известных артистов театра, кино и эстрады, замечаешь, что только тогда запоминается актер со своей ролью, когда он точно попал в диапазон  волн, излучаемых его душой. А то, что излучает душа, предначертано в ее формуле. </p>
+<p>Всякий мастер, будь то в спорте, науке, техническом творчестве, искусстве, политике и так далее, должен подбирать себе учеников по формуле души. Вот тогда&ndash;то у него будет гордость за выращенного и воспитанного ученика. Ведь известно, что многие мастера своего дела прославились, вошли в историю благодаря своим ученикам. </p>
+<p>Ещё один феномен обнаружился в формуле души. Многие люди с обидой говорят о том, что всё, что написано о знаке зодиака, под которым они родились, совершенно не соответствует их жизни, характеру, стремлениям и желаниям. Оказалось, что планета, управительница их знака, не попала в центр формулы души. Такое бывает часто. С другой стороны, несколько планет в центре формулы души будут соответствовать каждая своему знаку зодиака, поэтому человек может совмещать в себе многие черты как разных знаков зодиака, так и других людей.</p>
+<p> Многие тайны откроются всякому, кто прикоснется к формуле души. Но пусть эти тайны послужат во благо человеку. В этом исследовании я научу вас не искать плохие стороны человека, а объясню, как что&ndash;то плохое, вызвавшее страдания, может положительно повлиять на духовное совершенство. </p>
+<p>Формула души поможет каждому человеку проникнуть в свое духовное царство. Никакое облегчение внешней жизни не поможет человеку, пока внутри него не загорится Свет Истины: я знаю, кто я такой, для чего живу, кому я нужен и какими силами владею. Формула души только ответит на эти вопросы, но вот открыть, достигнуть желаемого и усовершенствовать себя человек должен сам, работая над собой. И тогда он встретит своего Учителя. К одному Учитель придет в виде книги, к другому &ndash; голосом или видением во сне, для кого&ndash;то Учителем будет его внутренний голос, кому&ndash;то &quot;и муравей вестником станет&quot;. Ученик должен понять те знаки и символы, которые Учитель расставил на его пути. Люди, которые совсем ничего не понимают, опускают руки, спиваются, становятся наркоманами, они кончают жизнь самоубийством или заболевают и приковываются к постели, а всё для того, чтобы остановить их для раздумий. Такова суровая для многих действительность ученичества.</p>
+<p>Особенности движения планет говорят нам о том, что люди, рождённые  в один и тот же день, час и минуту, месяц и год, не говоря уж о том, что и в одном городе, и в одном родильном доме, будут всегда иметь одинаковую формулу души. Но по своим качествам души это могут быть совершенно разные люди. Это объясняется тем, что они имеют разные уровни душевного, духовного, ментального и творческого развития, принесённые с собой из прошлых жизней. Качество &ndash; вот то главное, что астролог должен почувствовать в каждом человеке. А сделать это нетрудно. Ибо оно само нарисовано во всём облике человека: начиная от светоносности глаз, выражения лица, тембра голоса, манер поведения, жестов и всего внешнего вида. Кроме того, на помощь астрологу приходит <i>сестра астрологии &ndash; хиромантия</i>. Именно на руках каждого человека начертана программа его личной судьбы, обусловленная силой влияния тех или иных планет. В коррекции этих значений  заключается искусство и мастерство астролога.</p>
+<p> Всякий практикующий астролог очень быстро поймёт, что толкование формулы души даст мощную психологическую поддержку, которая необходима всякому, кто обратился за консультацией. Врачи научатся по формуле души быстро определять энергетические и духовные причины болезней. Психологи избавятся от лишнего тестирования, а руководители производства, начальники отделов кадров получат исчерпывающий важный портрет человека, претендующего на ту или иную должность. </p>
+<p>На сегодняшний день, а это начало ХХI века, тратятся огромные средства на медико&ndash;биологические исследования по психологической совместимости людей. Ускорить дело можно при помощи формулы души. Ибо именно она способна показать резонансные возможности с тем или иным человеком и возможности формировать общее благоприятное энергетическое поле.</p>
+<p>Однажды сотрудницы одного из отделов Инкомбанка пригласили меня для личных консультаций. Их было восемь человек. Построив на них гороскопы и формулы души, я увидел, что только двое из восьми соответствуют занимаемой должности. А на следующий день банк &quot;лопнул&quot; и выпал из списка сильнейших.</p>
+<a name="nofate"></a><a name="свобода_выбора"></a><p> Придёт время, когда каждый человек при рождении будет иметь не только &quot;свидетельство о рождении&quot;, но и свидетельство о потенциале его души &ndash; формулу души. Формула души станет обязательным приложением ко всем гороскопам, её введут в компьютерные астрологические программы. Она станет обязательным приложением к психологическому, медицинскому, образовательному, воспитательному и профессиональному тестам каждого человека. </p>
+<img src="{{ url_for('static', filename='old/astrogor6.jpeg') }}" border=0 align=right width=204px height=300px>
+<p>Изучая эту главу, вы могли прийти к выводу, что формула души настолько фатальное явление, что бесполезна любая попытка что&ndash;то изменить в судьбе. Да, формула фатальна, но у нас есть нечто, кроме влияния звёзд и неотвратимости судьбы, &ndash; это наша свободная воля. Выбор всегда остаётся за человеком. Об этом нельзя забывать. Но не будем забывать и о том, что ответственность в его собственной эволюции за сделанный выбор также лежит на самом человеке. Помните, как в сказке: добрый молодец на коне подъезжает к перекрёстку, где дорога разветвляется по трём направлениям. У дороги той камень, на котором указания и предупреждения о финале пути по каждой из дорог. А  ответственность за выбранное направление лежит на самом добром молодце. </p>
+<p>Так и формула души: указывает и предупреждает, а за выбор не отвечает. Поэтому для толкования формулы души необходимо знать: какой выбор человек уже сделал в своей жизни, чем сейчас он живёт, его образование, профессию. Этого достаточно. Тогда нам будет понятно, на каком уровне энергетического развития находятся его планеты и каким образом будет выстраиваться толкование их в формуле его души. Проще с детьми: у них нужно не спрашивать, а развивать, учить и воспитывать согласно начертанным Свыше законам.</p>
+<p>Таким образом, <b>формула души &ndash; это оптимальный путь развития человека, предначертанный ему небесными телами в момент рождения, выраженный графически в астрологических символах</b>.</p>
+
+<h3><i><p align=right><a href=mailto:astrogor49@mail.ru>Александр Астрогор</a></p></i></h3>
+
+<center><a name="star"></a><a name="звезда_астрогора"></a><img src="{{ url_for('static', filename='old/astrostar.jpeg') }}" width=100%>
+<br>
+<a name="table"></a><a name="таблица_химических_элементов"></a><img src="{{ url_for('static', filename='old/z_elements.jpeg') }}" width=100%>
+<br>
+
+</center>
+
+</td>
+
+<td width="2" background="{{ url_for('static', filename='old/vr.gif') }}" height="100%" />
+
+<td width="110" height="100%" border=0 cellspacing=5 cellpadding=0 valign="center">
+
+
+<!--LiveInternet counter--><script type="text/javascript"><!--
+document.write("<a href='//www.liveinternet.ru/click' "+
+"target=_blank><img src='//counter.yadro.ru/hit?t14.11;r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";h"+escape(document.title.substring(0,80))+";"+Math.random()+
+"' alt='' title='LiveInternet: показано число просмотров за 24"+
+" часа, посетителей за 24 часа и за сегодня' "+
+"border='0' width='88' height='31'><\/a>")
+//--></script><!--/LiveInternet--><br>
+
+</td></tr>
+<tr><td width="100%" background="{{ url_for('static', filename='old/hr.gif') }}" height="2" />
+</tr></table>
+<center><font size=2><a href="#consult">Наверх</a></center>
+</td></tr></table>
+&nbsp;
+
+</body></html>
