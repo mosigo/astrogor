@@ -15,12 +15,15 @@ from utils.sf_csv import read_csv_file
 from view.sf_cosmogram import DefaultCosmogramDrawer
 
 
-def draw_transit_by_days(name, birthday_time, city, dt_from: datetime, dt_to: datetime):
+def draw_transit_by_days(name, birthday_time, city, dt_from: datetime, dt_to: datetime, cur_city='Москва'):
     name_tr = translit(name, "ru", reversed=True)
     name_tr = name_tr.replace(' ', '_').replace('\'', '').lower()
 
     geo_res = geocoder.get_geo_position(city, birthday_time)
     print(f'UTC => {geo_res}')
+
+    geo_res_now = geocoder.get_geo_position(cur_city, dt_from.strftime('%Y-%m-%d %H:%M'))
+    print(f'UTC => {geo_res_now}')
 
     dir_name = f'pic/{name_tr}_transit'
     Path(dir_name).mkdir(parents=True, exist_ok=True)
@@ -36,7 +39,8 @@ def draw_transit_by_days(name, birthday_time, city, dt_from: datetime, dt_to: da
         cr = cairo.Context(surface_pdf)
         cr.scale(200, 200)
 
-        cosmo2 = builder.build_cosmogram(dt, planets_to_exclude=[const.PARS_FORTUNA])
+        cosmo2 = builder.build_cosmogram(dt, lat=geo_res_now.lat, lon=geo_res_now.lon,
+                                         planets_to_exclude=[const.PARS_FORTUNA])
 
         drawer = DefaultCosmogramDrawer(planet_ruler_place='in_sign', life_years=0)
         drawer.draw_transit(cosmo1, cosmo2, cr)
@@ -92,8 +96,9 @@ if __name__ == '__main__':
 
     # dt_from = datetime.strptime('2021-12-17 12:00 +0300', '%Y-%m-%d %H:%M %z')
     # dt_to = datetime.strptime('2022-12-31 12:00 +0300', '%Y-%m-%d %H:%M %z')
+    # # draw_transit_by_days(name, birthday, city, dt_from, dt_to, cur_city='Варшава')
     # draw_transit_by_days(name, birthday, city, dt_from, dt_to)
 
     draw_transit_by_hours(name, birthday, city,
-                          datetime.strptime('2021-12-17 12:00 +0300', '%Y-%m-%d %H:%M %z'),
-                          datetime.strptime('2021-12-19 12:00 +0300', '%Y-%m-%d %H:%M %z'))
+                          datetime.strptime('2021-12-20 12:00 +0300', '%Y-%m-%d %H:%M %z'),
+                          datetime.strptime('2021-12-20 12:00 +0300', '%Y-%m-%d %H:%M %z'))

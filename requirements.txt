@@ -1,0 +1,7 @@
+Flask==2.0.2
+flatlib==0.2.3
+pycairo==1.20.1
+qrcode==7.3.1
+timezonefinder==5.2.0
+transliterate==1.10.2
+pytz

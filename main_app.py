@@ -21,6 +21,11 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/fd', methods=['GET'])
+def fd():
+    return render_template('fd.html')
+
+
 @app.route('/card', methods=['GET'])
 def create_card():
     cur_dt = datetime.now(pytz.timezone("Europe/Moscow"))
