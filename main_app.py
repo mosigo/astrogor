@@ -8,6 +8,7 @@ import pytz
 from flask import Flask, request, render_template
 from datetime import datetime
 
+from main_user_info import get_borders
 from model.sf import SoulFormulaWithBorders, NumericInfo
 from model.sf_flatlib import FlatlibBuilder
 from ext.sf_geocoder import SFGeocoder
@@ -84,8 +85,7 @@ def generate_card(name, birthday_time, city, death_time=None):
         death_dt = datetime.strptime(f'{death_time} {geo_res.utc_offset}', '%Y-%m-%d %H:%M %z')
     formula = builder.build_formula(dt, lat=geo_res.lat, lon=geo_res.lon)
     cosmogram = builder.build_cosmogram(dt, lat=geo_res.lat, lon=geo_res.lon, death_dt=death_dt)
-    # start_dt, end_dt = get_borders(dt, lat=geo_res.lat, lon=geo_res.lon)
-    start_dt, end_dt = dt, dt
+    start_dt, end_dt = get_borders(dt, lat=geo_res.lat, lon=geo_res.lon)
 
     surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, w, h)
     cr = cairo.Context(surface)
