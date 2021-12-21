@@ -1,11 +1,14 @@
 <html>
 <head>
     {% block head %}
-    <title>Космограмма и Формула Души, авторский метод Александра Астрогора</title>
+    <title>Сайт школы русской астрологии «Волхвы»</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}" type="image/x-icon"/>
     <link rel="icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}" type="image/x-icon"/>
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='favicon/apple-icon.png') }}" type="image/x-icon">
-    <style>* {font-family: Montserrat; src: url("{{ url_for('static', filename='fonts/Montserrat-Light.ttf') }}"}</style>
+    <style>@font-face {font-family: BellotaText; src: url("{{ url_for('static', filename='fonts/BellotaText-Regular.ttf')}}") format("truetype"); "}</style>
+    <style>@font-face {font-family: Bellota; src: url("{{ url_for('static', filename='fonts/Bellota-Bold.ttf')}}") format("truetype");}</style>
+    <style>h1, h2, h3, h4, h5, h6 {font-family: Bellota; font-size: 36px;</style>
+    <style>* {font-family: BellotaText; font-size: 18px;</style>
     {% endblock %}
 </head>
 <body>
