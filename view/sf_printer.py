@@ -323,7 +323,8 @@ class OneCirclePrinter:
     #              title_height=10, subtitle_height=10, add_info_radius=18, add_info_overlap=2.5, qr_width=14) -> None:
     def __init__(self, width=210, height=297, border_offset=5,
                  title_height=8, subtitle_height=4, text_offset=2,
-                 add_info_radius=18, add_info_overlap=2.5, qr_width=25) -> None:
+                 add_info_radius=18, add_info_overlap=2.5, qr_width=25, age_units='days') -> None:
+        self.age_units = age_units
         self.add_info_overlap = add_info_overlap
         self.add_info_radius = add_info_radius
         self.subtitle_height = subtitle_height
@@ -487,16 +488,15 @@ class OneCirclePrinter:
 
         qr_x2 = self.width - self.qr_width
         # self.__draw_qr_code(cr0, "http://astrogor.com", qr_x2, 0)
-        self.__draw_qr_code(cr0, "http://астрогор.онлайн", qr_x2, 0)
+        self.__draw_qr_code(cr0, "https://astrogor.online/fd", qr_x2, 0)
 
         # qr_font_size = 0.0185
-        qr_font_size = 0.015
+        qr_font_size = 0.017
         cr0.select_font_face("Gotham Pro Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         cr0.set_font_size(qr_font_size)
         x, y = cr0.device_to_user(qr_x2, self.qr_width + qr_font_size * self.width)
         cr0.move_to(x, y)
-        # cr0.show_text('astrogor.com')
-        cr0.show_text('астрогор.онлайн')
+        cr0.show_text('astrogor.online')
         cr0.stroke()
 
     def _print_titles1(self, cr0: cairo.Context,
@@ -540,7 +540,7 @@ class OneCirclePrinter:
 
         x, y = cr0.device_to_user(qr_x2, self.height)
         cr0.move_to(x, y)
-        cr0.show_text('астрогор.онлайн')
+        cr0.show_text('astrogor.online')
         cr0.stroke()
 
     def print_info(self, fio: str, city: str, formula: SoulFormulaWithBorders, cosmogram: Cosmogram,
@@ -585,7 +585,7 @@ class OneCirclePrinter:
         def foo3(cr: cairo.Context):
             cur_dt = datetime.now(pytz.timezone("Europe/Moscow"))
             drawer = DefaultCosmogramDrawer()
-            drawer.draw_current_day(cur_dt, cosmogram, cr)
+            drawer.draw_current_day(cur_dt, cosmogram, cr, age_units=self.age_units)
 
         self.draw_add_info(0, cr0, foo2, shape='rectangle')
         self.draw_add_info(1, cr0, foo, shape='rectangle')

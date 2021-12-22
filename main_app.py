@@ -19,7 +19,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    return render_template('index.html')
+    return render_template('old.html')
 
 
 @app.route('/fd', methods=['GET'])
@@ -29,7 +29,7 @@ def fd():
 
 @app.route('/old', methods=['GET'])
 def old():
-    return render_template('old.html')
+    return render_template('index.html')
 
 
 @app.route('/card', methods=['GET'])
@@ -77,7 +77,8 @@ def generate_card(name, birthday_time, city, death_time=None):
 
     builder = FlatlibBuilder()
     printer = OneCirclePrinter(width=w, height=h, border_offset=50, title_height=80, subtitle_height=40,
-                               text_offset=20, add_info_radius=180, add_info_overlap=25, qr_width=250)
+                               text_offset=20, add_info_radius=180, add_info_overlap=25, qr_width=250,
+                               age_units='years')
 
     dt = datetime.strptime(f'{birthday_time} {geo_res.utc_offset}', '%Y-%m-%d %H:%M %z')
     death_dt = None

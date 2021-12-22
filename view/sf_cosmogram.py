@@ -645,7 +645,7 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
         cr.show_text(text)
         cr.stroke()
 
-    def draw_current_day(self, today: datetime, cosmogram: Cosmogram, cr: cairo.Context):
+    def draw_current_day(self, today: datetime, cosmogram: Cosmogram, cr: cairo.Context, age_units='days'):
         cr.set_line_width(0.002)
 
         cr.select_font_face("Gotham Pro Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
@@ -670,9 +670,14 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
             self.add_text_by_center(cr, f"{self._format_int(m)} {d}", 0.79)
             cr.stroke()
         else:
-            self.add_text_by_center(cr, f'{d}', 0.85)
-            cr.set_font_size(0.12)
-            self.add_text_by_center(cr, f"{self._format_int(m)}", 0.72)
+            if age_units == 'days':
+                self.add_text_by_center(cr, f'{d}', 0.85)
+                cr.set_font_size(0.12)
+                self.add_text_by_center(cr, f"{self._format_int(m)}", 0.72)
+            elif age_units == 'years':
+                self.add_text_by_center(cr, f'{y}', 0.85)
+                cr.set_font_size(0.12)
+                self.add_text_by_center(cr, f"{self._format_int(n)}", 0.72)
 
         cr.set_line_width(0.002)
         cr.move_to(0.1, 0.43)
