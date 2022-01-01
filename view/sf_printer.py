@@ -286,6 +286,7 @@ class TwoCirclePrinter:
             def foo_res(cr: cairo.Context):
                 drawer = DefaultCosmogramDrawer()
                 drawer.draw_aspect(cosmogram, cr, aspect)
+
             return foo_res
 
         i = 0
@@ -423,11 +424,11 @@ class OneCirclePrinter:
         cr0.stroke()
 
     def _print_titles(self, cr0: cairo.Context,
-                     cosmogram: Cosmogram, formula: SoulFormulaWithBorders, fio: str, city: str):
+                      cosmogram: Cosmogram, formula: SoulFormulaWithBorders, fio: str, city: str):
         x, y = cr0.device_to_user(self.title_x, self.title_y)
         cr0.move_to(x, y)
         cr0.set_font_size(self.title_height / self.width)
-        cr0.select_font_face("Gotham Pro Medium", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
+        cr0.select_font_face("Montserrat-Medium", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
         cr0.set_source_rgb(0, 0, 0)
 
         title = 'Космограмма и Формула Души'.upper()
@@ -435,7 +436,7 @@ class OneCirclePrinter:
         cr0.show_text(title)
         cr0.stroke()
 
-        cr0.select_font_face("Gotham Pro Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr0.select_font_face("Montserrat-Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         cr0.set_font_size(self.subtitle_height / self.width)
 
         x, y = cr0.device_to_user(self.subtitle1_x, self.subtitle1_y)
@@ -451,27 +452,28 @@ class OneCirclePrinter:
 
         x, y = cr0.device_to_user(self.subtitle2_x, self.subtitle2_y)
         cr0.move_to(x, y)
-        cr0.select_font_face('JetBrains Mono', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-        user_dates = 'Дата рождения: ' if not cosmogram.death_dt else 'Годы жизни: '
+        # cr0.select_font_face('JetBrains Mono', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr0.select_font_face('Montserrat-Light', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        user_dates = 'Дата: ' if not cosmogram.death_dt else 'Годы жизни: '
         cr0.show_text(user_dates)
         x += cr0.text_extents(user_dates).width + self.text_offset / self.width
         user_dates = formula.formula.dt.strftime("%d.%m.%Y %H:%M")
         if cosmogram.death_dt:
             user_dates += ' — ' + cosmogram.death_dt.strftime("%d.%m.%Y %H:%M")
-        cr0.select_font_face("Gotham Pro Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr0.select_font_face("Montserrat-Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         cr0.show_text(user_dates)
 
         x, y = cr0.device_to_user(self.subtitle3_x, self.subtitle3_y)
         cr0.move_to(x, y)
-        cr0.select_font_face('JetBrains Mono', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr0.select_font_face('Montserrat-Light', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         cr0.show_text('Место: ')
         x += cr0.text_extents('Место: ').width + self.text_offset / self.width
-        cr0.select_font_face("Gotham Pro Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr0.select_font_face("Montserrat-Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         self._add_text(cr0, self.subtitle_height / self.width, x, y, title_te.width, city)
 
         x, y = cr0.device_to_user(self.subtitle4_x, self.subtitle4_y)
         cr0.move_to(x, y)
-        cr0.select_font_face("Gotham Pro Medium", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
+        cr0.select_font_face("Montserrat-Medium", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
         fio_font_size = (self.title_height + self.subtitle_height) / 2 / self.width
         self._add_text(cr0, fio_font_size, x, y, title_te.width, fio.upper())
         te = cr0.text_extents(fio.upper())
@@ -487,71 +489,23 @@ class OneCirclePrinter:
         cr0.stroke()
 
         qr_x2 = self.width - self.qr_width
-        # self.__draw_qr_code(cr0, "http://astrogor.com", qr_x2, 0)
         self.__draw_qr_code(cr0, "https://astrogor.online/fd", qr_x2, 0)
 
-        # qr_font_size = 0.0185
         qr_font_size = 0.017
-        cr0.select_font_face("Gotham Pro Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr0.select_font_face("Montserrat-Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         cr0.set_font_size(qr_font_size)
         x, y = cr0.device_to_user(qr_x2, self.qr_width + qr_font_size * self.width)
         cr0.move_to(x, y)
         cr0.show_text('astrogor.online')
         cr0.stroke()
 
-    def _print_titles1(self, cr0: cairo.Context,
-                     cosmogram: Cosmogram, formula: SoulFormulaWithBorders, fio: str, city: str):
-        x, y = cr0.device_to_user(self.title_x, self.title_y)
-        cr0.move_to(x, y)
-        cr0.set_font_size(0.05)
-        cr0.select_font_face("Gotham Pro Medium", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
-        cr0.set_source_rgb(0, 0, 0)
-        cr0.show_text(f'{fio.upper()}')
-        cr0.select_font_face("Gotham Pro Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-        x, y = cr0.device_to_user(self.subtitle_x, self.subtitle_y)
-        cr0.move_to(x, y)
-        cr0.set_font_size(0.04)
-        user_dates = formula.formula.dt.strftime("%d.%m.%Y %H:%M")
-        if cosmogram.death_dt:
-            user_dates += ' — ' + cosmogram.death_dt.strftime("%d.%m.%Y %H:%M")
-        cr0.show_text(user_dates)
-        x, y = cr0.device_to_user(self.subtitle_x, self.subtitle_y + self.subtitle_height * 0.8)
-        cr0.move_to(x, y)
-        cr0.set_font_size(0.03)
-        cr0.show_text(city)
-        cr0.stroke()
-
-        x, y = cr0.device_to_user(self.title_x, self.height)
-        cr0.set_font_size(0.015)
-        cr0.move_to(x, y)
-        cr0.show_text('Космограмма и Формула Души — авторский метод Александра Астрогора')
-
-        qr_y = self.height - self.qr_width - self.subtitle_height / 5
-        qr_x1 = self.width - self.qr_width * 2 - self.border_offset * 0.8
-        qr_x2 = self.width - self.qr_width
-        self.__draw_qr_code(cr0, "http://astrogor.com", qr_x1, qr_y)
-        self.__draw_qr_code(cr0, "http://астрогор.онлайн", qr_x2, qr_y)
-
-        cr0.set_font_size(0.01)
-        x, y = cr0.device_to_user(qr_x1, self.height)
-        cr0.move_to(x, y)
-        cr0.show_text('astrogor.com')
-        cr0.stroke()
-
-        x, y = cr0.device_to_user(qr_x2, self.height)
-        cr0.move_to(x, y)
-        cr0.show_text('astrogor.online')
-        cr0.stroke()
-
     def print_info(self, fio: str, city: str, formula: SoulFormulaWithBorders, cosmogram: Cosmogram,
-                   numeric_info: NumericInfo, surface: cairo.Surface):
+                   surface: cairo.Surface):
         surface.set_device_offset(self.border_offset, self.border_offset)
         cr0 = cairo.Context(surface)
         cr0.scale(self.width, self.width)
 
         self._print_titles(cr0, cosmogram, formula, fio, city)
-
-        # self.__draw_numeric_data(cr0, numeric_info)
 
         cr = cairo.Context(surface.create_for_rectangle(
             self.x - self.circle_radius, self.y - self.circle_radius, self.circle_radius * 2, self.circle_radius * 2))
@@ -594,12 +548,14 @@ class OneCirclePrinter:
         def aspect_shape(cr1: cairo.Context):
             drawer = DefaultCosmogramDrawer()
             drawer.draw_aspect_shape(cosmogram, cr1)
+
         self.draw_add_info(0, cr0, aspect_shape, place='left')
 
         def aspect(aspect: int):
             def foo_res(cr1: cairo.Context):
                 drawer = DefaultCosmogramDrawer()
                 drawer.draw_aspect(cosmogram, cr1, aspect)
+
             return foo_res
 
         i = 1

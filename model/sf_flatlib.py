@@ -1,5 +1,5 @@
 import configparser
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import swisseph
 from flatlib import const
@@ -14,7 +14,7 @@ from model.sf import SoulFormula, SIGN_TO_HOUSE, SoulFormulaBuilder, PLANET_POWE
 class FlatlibBuilder(SoulFormulaBuilder):
 
     def build_cosmogram(self, dt: datetime, lat=55.75322, lon=37.622513,
-                        death_dt: datetime = None, planets_to_exclude=None) -> Cosmogram:
+                        death_dt: datetime = None, planets_to_exclude=None, cur_time=None) -> Cosmogram:
         date = self.__dt_to_flatlib_dt(dt)
         pos = GeoPos(lat, lon)
         swisseph.set_ephe_path('/usr/local/share/ephe')
@@ -55,7 +55,7 @@ class FlatlibBuilder(SoulFormulaBuilder):
                 CosmogramPlanet('Selena', selena['lon'], selena['lat'], selena['sign'], selena['signlon'], const.DIRECT, 0)
             )
 
-        return Cosmogram(dt, planet_infos, additional_planets, death_dt)
+        return Cosmogram(dt, planet_infos, additional_planets, death_dt, cur_time)
 
     def build_formula(self, dt: datetime, lat=55.75322, lon=37.622513) -> SoulFormula:
         date = self.__dt_to_flatlib_dt(dt)
@@ -174,6 +174,32 @@ class FlatlibBuilder(SoulFormulaBuilder):
                 orbit_num += 1
 
         return SoulFormula(dt, links, center, orbits, retro, power, additional_objects)
+
+
+def get_borders(dt: datetime, lat: float, lon: float):
+    builder = FlatlibBuilder()
+    formula = builder.build_formula(dt, lat=lat, lon=lon)
+    formula_id = formula.get_id()
+    print(f'ID формулы        => {formula_id}')
+    left = dt - timedelta(hours=1)
+    left_formula = builder.build_formula(left, lat=lat, lon=lon)
+    while left_formula.get_id() == formula_id:
+        left -= timedelta(hours=1)
+        left_formula = builder.build_formula(left, lat=lat, lon=lon)
+    while left_formula.get_id() != formula_id:
+        left += timedelta(minutes=1)
+        left_formula = builder.build_formula(left, lat=lat, lon=lon)
+
+    right = dt + timedelta(hours=1)
+    right_formula = builder.build_formula(right, lat=lat, lon=lon)
+    while right_formula.get_id() == formula_id:
+        right += timedelta(hours=1)
+        right_formula = builder.build_formula(right, lat=lat, lon=lon)
+    while right_formula.get_id() != formula_id:
+        right -= timedelta(minutes=1)
+        right_formula = builder.build_formula(right, lat=lat, lon=lon)
+
+    return left_formula.dt, right_formula.dt
 
 
 if __name__ == '__main__':

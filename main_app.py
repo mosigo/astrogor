@@ -8,9 +8,8 @@ import pytz
 from flask import Flask, request, render_template
 from datetime import datetime
 
-from main_user_info import get_borders
 from model.sf import SoulFormulaWithBorders, NumericInfo
-from model.sf_flatlib import FlatlibBuilder
+from model.sf_flatlib import FlatlibBuilder, get_borders
 from ext.sf_geocoder import SFGeocoder
 from view.sf_printer import OneCirclePrinter
 
@@ -92,7 +91,7 @@ def generate_card(name, birthday_time, city, death_time=None):
     cr = cairo.Context(surface)
     cr.scale(w, w)
     printer.print_info(name, geo_res.address,
-                       SoulFormulaWithBorders(formula, start_dt, end_dt), cosmogram, NumericInfo(dt), surface)
+                       SoulFormulaWithBorders(formula, start_dt, end_dt), cosmogram, surface)
 
     new_file, filename = tempfile.mkstemp(suffix='.png', prefix='cosmo_')
     print(f'Создан временный файл для вывода космограммы: {filename}')

@@ -259,11 +259,26 @@ class FormulaDrawer:
         pass
 
 
+class DrawProfile:
+
+    def __init__(self, font_text: str, font_header: str) -> None:
+        self.font_text = font_text
+        self.font_header = font_header
+
+
+DrawProfile.DEFAULT = DrawProfile(
+    font_text='Montserrat-Light',
+    font_header='Montserrat-Medium'
+)
+
+
 class SimpleFormulaDrawer(FormulaDrawer):
 
-    def __init__(self) -> None:
+    def __init__(self, draw_profile: DrawProfile = DrawProfile.DEFAULT) -> None:
         self.planet_label_drawer = PlanetLabelDrawer()
         self.planet_drawer = DefaultPlanetDrawer()
+
+        self.draw_profile = draw_profile
 
     def draw_formula(self, d_formula: DFormula, cr: Context):
 
@@ -353,7 +368,7 @@ class SimpleFormulaDrawer(FormulaDrawer):
         cr.line_to(0.9, 0.56)
         cr.stroke()
 
-        cr.select_font_face("Gotham Pro Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         cr.set_font_size(0.12)
         cr.move_to(0.07, 0.50)
         cr.show_text('с ' + formula.from_dt.strftime("%d.%m %H:%M"))
@@ -361,8 +376,8 @@ class SimpleFormulaDrawer(FormulaDrawer):
         cr.show_text('до ' + formula.to_dt.strftime("%d.%m %H:%M"))
         cr.stroke()
 
-        cr.select_font_face('JetBrains Mono', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-        cr.move_to(0.18, 0.31)
+        cr.select_font_face(self.draw_profile.font_header, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr.move_to(0.14, 0.31)
         cr.set_font_size(0.085)
         cr.show_text('Время формулы')
         cr.stroke()
@@ -413,26 +428,26 @@ class SimpleFormulaDrawer(FormulaDrawer):
 
         cr.set_font_size(0.065)
         cr.set_source_rgb(0, 0, 0)
-        cr.select_font_face("JetBrains Mono NL", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-        cr.move_to(0.12, 0.38)
+        cr.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr.move_to(0.10, 0.38)
         cr.show_text('Личн')
         cr.move_to(0.83, 0.38)
         cr.show_text(str(private_cnt))
-        cr.move_to(0.16, 0.51)
+        cr.move_to(0.14, 0.51)
         cr.show_text('Соц')
         cr.move_to(0.83, 0.51)
         cr.show_text(str(social_cnt))
-        cr.move_to(0.05, 0.64)
+        cr.move_to(0.03, 0.64)
         cr.show_text('Задумч')
         cr.move_to(0.83, 0.64)
         cr.show_text(str(transuran_cnt))
-        cr.move_to(0.085, 0.80)
+        cr.move_to(0.075, 0.80)
         cr.show_text('Всего')
         cr.move_to(0.83, 0.80)
         cr.show_text(str(all_cnt))
         cr.stroke()
 
-        cr.select_font_face('JetBrains Mono', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr.select_font_face(self.draw_profile.font_header, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         cr.set_font_size(0.085)
         cr.move_to(0.22, 0.22)
         cr.show_text('Сила планет')
@@ -478,8 +493,10 @@ class PlanetDrawer:
 
 class DefaultPlanetDrawer(PlanetDrawer):
 
-    def __init__(self) -> None:
+    def __init__(self, draw_profile:DrawProfile = DrawProfile.DEFAULT) -> None:
         self.planet_drawer = PlanetLabelDrawer()
+
+        self.draw_profile = draw_profile
 
     def draw_planet(self, planet: str, cr: cairo.Context, x: float, y: float, r: float,
                     is_retro=False, power=None, is_own_orbit=False, additional_planets=None, is_selected=False,
@@ -523,19 +540,22 @@ class DefaultPlanetDrawer(PlanetDrawer):
         # рисуем силу планеты в баллах
         if power is not None:
             p_x, p_y = x + r / math.sqrt(2), y - r / math.sqrt(2)
-            p_r = r / 4
+            p_r = r / 2.8
 
             cr.set_line_width(0.001)
             cr.move_to(p_x, p_y)
             cr.set_source_rgb(1, 1, 1)
             cr.arc(p_x, p_y, p_r, 0, 2 * math.pi)
             cr.fill()
-            cr.set_source_rgb(0, 0, 0)
-            cr.arc(p_x, p_y, p_r, 0, 2 * math.pi)
-            cr.stroke()
+
+            # cr.arc(p_x, p_y, p_r, 0, 2 * math.pi)
+            # cr.stroke()
+
+            cr.set_font_size(p_r * 2)
+
             cr.move_to(p_x - p_r / 2, p_y + p_r / 2)
-            cr.set_font_size(p_r * 1.6)
-            cr.select_font_face("JetBrains Mono NL", cairo.FONT_SLANT_NORMAL,
+            cr.set_source_rgb(0, 0, 0)
+            cr.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL,
                                 cairo.FONT_WEIGHT_NORMAL)
             cr.show_text(str(power))
 
@@ -547,14 +567,14 @@ class DefaultPlanetDrawer(PlanetDrawer):
                 r1 = r / 3
                 alpha = 2 * math.asin(r1 / r)
                 x1, y1 = rotate_point(x, y, x1, y1, -alpha * i)
-                rl = r1 * 0.6
+                rl = r1 * 0.8
                 planet, planet_is_retro = additional_planets[i]
                 cr.set_source_rgb(1, 1, 0.8)
                 cr.arc(x1, y1, r1, 0, 2 * math.pi)
                 cr.fill()
                 cr.set_source_rgb(0, 0, 0)
-                cr.arc(x1, y1, r1, 0, 2 * math.pi)
-                cr.stroke()
+                # cr.arc(x1, y1, r1, 0, 2 * math.pi)
+                # cr.stroke()
 
                 cr.save()
                 cr.set_line_width(0.09)

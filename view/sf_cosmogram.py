@@ -13,7 +13,7 @@ from model.sf import Cosmogram, SIGN_TO_HOUSE, SIGN_TO_SECOND_HOUSE, CosmogramPl
 from model.sf_flatlib import FlatlibBuilder
 from view.aspect_label import AspectLabelDrawer
 from view.planet_label import PlanetLabelDrawer
-from view.sf_cairo import DefaultPlanetDrawer
+from view.sf_cairo import DefaultPlanetDrawer, DrawProfile
 from view.sf_geometry import rotate_point
 from view.sign_label import SignLabelDrawer
 
@@ -146,12 +146,15 @@ class DefaultCosmogramOptimizer(CosmogramOptimizer):
 class DefaultCosmogramDrawer(CosmogramDrawer):
 
     def __init__(self, planet_ruler_place='inner',
-                 life_years=84, first_life_year=0, first_life_year_lon=0, aspects=None) -> None:
+                 life_years=84, first_life_year=0, first_life_year_lon=0, aspects=None,
+                 draw_profile: DrawProfile = DrawProfile.DEFAULT) -> None:
         self.planet_label_drawer = PlanetLabelDrawer()
         self.planet_drawer = DefaultPlanetDrawer()
         self.sign_drawer = SignLabelDrawer()
 
         self.planet_ruler_place = planet_ruler_place
+
+        self.draw_profile = draw_profile
 
         # знаки зодиака в нужном порядке от овна до рыб
         self.signs = [ARIES, TAURUS, GEMINI, CANCER, LEO, VIRGO, LIBRA,
@@ -269,10 +272,16 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
                                  projection_radius, cosmogram2)
 
         # рисуем текущую дату транзита
-        cr.select_font_face("Gotham Pro Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         date_font_size = 0.06
         cr.set_font_size(date_font_size)
         self.add_text_by_center(cr, cosmogram2.dt.strftime('%d.%m.%Y %H:%M'), 0.5 + date_font_size * 0.8 / 2)
+
+        # рисуем текущую точку жизни по дате транзита
+        life_point = cosmogram2.get_life_point_lon()
+        if life_point is not None:
+            cr.set_source_rgb(0, 0, 1)
+            self.__draw_life_point(cr, life_point * math.pi / 180, self.planet_projection_radius * 3)
 
         # отмечаем соединения
         lons = []
@@ -422,7 +431,7 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
             # рисуем лейблы для лет жизни
             cr.set_font_size(self.life_years_width * 23)
             cr.set_source_rgb(0, 0, 0)
-            cr.select_font_face("JetBrains Mono NL", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+            cr.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
             self.__draw_label(cr, alpha=2 * math.pi / self.life_years,
                               position_radius=life_years_radius + self.life_years_width / 2, label_radius=0.01,
                               draw_function=self.__draw_life_year,
@@ -537,7 +546,7 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
             # рисуем долготу планеты цифрами
             cr.set_source_rgb(0, 0, 0)
             cr.set_font_size(0.015)
-            cr.select_font_face("JetBrains Mono Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+            cr.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
             lon_as_str = str(math.ceil(planet_info.signlon)) + '°'
             if len(lon_as_str) == 3:
                 x2 -= 0.012
@@ -548,7 +557,6 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
             cr.move_to(x2, y2)
             cr.show_text(lon_as_str)
             cr.stroke()
-
 
     def __add_sign_color(self, cr: cairo.Context, start_psi: float, r, g, b):
         psi = start_psi
@@ -648,7 +656,7 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
     def draw_current_day(self, today: datetime, cosmogram: Cosmogram, cr: cairo.Context, age_units='days'):
         cr.set_line_width(0.002)
 
-        cr.select_font_face("Gotham Pro Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         font_size = 0.10
         cr.set_font_size(font_size)
         today_str = today.strftime("%d.%m.%Y в %H:%M мск")
@@ -684,12 +692,11 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
         cr.line_to(0.9, 0.43)
         cr.stroke()
 
-        cr.select_font_face('JetBrains Mono', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr.select_font_face(self.draw_profile.font_header, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         cr.move_to(0.23, 0.22)
         cr.set_font_size(0.085)
         self.add_text_by_center(cr, 'Построено', 0.22)
         cr.stroke()
-
 
     def draw_aspect(self, cosmogram: Cosmogram, cr: cairo.Context, aspect: int, highlight=False):
         # достаём данные только по заданному аспекту
@@ -779,10 +786,6 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
                                            is_retro=planet_info.movement == const.RETROGRADE,
                                            power=power, is_selected=is_additional)
 
-
-
-
-
     def draw_aspect1(self, cosmogram: Cosmogram, cr: cairo.Context, aspect: int):
         planet_to_other = {}
         for p1, planet_aspects in cosmogram.planet_to_aspect.items():
@@ -829,6 +832,7 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
             x = 0.5 / cols
             y += 1 / rows
 
+
 def draw_cosmo(dt: datetime):
     dir = '/Users/mosigo/Yandex.Disk.localized/Documents/PycharmProjects/Astrogor/pic'
     surface_pdf = cairo.PDFSurface(f"{dir}/cosmo.pdf", 200, 200)
@@ -843,6 +847,7 @@ def draw_cosmo(dt: datetime):
     drawer = DefaultCosmogramDrawer(planet_ruler_place='in_sign', life_years=1)
     drawer.draw_cosmogram(cosmo, cr)
     surface_pdf.finish()
+
 
 def draw_transit(dt1: datetime, dt2: datetime):
     dir = '/Users/mosigo/Yandex.Disk.localized/Documents/PycharmProjects/Astrogor/pic'
@@ -859,6 +864,7 @@ def draw_transit(dt1: datetime, dt2: datetime):
     drawer = DefaultCosmogramDrawer(planet_ruler_place='in_sign', life_years=0)
     drawer.draw_transit(cosmo1, cosmo2, cr)
     surface_pdf.finish()
+
 
 if __name__ == '__main__':
     # draw_cosmo(datetime.strptime('1991-08-20 16:31 +03:00', '%Y-%m-%d %H:%M %z'))

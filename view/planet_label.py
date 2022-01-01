@@ -54,16 +54,17 @@ def draw_venus(cr):
 
 
 def draw_mars(cr):
+    right_top_corner = (0.85, 0.15)
     cr.arc(0.3, 0.7, 0.3, 0, 2 * pi)
     cr.stroke()
     cr.move_to(0.51, 0.49)
-    cr.line_to(0.9, 0.1)
+    cr.line_to(*right_top_corner)
     cr.stroke()
-    cr.move_to(0.6, 0.1)
-    cr.line_to(0.9, 0.1)
+    cr.move_to(0.6, right_top_corner[1])
+    cr.line_to(*right_top_corner)
     cr.stroke()
-    cr.move_to(0.9, 0.4)
-    cr.line_to(0.9, 0.1)
+    cr.move_to(right_top_corner[0], 0.4)
+    cr.line_to(*right_top_corner)
     cr.stroke()
 
 
@@ -94,28 +95,28 @@ def draw_saturn(cr):
 
 
 def draw_uranus(cr):
-    cr.arc(0.5, 0.75, 0.25, 0, 2 * pi)
+    cr.arc(0.5, 0.75, 0.2, 0, 2 * pi)
     cr.stroke()
 
     cr.move_to(0.5, 0)
     cr.line_to(0.5, 0.5)
     cr.stroke()
 
-    cr.move_to(0.2, 0)
-    cr.line_to(0.2, 0.5)
+    cr.move_to(0.25, 0.05)
+    cr.line_to(0.25, 0.45)
     cr.stroke()
 
-    cr.move_to(0.8, 0)
-    cr.line_to(0.8, 0.5)
+    cr.move_to(0.75, 0.05)
+    cr.line_to(0.75, 0.45)
     cr.stroke()
 
-    cr.move_to(0.2, 0.25)
-    cr.line_to(0.8, 0.25)
+    cr.move_to(0.25, 0.25)
+    cr.line_to(0.75, 0.25)
     cr.stroke()
 
 
 def draw_neptune(cr):
-    cr.arc(0.5, 0.1, 0.4, 0, pi)
+    cr.arc(0.5, 0.1, 0.35, 0, pi)
     cr.stroke()
 
     cr.move_to(0.25, 0.7)

@@ -206,10 +206,10 @@ class CosmogramPlanet:
 class Cosmogram:
 
     def __init__(self, dt: datetime, planets: [CosmogramPlanet],
-                 additional_planets: [CosmogramPlanet], death_dt: datetime = None) -> None:
+                 additional_planets: [CosmogramPlanet], death_dt: datetime = None, cur_time: datetime = None) -> None:
         self.additional_planets = additional_planets
         self.dt = dt
-        self.cur_time = datetime.now(pytz.timezone("Europe/Moscow"))
+        self.cur_time = datetime.now(pytz.timezone("Europe/Moscow")) if cur_time is None else cur_time
         self.death_dt = death_dt
         self.planet_to_cosmogram_info = {}
         self.sign_to_planet = {}
