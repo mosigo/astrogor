@@ -672,7 +672,7 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
         d = self._year_name(m, ['дней', 'день', 'дня'])
 
         cr.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-        self.add_text_by_center(cr, 'от рождения прошло', 0.55)
+        self.add_text_by_center(cr, 'от даты прошло', 0.55)
         if cosmogram.death_dt:
             self.add_text_by_center(cr, f"{n} {y}", 0.67)
             self.add_text_by_center(cr, f"{self._format_int(m)} {d}", 0.79)
@@ -688,8 +688,8 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
                 self.add_text_by_center(cr, f"{self._format_int(n)}", 0.72)
 
         cr.set_line_width(0.002)
-        cr.move_to(0.1, 0.43)
-        cr.line_to(0.9, 0.43)
+        cr.move_to(0.05, 0.43)
+        cr.line_to(0.95, 0.43)
         cr.stroke()
 
         cr.select_font_face(self.draw_profile.font_header, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)

@@ -10,6 +10,7 @@ from flatlib import const
 from model.sf import SoulFormula, ORBIT_LABELS, SoulFormulaWithBorders
 from model.sf_flatlib import FlatlibBuilder
 from view.planet_label import PlanetLabelDrawer
+from view.sf_cairo_text_utils import add_text_by_center, add_text_by_right
 from view.sf_geometry import rotate_point
 
 
@@ -364,23 +365,19 @@ class SimpleFormulaDrawer(FormulaDrawer):
 
     def draw_formula_duration(self, formula: SoulFormulaWithBorders, cr: cairo.Context):
         cr.set_line_width(0.002)
-        cr.move_to(0.1, 0.56)
-        cr.line_to(0.9, 0.56)
+        cr.move_to(0.05, 0.56)
+        cr.line_to(0.95, 0.56)
         cr.stroke()
 
         cr.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-        cr.set_font_size(0.12)
+        cr.set_font_size(0.1)
         cr.move_to(0.07, 0.50)
         cr.show_text('с ' + formula.from_dt.strftime("%d.%m %H:%M"))
-        cr.move_to(0.10, 0.71)
-        cr.show_text('до ' + formula.to_dt.strftime("%d.%m %H:%M"))
-        cr.stroke()
+        add_text_by_right(cr, 'до ' + formula.to_dt.strftime("%d.%m %H:%M"), 0.71, xr=0.93)
 
         cr.select_font_face(self.draw_profile.font_header, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-        cr.move_to(0.14, 0.31)
         cr.set_font_size(0.085)
-        cr.show_text('Время формулы')
-        cr.stroke()
+        add_text_by_center(cr, 'Время формулы', y=0.31)
 
     def draw_power_points(self, formula: SoulFormula, cr: cairo.Context):
         private_cnt = 0
@@ -449,9 +446,7 @@ class SimpleFormulaDrawer(FormulaDrawer):
 
         cr.select_font_face(self.draw_profile.font_header, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         cr.set_font_size(0.085)
-        cr.move_to(0.22, 0.22)
-        cr.show_text('Сила планет')
-        cr.stroke()
+        add_text_by_center(cr, 'Сила планет', y=0.22)
 
     def draw_arrow(self, cr, x1, y1, x2, y2, koeff=0.02):
         cr.move_to(x1, y1)
@@ -548,16 +543,16 @@ class DefaultPlanetDrawer(PlanetDrawer):
             cr.arc(p_x, p_y, p_r, 0, 2 * math.pi)
             cr.fill()
 
-            # cr.arc(p_x, p_y, p_r, 0, 2 * math.pi)
-            # cr.stroke()
+            cr.set_source_rgb(0.7, 0.7, 0.7)
+            cr.arc(p_x, p_y, p_r, 0, 2 * math.pi)
+            cr.stroke()
 
             cr.set_font_size(p_r * 2)
 
-            cr.move_to(p_x - p_r / 2, p_y + p_r / 2)
             cr.set_source_rgb(0, 0, 0)
             cr.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL,
                                 cairo.FONT_WEIGHT_NORMAL)
-            cr.show_text(str(power))
+            add_text_by_center(cr, str(power), y=p_y + p_r / 1.6, xl=p_x - p_r, xr=p_x+p_r)
 
         # рисуем дополнительные "планеты": узел кармы, Хирон, белая и чёрная луна...
         if additional_planets:
@@ -572,10 +567,12 @@ class DefaultPlanetDrawer(PlanetDrawer):
                 cr.set_source_rgb(1, 1, 0.8)
                 cr.arc(x1, y1, r1, 0, 2 * math.pi)
                 cr.fill()
-                cr.set_source_rgb(0, 0, 0)
-                # cr.arc(x1, y1, r1, 0, 2 * math.pi)
-                # cr.stroke()
 
+                cr.set_source_rgb(0.7, 0.7, 0.7)
+                cr.arc(x1, y1, r1, 0, 2 * math.pi)
+                cr.stroke()
+
+                cr.set_source_rgb(0, 0, 0)
                 cr.save()
                 cr.set_line_width(0.09)
                 if planet_is_retro:
