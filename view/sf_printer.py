@@ -329,7 +329,9 @@ class OneCirclePrinter:
     #              title_height=10, subtitle_height=10, add_info_radius=18, add_info_overlap=2.5, qr_width=14) -> None:
     def __init__(self, width=210, height=297, border_offset=5,
                  title_height=8, subtitle_height=4, text_offset=2,
-                 add_info_radius=18, add_info_overlap=2.5, qr_width=25, age_units='days') -> None:
+                 add_info_radius=18, add_info_overlap=2.5, qr_width=25, age_units='days',
+                 draw_profile: DrawProfile = DrawProfile.DEFAULT) -> None:
+        self.draw_profile = draw_profile
         self.age_units = age_units
         self.add_info_overlap = add_info_overlap
         self.add_info_radius = add_info_radius
@@ -433,7 +435,7 @@ class OneCirclePrinter:
         x, y = cr0.device_to_user(self.title_x, self.title_y)
         cr0.move_to(x, y)
         cr0.set_font_size(self.title_height / self.width)
-        cr0.select_font_face("Montserrat-Medium", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
+        cr0.select_font_face(self.draw_profile.font_header, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
         cr0.set_source_rgb(0, 0, 0)
 
         title = 'Космограмма и Формула Души'.upper()
@@ -441,7 +443,7 @@ class OneCirclePrinter:
         cr0.show_text(title)
         cr0.stroke()
 
-        cr0.select_font_face("Montserrat-Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr0.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         cr0.set_font_size(self.subtitle_height / self.width)
 
         x, y = cr0.device_to_user(self.subtitle1_x, self.subtitle1_y)
@@ -457,27 +459,27 @@ class OneCirclePrinter:
 
         x, y = cr0.device_to_user(self.subtitle2_x, self.subtitle2_y)
         cr0.move_to(x, y)
-        cr0.select_font_face('Montserrat-Light', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr0.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         user_dates = 'Дата: ' if not cosmogram.death_dt else 'Годы жизни: '
         cr0.show_text(user_dates)
         x += cr0.text_extents(user_dates).width + self.text_offset / self.width
         user_dates = formula.formula.dt.strftime("%d.%m.%Y %H:%M")
         if cosmogram.death_dt:
             user_dates += ' — ' + cosmogram.death_dt.strftime("%d.%m.%Y %H:%M")
-        cr0.select_font_face("Montserrat-Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr0.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         cr0.show_text(user_dates)
 
         x, y = cr0.device_to_user(self.subtitle3_x, self.subtitle3_y)
         cr0.move_to(x, y)
-        cr0.select_font_face('Montserrat-Light', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr0.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         cr0.show_text('Место: ')
         x += cr0.text_extents('Место: ').width + self.text_offset / self.width
-        cr0.select_font_face("Montserrat-Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr0.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         self._add_text(cr0, self.subtitle_height / self.width, x, y, title_te.width, city)
 
         x, y = cr0.device_to_user(self.subtitle4_x, self.subtitle4_y)
         cr0.move_to(x, y)
-        cr0.select_font_face("Montserrat-Medium", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
+        cr0.select_font_face(self.draw_profile.font_header, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
         fio_font_size = (self.title_height + self.subtitle_height) / 2 / self.width
         self._add_text(cr0, fio_font_size, x, y, title_te.width, fio.upper())
         te = cr0.text_extents(fio.upper())
@@ -496,7 +498,7 @@ class OneCirclePrinter:
         self.__draw_qr_code(cr0, "https://astrogor.online/fd", qr_x2, 0)
 
         qr_font_size = 0.017
-        cr0.select_font_face("Montserrat-Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr0.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         cr0.set_font_size(qr_font_size)
         x, y = cr0.device_to_user(qr_x2, self.qr_width + qr_font_size * self.width)
         cr0.move_to(x, y)
