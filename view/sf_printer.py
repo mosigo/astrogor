@@ -9,7 +9,7 @@ import qrcode
 from flatlib import const
 
 from model.sf import SoulFormulaWithBorders, Cosmogram, NumericInfo
-from view.sf_cairo import SimpleFormulaDrawer, DFormula, CirclePosition, OrbitPosition
+from view.sf_cairo import SimpleFormulaDrawer, DFormula, CirclePosition, OrbitPosition, DrawProfile
 from view.sf_cosmogram import DefaultCosmogramDrawer
 from view.sf_geometry import rotate_point
 from view.sf_layout import DefaultLayoutMaker, RectangleFormulaCutter, CircleFormulaCutter
@@ -25,7 +25,8 @@ class SoulFormulaPrinter:
 class PDFPrinter(SoulFormulaPrinter):
     def __init__(self, out_path, title='', rows=2, cols=2,
                  width=210, height=297, border_offset=5, cell_offset=5,
-                 title_height=10, formula_title_height=5, date_as_interval=False) -> None:
+                 title_height=10, formula_title_height=5, date_as_interval=False,
+                 draw_profile=DrawProfile.DEFAULT) -> None:
         self.date_as_interval = date_as_interval
         self.formula_title_height = formula_title_height
         self.title_height = title_height
@@ -38,6 +39,7 @@ class PDFPrinter(SoulFormulaPrinter):
         self.rows = rows
         self.cols = cols
         self.formulas = []
+        self.draw_profile = draw_profile
 
     def _add_text(self, cr0: cairo.Context, font_size, x, y, max_width, text):
         cr0.move_to(x, y)
@@ -54,7 +56,7 @@ class PDFPrinter(SoulFormulaPrinter):
 
         cr.set_source_rgb(0, 0, 0)
         title_text = f'{self.title} (стр {cur_page} из {all_page})'
-        cr.select_font_face("Gotham Pro Medium", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
+        cr.select_font_face(self.draw_profile.font_header, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
         cr.set_source_rgb(0, 0, 0)
         self._add_text(cr, 0.04, title_x, title_y, 0.9, title_text)
 
@@ -85,7 +87,7 @@ class PDFPrinter(SoulFormulaPrinter):
         y1 = f_title_y
         formulas_cnt = 0
         for formula in self.formulas:
-            cr0.select_font_face("Gotham Pro Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+            cr0.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
             xt, yt = cr0.device_to_user(x1, y1 - 1)
             # cr0.set_font_size(0.01)
             cr0.set_source_rgb(0, 0, 0)
@@ -136,7 +138,8 @@ class PDFPrinter(SoulFormulaPrinter):
 class TwoCirclePrinter:
 
     def __init__(self, width=297, height=210, border_offset=5, inner_offset=5,
-                 title_height=10, subtitle_height=10, add_info_radius=15, add_info_overlap=4) -> None:
+                 title_height=10, subtitle_height=10, add_info_radius=15, add_info_overlap=4,
+                 draw_profile=DrawProfile.DEFAULT) -> None:
         self.add_info_overlap = add_info_overlap
         self.add_info_radius = add_info_radius
         self.subtitle_height = subtitle_height
@@ -145,6 +148,8 @@ class TwoCirclePrinter:
         self.border_offset = border_offset
         self.height = height - 2 * border_offset
         self.width = width - 2 * border_offset
+
+        self.draw_profile = draw_profile
 
         self.circle_radius = int((self.width - self.inner_offset) / 4)
         space = 0.85 * (self.height - self.title_height - self.subtitle_height - 2 * self.circle_radius) / 2
@@ -228,10 +233,10 @@ class TwoCirclePrinter:
         x, y = cr0.device_to_user(self.title_x, self.title_y)
         cr0.move_to(x, y)
         cr0.set_font_size(0.035)
-        cr0.select_font_face("Gotham Pro Medium", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
+        cr0.select_font_face(self.draw_profile.font_header, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
         cr0.set_source_rgb(0, 0, 0)
         cr0.show_text(f'{fio.upper()}')
-        cr0.select_font_face("Gotham Pro Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr0.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         x, y = cr0.device_to_user(self.subtitle_x, self.subtitle_y)
         cr0.move_to(x, y)
         cr0.set_font_size(0.027)
@@ -452,7 +457,6 @@ class OneCirclePrinter:
 
         x, y = cr0.device_to_user(self.subtitle2_x, self.subtitle2_y)
         cr0.move_to(x, y)
-        # cr0.select_font_face('JetBrains Mono', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         cr0.select_font_face('Montserrat-Light', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         user_dates = 'Дата: ' if not cosmogram.death_dt else 'Годы жизни: '
         cr0.show_text(user_dates)

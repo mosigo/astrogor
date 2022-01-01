@@ -122,7 +122,7 @@ if __name__ == '__main__':
 
         cr0.set_font_size(title_font_size)
         space = (title_height / width) * 0.1
-        cr0.select_font_face("Gotham Pro Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr0.select_font_face("Montserrat Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         x1, y1 = 0 + space, title_height / width / 3
         cr0.move_to(x1, y1)
         cr0.show_text(person.name)

@@ -671,7 +671,7 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
         y = self._year_name(n, ['лет', 'год', 'года'])
         d = self._year_name(m, ['дней', 'день', 'дня'])
 
-        cr.select_font_face("Gotham Pro Light", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         self.add_text_by_center(cr, 'от рождения прошло', 0.55)
         if cosmogram.death_dt:
             self.add_text_by_center(cr, f"{n} {y}", 0.67)

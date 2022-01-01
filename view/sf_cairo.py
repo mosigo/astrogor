@@ -267,8 +267,8 @@ class DrawProfile:
 
 
 DrawProfile.DEFAULT = DrawProfile(
-    font_text='Montserrat-Light',
-    font_header='Montserrat-Medium'
+    font_text='Montserrat Light',
+    font_header='Montserrat Medium'
 )
 
 
