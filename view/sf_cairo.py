@@ -10,7 +10,7 @@ from flatlib import const
 from model.sf import SoulFormula, ORBIT_LABELS, SoulFormulaWithBorders
 from model.sf_flatlib import FlatlibBuilder
 from view.planet_label import PlanetLabelDrawer
-from view.sf_cairo_text_utils import add_text_by_center, add_text_by_right
+from view.sf_cairo_utils import add_text_by_center, add_text_by_right
 from view.sf_geometry import rotate_point
 
 

@@ -1,5 +1,4 @@
 import math
-import random
 from abc import abstractmethod
 from datetime import datetime
 
@@ -7,13 +6,14 @@ import cairo
 
 from model.sf import SoulFormula
 from model.sf_flatlib import FlatlibBuilder
-from view.sf_cairo import DFormula, SimpleFormulaDrawer, CirclePosition, OrbitPosition
+from view.sf_cairo import DFormula, SimpleFormulaDrawer, CirclePosition, OrbitPosition, FormulaDrawer
+from view.sf_cairo_utils import save_to_pdf, CairoDrawer
 from view.sf_optimization import GradientOptimization
 
 
 class LayoutMaker:
     @abstractmethod
-    def make_layout(self, formula: SoulFormula) -> DFormula:
+    def make_layout(self, formula: SoulFormula, width: int, height: int) -> DFormula:
         pass
 
 
@@ -108,7 +108,6 @@ class CircleFormulaCutter(FormulaCutter):
 
         return avg_x, avg_y, avg_r
 
-
     def __get_min_circle_by_rectangle(self, d_formula: DFormula, cr: cairo.Context):
         min_x, min_y = 1, 1
         max_x, max_y = 0, 0
@@ -124,7 +123,6 @@ class CircleFormulaCutter(FormulaCutter):
         x, y = (min_x + max_x) / 2, (min_y + max_y) / 2
         r = math.sqrt((min_x - x) ** 2 + (min_y - y) ** 2)
         return x, y, r
-
 
     def __get_min_circle3(self, d_formula: DFormula, cr: cairo.Context):
         circles: [CirclePosition] = [a[1] for a in d_formula.planet_to_position.items()] + \
@@ -260,8 +258,6 @@ class CircleFormulaCutter(FormulaCutter):
         return True
 
 
-
-
 class RectangleFormulaCutter(FormulaCutter):
 
     def get_bounds(self) -> (int, int):
@@ -312,7 +308,7 @@ class DefaultLayoutMaker(LayoutMaker):
     def __init__(self, f_cutter: FormulaCutter) -> None:
         self.cutter = f_cutter
 
-    def make_layout(self, formula: SoulFormula) -> DFormula:
+    def make_layout(self, formula: SoulFormula, width: int, height: int) -> DFormula:
         width, height = self.cutter.get_bounds()
         min_dim = min(int(width), int(height))
         surface_png = cairo.ImageSurface(cairo.FORMAT_ARGB32, min_dim, min_dim)
@@ -509,23 +505,30 @@ class DefaultLayoutMaker(LayoutMaker):
             self.__draw_orbit(cr, 0.5, 0.5, orbit1_width, orbit1_height, orbit_num, planets, d_formula)
 
         optimization = GradientOptimization()
-        optimization.optimize(d_formula, cr)
+        optimization.optimize(d_formula)
 
         self.__draw_orbit_labels(d_formula, cr)
 
 
-def save_to_pdf(out_path, out_width, out_height, formula_to_draw, drawer):
-    surface_pdf = cairo.PDFSurface(out_path, out_width, out_height)
-    surface_pdf.set_fallback_resolution(500, 500)
-    cr = cairo.Context(surface_pdf)
+class CairoFormulaDrawer(CairoDrawer):
 
-    cr.scale(out_width, out_width)
-    drawer.draw_formula(formula_to_draw, cr)
-    cr.set_source_rgb(0,1,0)
-    cr.set_line_width(0.01)
-    cr.stroke()
-    cr.arc(0.5, 0.5, 0.5, 0, 2 * math.pi)
-    cr.stroke()
+    def __init__(self, formula_to_draw: DFormula, f_drawer: FormulaDrawer) -> None:
+        self.f_drawer = f_drawer
+        self.formula_to_draw = formula_to_draw
+
+    def draw(self, cr: cairo.Context):
+        self.f_drawer.draw_formula(self.formula_to_draw, cr)
+
+
+def save_formula_to_pdf(out_path, out_width, out_height, formula_to_draw: DFormula, drawer: FormulaDrawer):
+
+    save_to_pdf(out_path, out_width, out_height, CairoFormulaDrawer(formula_to_draw, drawer))
+
+    # cr.set_source_rgb(0,1,0)
+    # cr.set_line_width(0.01)
+    # cr.stroke()
+    # cr.arc(0.5, 0.5, 0.5, 0, 2 * math.pi)
+    # cr.stroke()
 
 
 if __name__ == '__main__':
@@ -552,9 +555,9 @@ if __name__ == '__main__':
         print(formula)
         print(formula.additional_objects)
 
-        d_formula = layout_maker.make_layout(formula)
+        d_formula = layout_maker.make_layout(formula, w, h)
         print(d_formula.planet_to_position)
         print(d_formula.center_to_position)
         print(d_formula.orbit_to_position)
 
-        save_to_pdf(f"{dir}/{formula_date[:10]}_new2.pdf", w, h, d_formula, drawer)
+        save_formula_to_pdf(f"{dir}/{formula_date[:10]}_new2.pdf", w, h, d_formula, drawer)

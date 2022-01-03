@@ -27,6 +27,26 @@ def ellipse(cr0: cairo.Context) -> None:
     cr0.stroke()
 
 
+def circle(cr0: cairo.Context) -> None:
+    cr0.set_line_width(0.001)
+
+    x0, y0 = 0.5, 0.5
+    r0 = 0.49
+
+    cr0.arc(x0, y0, r0, 0, 2 * math.pi)
+    cr0.stroke()
+
+    alpha = 0
+    while alpha <= 2 * math.pi:
+        x1 = x0 + r0 * math.cos(alpha)
+        y1 = y0 + r0 * math.sin(alpha)
+        cr0.arc(x1, y1, 0.005, 0, 2 * math.pi)
+        cr0.fill()
+        alpha += math.pi / 18
+
+    cr0.stroke()
+
+
 def get_alpha(x0, y0, r0, x1, y1):
     a = math.sqrt((x0 + r0 - x1) ** 2 + (y0 - y1) ** 2)
     k = 1 if y1 > y0 else -1
@@ -115,8 +135,9 @@ if __name__ == '__main__':
     cr.scale(300, 300)
 
     # ellipse(cr)
+    circle(cr)
     # optimization_function(cr)
-    favicon(cr)
+    # favicon(cr)
 
     surface.write_to_png(f"pic/ellipse.png")
 

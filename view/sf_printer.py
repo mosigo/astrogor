@@ -528,7 +528,7 @@ class OneCirclePrinter:
             self.x - formula_radius, self.y - formula_radius, formula_radius * 2, formula_radius * 2))
         cr.scale(formula_radius * 2, formula_radius * 2)
 
-        d_formula = layout_maker.make_layout(formula.formula)
+        d_formula = layout_maker.make_layout(formula.formula, self.width, self.width)
         cr.arc(0.5, 0.5, 0.5, 0, 2 * math.pi)
         cr.clip()
         # cr.arc(0.5, 0.5, 0.5, 0, 2 * math.pi)

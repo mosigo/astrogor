@@ -9,12 +9,12 @@ from view.sf_cairo import DFormula, CirclePosition, OrbitPosition
 
 class Optimization:
     @abstractmethod
-    def optimize(self, d_formula: DFormula, cr: cairo.Context) -> DFormula:
+    def optimize(self, d_formula: DFormula) -> DFormula:
         pass
 
 
 class GradientOptimization(Optimization):
-    def optimize_by_one(self, d_formula: DFormula, cr: cairo.Context) -> None:
+    def optimize_by_one(self, d_formula: DFormula) -> None:
         orbit_planets = []
         for orbit_num, planets in d_formula.formula.orbits.items():
             orbit_planets += planets
@@ -88,15 +88,12 @@ class GradientOptimization(Optimization):
                 if p == planet:
                     return orbit_pos
 
-    def optimize(self, d_formula: DFormula, cr: cairo.Context) -> None:
-        print('оптимизация 1')
-        self.optimize_all(d_formula, cr)
-        print('оптимизация 2')
-        self.optimize_by_one(d_formula, cr)
-        print('оптимизация 3')
-        self.optimize_all(d_formula, cr)
+    def optimize(self, d_formula: DFormula) -> None:
+        self.optimize_all(d_formula)
+        self.optimize_by_one(d_formula)
+        self.optimize_all(d_formula)
 
-    def optimize_all(self, d_formula: DFormula, cr: cairo.Context) -> None:
+    def optimize_all(self, d_formula: DFormula) -> None:
         old_function_value = self.__optimization_function_value(d_formula)
         if old_function_value == 0:  # если нет планет на орбитах
             return
