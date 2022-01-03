@@ -164,6 +164,11 @@ class AnglesLayoutMaker(LayoutMaker):
     center_single_radius = 25
 
     def make_layout(self, formula: SoulFormula, width: int, height: int) -> DFormula:
+        c_formula = self.make_start_layout(formula)
+
+        return convert_cformula_to_dformula(c_formula)
+
+    def make_start_layout(self, formula: SoulFormula) -> CFormula:
         c_formula = CFormula(formula, AnglesLayoutMaker.planet_radius, AnglesLayoutMaker.orbit_width)
 
         # вычисляем расположение центров и планет внутри центров, пока без учёта орбит
@@ -192,7 +197,7 @@ class AnglesLayoutMaker(LayoutMaker):
         # выставляем позиции орбит и планеты на них
         self._set_orbits(c_formula)
 
-        return convert_cformula_to_dformula(c_formula)
+        return c_formula
 
     @staticmethod
     def _center_power(f: SoulFormula, center: [str]):
@@ -209,9 +214,11 @@ class AnglesLayoutMaker(LayoutMaker):
                 power += 1
         return power
 
-    def _set_centers(self, c: CFormula) -> (int, int):
+    @staticmethod
+    def _set_centers(c: CFormula) -> (int, int):
         centers = c.soul_formula.center
-        sorted_centers = sorted(centers, key=lambda cc: self._center_power(c.soul_formula, cc), reverse=True)
+        sorted_centers = sorted(centers,
+                                key=lambda cc: AnglesLayoutMaker._center_power(c.soul_formula, cc), reverse=True)
         c.set_centers(sorted_centers)
         radiuses = []
         for i in range(len(sorted_centers)):
@@ -275,8 +282,8 @@ class AnglesLayoutMaker(LayoutMaker):
                 to_planet = c_formula.soul_formula.links[planet]
                 to_planet_alpha = c_formula.get_planet_angle(to_planet)
                 da = 0
-                if math.pi / 2 < to_planet_alpha < math.pi * 3 / 4:
-                    da = math.pi
+                if math.pi / 2 < to_planet_alpha < math.pi * 3 / 2:
+                    da = (math.pi / 2 - alpha) * 2
                 c_formula.set_planet_angle(planet, alpha + da)
                 alpha += alpha_step
 
