@@ -48,24 +48,28 @@ class CFormula:
     # ширина орбиты (расстояние между двумя орбитами)
     orbit_width: float
 
+    # насколько лейбл орбиты меньше, чем планета; если 1, то размеры равны
+    orbit_label_ratio: float
+
     # радиус окружности, описывающей все центры формулы
     _center_radius: float
 
     # для каждой планеты, находящейся на орбите, храним угол в радианах, под которым она на ней расположена
     _planet_to_angle: {str, float}
 
-    # коэффициенты сжатия по осям x и y, чтобы получить эллипсы вместо окружностей для орбит
-    _compression_ratio_x: float
-    _compression_ratio_y: float
-
     # положение планеты в формуле: в центре ('center') или на орбите ('orbit') и номер центра или орбиты соответственно
     _planet_in_formula: {str, (str, int)}
 
-    def __init__(self, soul_formula: SoulFormula, planet_radius: float = 0, orbit_width: float = 0) -> None:
+    # углы, под которыми будут располагаться лейблы орбит
+    _orbit_label_angles: [float]
+
+    def __init__(self, soul_formula: SoulFormula, planet_radius: float = 0, orbit_width: float = 0,
+                 orbit_label_ratio: float = 0.8) -> None:
         self.soul_formula = soul_formula
 
         self.planet_radius = planet_radius
         self.orbit_width = orbit_width
+        self.orbit_label_ratio = orbit_label_ratio
 
         self._centers = []
         self._center_coordinates = []
@@ -76,13 +80,12 @@ class CFormula:
         self._x0 = 0.0
         self._y0 = 0.0
 
-        self._compression_ratio_x = 1.0
-        self._compression_ratio_y = 1.0
-
         self._center_radius = 0.0
 
         self._planet_to_angle = {}
         self._planet_in_formula = {}
+
+        self._orbit_label_angles = []
 
         # про все планеты на орбитах сразу запоминаем, где они находятся
         for orbit_num, planets in self.soul_formula.orbits.items():
@@ -99,7 +102,6 @@ class CFormula:
         res._center_radius = self._center_radius
 
         res._planet_in_formula = self._planet_in_formula.copy()
-        res._compression_ratio_x, res._compression_ratio_y = self._compression_ratio_x, self._compression_ratio_y
         res._planet_to_angle = self._planet_to_angle.copy()
         return res
 
@@ -148,10 +150,6 @@ class CFormula:
     def get_coordinates(self) -> (float, float):
         return self._x0, self._y0
 
-    def set_compression_ratio(self, kx: float, ky: float) -> None:
-        self._compression_ratio_x = kx
-        self._compression_ratio_y = ky
-
     def set_centers(self, centers: [[str]]) -> None:
         self._centers = centers
 
@@ -174,6 +172,18 @@ class CFormula:
 
     def set_planet_angle(self, planet, angle: float) -> None:
         self._planet_to_angle[planet] = angle
+
+    def set_orbit_label_angles(self, angles: [float]) -> None:
+        self._orbit_label_angles = angles
+
+    def get_orbit_label_angles(self, orbit_num) -> [float]:
+        r = self.get_orbit_radius(orbit_num)
+        x, y = self._x0 + r, self._y0
+        res = []
+        for alpha in self._orbit_label_angles:
+            xo, yo = rotate_point(self._x0, self._y0, x, y, alpha)
+            res.append(CircleCoordinates(xo, yo, self.planet_radius * self.orbit_label_ratio))
+        return res
 
 
 class OptimizationLogger:
@@ -290,14 +300,49 @@ class AnglesLayoutMaker(LayoutMaker):
         c_formula = self.make_start_layout(formula)
 
         self.logger.start_new_optimization('zero_a')
-        c_formula = self.optimize_to_zero_angles(c_formula, self._get_alpha0_composite)
+        c_formula = self._optimize_to_zero_angles(c_formula, self._get_alpha0_composite)
+
+        c_formula = self._place_orbit_labels(c_formula)
 
         return convert_cformula_to_dformula(c_formula)
 
-    def _is_success_step(self, cur_value: float, prev_value: float):
-        return cur_value < prev_value and abs(cur_value - prev_value) > 0.00001
+    def _place_orbit_labels(self, c_formula: CFormula) -> CFormula:
+        if len(c_formula.soul_formula.orbits) == 0:
+            return c_formula
 
-    def optimize_to_zero_angles(self, c_formula: CFormula, target_angle_function) -> CFormula:
+        k = math.pi * 2 / 3
+        angles = [
+            self._get_nearest_angle(c_formula, 0),
+            self._get_nearest_angle(c_formula, k),
+            self._get_nearest_angle(c_formula, k * 2)
+        ]
+        angles = [a for a in angles if a >= 0]
+        c_formula.set_orbit_label_angles(angles)
+
+        return c_formula
+
+    def _get_nearest_angle(self, c_formula: CFormula, angle: float) -> float:
+        res = angle
+        while res < math.pi * 2:
+            success = True
+            for orbit_num, planets in c_formula.soul_formula.orbits.items():
+                min_alpha = self._get_orbit_min_angle(c_formula, orbit_num) * c_formula.orbit_label_ratio
+                for planet in planets:
+                    alpha = c_formula.get_planet_angle(planet)
+                    if alpha < 0:
+                        alpha += math.pi * 2
+                    if alpha - min_alpha < res < alpha + min_alpha:
+                        success = False
+                        break
+                if not success:
+                    break
+            if success:
+                return res
+            res += 1 * math.pi / 180
+
+        return -1
+
+    def _optimize_to_zero_angles(self, c_formula: CFormula, target_angle_function) -> CFormula:
         # исходный шаг 30 градусов, минимальный — 1 градус
         step_min = 0.5 * math.pi / 180
         step_max = 30.0 * math.pi / 180
@@ -347,12 +392,18 @@ class AnglesLayoutMaker(LayoutMaker):
 
         return cur_formula
 
-    def _get_orbit_min_angle(self, c_formula: CFormula, orbit_num: int) -> float:
+    @staticmethod
+    def _is_success_step(cur_value: float, prev_value: float):
+        return cur_value < prev_value and abs(cur_value - prev_value) > 0.00001
+
+    @staticmethod
+    def _get_orbit_min_angle(c_formula: CFormula, orbit_num: int) -> float:
         orbit_radius = c_formula.get_orbit_radius(orbit_num)
         alpha_min = math.asin(c_formula.planet_radius * 1.1 / 2 / orbit_radius) * 4
         return alpha_min
 
-    def _get_alpha0_by_zero_angles(self, c_formula: CFormula, to_planet: str, orbit_num: int) -> float:
+    @staticmethod
+    def _get_alpha0_by_zero_angles(c_formula: CFormula, to_planet: str, orbit_num: int) -> float:
         x0, y0 = c_formula.get_coordinates()
         to_cc = c_formula.get_planet_coordinates(to_planet)
         orbit_radius = c_formula.get_orbit_radius(orbit_num)
@@ -648,6 +699,9 @@ def convert_cformula_to_dformula(c_formula: CFormula) -> DFormula:
             d_formula.set_planet_position(planet, CirclePosition(pc.x, pc.y, pc.r, 0))
         oc = c_formula.get_orbit_coordinates(orbit_num)
         d_formula.set_orbit_position(orbit_num, OrbitPosition(oc.x, oc.y, oc.r, 0, oc.r, 0))
+
+        for lc in c_formula.get_orbit_label_angles(orbit_num):
+            d_formula.add_orbit_label(orbit_num, CirclePosition(lc.x, lc.y, lc.r, 0))
     return d_formula
 
 
@@ -658,7 +712,7 @@ if __name__ == '__main__':
     builder = FlatlibBuilder()
     drawer = SimpleFormulaDrawer()
 
-    # for formula_date in ['1996-12-17 12:02 +03:00']:
+    # for formula_date in ['1990-12-13 12:02 +03:00']:
     for formula_date in ['1753-04-18 12:02 +03:00', '1986-07-14 12:02 +03:00', '2016-12-30 12:02 +03:00',
                          '1901-06-07 12:02 +03:00', '1939-01-28 12:02 +03:00', '1821-08-13 12:02 +03:00',
                          '1956-05-20 12:02 +03:00', '1987-12-04 12:02 +03:00', '1987-12-24 12:02 +03:00',

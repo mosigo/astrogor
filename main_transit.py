@@ -94,8 +94,8 @@ if __name__ == '__main__':
     birthday = row['birthday']
     city = row['city']
 
-    dt_from = datetime.strptime('2015-01-01 12:00 +0300', '%Y-%m-%d %H:%M %z')
-    dt_to = datetime.strptime('2015-12-31 12:00 +0300', '%Y-%m-%d %H:%M %z')
+    dt_from = datetime.strptime('2022-01-01 12:00 +0300', '%Y-%m-%d %H:%M %z')
+    dt_to = datetime.strptime('2022-12-31 12:00 +0300', '%Y-%m-%d %H:%M %z')
     # # draw_transit_by_days(name, birthday, city, dt_from, dt_to, cur_city='Варшава')
     draw_transit_by_days(name, birthday, city, dt_from, dt_to)
 
