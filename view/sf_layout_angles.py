@@ -5,6 +5,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import List
 
+import cairo
+
 from model.sf import SoulFormula
 from model.sf_flatlib import FlatlibBuilder
 from view.sf_cairo import DFormula, SimpleFormulaDrawer, CirclePosition, OrbitPosition
@@ -180,6 +182,10 @@ class OptimizationLogger:
     def log_iteration(self, c_formula: CFormula, add_info: {str, str}) -> None:
         pass
 
+    @abstractmethod
+    def start_new_optimization(self, op_type: str) -> None:
+        pass
+
 
 class NothingOptimizationLogger(OptimizationLogger):
 
@@ -195,36 +201,70 @@ class PDFOptimizationLogger(OptimizationLogger):
         step = add_info.get("step", 0.0)
         step_in_gradus = round(step * 180 / math.pi, 1)
         fval = add_info.get("value", 0.0)
-        fval_as_str = str(round(fval, 4)) if fval < 100 else 'inf'
-        out_file = f'{self.dir_path}/iter_{add_info.get("success")}_{iter_as_str}_{self.sub_iter_num}_v{fval_as_str}_s{step_in_gradus}.pdf'
+        fval_as_str = str(round(fval, 4)) if fval < 1000 else 'inf'
+        out_file = f'{self.dir_path}/iter_{add_info.get("success")}_{iter_as_str}_{self.sub_iter_num}_v{fval_as_str}_s{step_in_gradus}_{self.op_type}.pdf'
         save_formula_to_pdf(out_file, 1000, 1000, d_formula, self.drawer)
 
-        print(f'Итерация {iter_as_str} / {self.sub_iter_num}: ')
+        surface_pdf = cairo.PDFSurface(out_file, 1000, 1000)
+        surface_pdf.set_fallback_resolution(500, 500)
+        cr = cairo.Context(surface_pdf)
+
+        cr.scale(1000, 1000)
+        drawer = SimpleFormulaDrawer()
+        drawer.draw_formula(convert_cformula_to_dformula(c_formula), cr)
+
+        if not add_info.get("success"):
+            cr.set_source_rgb(1, 0, 0)
+
+        x = 0.01
+        y = 0.6
+        cr.move_to(x, y)
+        cr.show_text(f'Итерация {iter_as_str} / {self.sub_iter_num}, шаг={step_in_gradus}, '
+                     f'успех={add_info.get("success")}: ')
+        cr.stroke()
+        y += 0.04
         gradient_details = add_info.get('gradient-details')
         if gradient_details:
-            print(f'\tЗначения градиента\n')
-            for planet, (val1, val2, res, res_final) in gradient_details.items():
-                v1 = val1 * 180 / math.pi
-                v2 = val2 * 180 / math.pi
-                r = res * 180 / math.pi
-                rf = res_final * 180 / math.pi
+            cr.move_to(x, y)
+            cr.show_text(f'Значения градиента')
+            cr.stroke()
+            y += 0.02
+            success_planets = add_info.get('by-planets')
+            for planet, (target_angle, val1, val2, val3, res, res_final) in gradient_details.items():
+                ta = target_angle * 180 / math.pi
                 s = res_final * step * 180 / math.pi
                 cur_angle = c_formula.get_planet_angle(planet) * 180 / math.pi
-                print(f'\t{planet} : углы={v1}, расстояния={v2}, градиент={r}, норм. градиент={rf}'
-                      f', шаг={s}, текущий угол={cur_angle}')
-            print()
+                marker = '' if planet not in success_planets else '*'
+                cr.move_to(x, y)
+                cr.show_text(f'{planet}{marker} : углы={round(val1, 1)}, след. орбита={round(val3, 3)}, '
+                             f'расстояния={round(val2, 3)}, градиент={round(res, 1)}, '
+                             f'норм. градиент={round(res_final, 1)}'
+                             f', реальный шаг={round(-s, 1)}, угол={round(cur_angle, 1)}, целевой угол={round(ta, 1)}')
+                cr.stroke()
+                y += 0.02
 
+        y += 0.02
         details = add_info.get('details')
-        print(f'\tЗначения функции = {fval}\n')
+        cr.move_to(x, y)
+        cr.show_text(f'Значения функции = {round(fval, 6)}')
+        cr.stroke()
+        y += 0.02
         for planet, (val1, val2) in details.items():
-            print(f'\t{planet} : углы={val1}, расстояния={val2}')
-        print()
+            cr.move_to(x, y)
+            cr.show_text(f'{planet} : углы={round(val1, 3)}, расстояния={round(val2, 3)}')
+            cr.stroke()
+            y += 0.02
+
+        surface_pdf.finish()
 
         if add_info.get("success"):
             self.iter_num += 1
             self.sub_iter_num = 0
         else:
             self.sub_iter_num += 1
+
+    def start_new_optimization(self, op_type: str) -> None:
+        self.op_type = op_type
 
     def __init__(self, dir_path: str) -> None:
         dir_path = Path(dir_path)
@@ -234,6 +274,7 @@ class PDFOptimizationLogger(OptimizationLogger):
         self.sub_iter_num = 0
         self.dir_path = dir_path
         self.drawer = SimpleFormulaDrawer()
+        self.op_type = 'unknown'
 
 
 class AnglesLayoutMaker(LayoutMaker):
@@ -247,24 +288,28 @@ class AnglesLayoutMaker(LayoutMaker):
 
     def make_layout(self, formula: SoulFormula, width: int, height: int) -> DFormula:
         c_formula = self.make_start_layout(formula)
-        c_formula = self.optimize_to_zero_angles(c_formula)
+
+        self.logger.start_new_optimization('zero_a')
+        c_formula = self.optimize_to_zero_angles(c_formula, self._get_alpha0_composite)
 
         return convert_cformula_to_dformula(c_formula)
 
     def _is_success_step(self, cur_value: float, prev_value: float):
         return cur_value < prev_value and abs(cur_value - prev_value) > 0.00001
 
-    def optimize_to_zero_angles(self, c_formula: CFormula) -> CFormula:
+    def optimize_to_zero_angles(self, c_formula: CFormula, target_angle_function) -> CFormula:
         # исходный шаг 30 градусов, минимальный — 1 градус
-        step = 30.0 * math.pi / 180
         step_min = 0.5 * math.pi / 180
+        step_max = 30.0 * math.pi / 180
+        step = step_max
+
         print(f'Шаг исходный = {step}, шаг минимальный = {step_min}.')
 
         cur_formula = c_formula
         prev_formula = cur_formula.copy()
 
-        prev_value, _ = self._zero_angles_function(prev_formula)
-        cur_value, cur_details = self._zero_angles_function(cur_formula)
+        prev_value, _ = self._zero_angles_function(prev_formula, target_angle_function)
+        cur_value, cur_details = self._zero_angles_function(cur_formula, target_angle_function)
 
         is_success = self._is_success_step(cur_value, prev_value)
         self.logger.log_iteration(cur_formula,
@@ -276,18 +321,19 @@ class AnglesLayoutMaker(LayoutMaker):
 
             old_prev_formula = prev_formula
             prev_formula = cur_formula.copy()
-            gradient_value, gradient_details = self._zero_angles_gradient_function(cur_formula)
-            cur_formula = self._move_by_gradient(cur_formula, gradient_value, step)
+            gradient_value, gradient_details = self._zero_angles_gradient_function(cur_formula, target_angle_function)
+            cur_formula, by_planets = self._move_by_gradient(cur_formula, gradient_value, step, target_angle_function)
 
             old_prev_value = prev_value
             prev_value = cur_value
-            cur_value, cur_details = self._zero_angles_function(cur_formula)
+            cur_value, cur_details = self._zero_angles_function(cur_formula, target_angle_function)
 
             is_success = self._is_success_step(cur_value, prev_value)
 
             self.logger.log_iteration(cur_formula,
                                       {'value': cur_value, 'success': is_success, 'step': step,
-                                       'details': cur_details, 'gradient-details': gradient_details})
+                                       'details': cur_details, 'gradient-details': gradient_details,
+                                       'by-planets': by_planets})
 
             if not is_success:
                 if step > step_min:
@@ -298,11 +344,6 @@ class AnglesLayoutMaker(LayoutMaker):
 
                 cur_value = prev_value
                 prev_value = old_prev_value
-            else:
-                step *= 2
-
-        if i == 0:
-            print('Остановлено по числу итераций')
 
         return cur_formula
 
@@ -311,7 +352,7 @@ class AnglesLayoutMaker(LayoutMaker):
         alpha_min = math.asin(c_formula.planet_radius * 1.1 / 2 / orbit_radius) * 4
         return alpha_min
 
-    def _get_alpha0(self, c_formula: CFormula, to_planet: str, orbit_num: int) -> float:
+    def _get_alpha0_by_zero_angles(self, c_formula: CFormula, to_planet: str, orbit_num: int) -> float:
         x0, y0 = c_formula.get_coordinates()
         to_cc = c_formula.get_planet_coordinates(to_planet)
         orbit_radius = c_formula.get_orbit_radius(orbit_num)
@@ -324,7 +365,27 @@ class AnglesLayoutMaker(LayoutMaker):
             alpha0 = math.pi + alpha0
         return alpha0
 
-    def _zero_angles_function(self, c_formula: CFormula) -> (float, {str, (float, float)}):
+    def _get_alpha0_by_distance(self, c_formula: CFormula, to_planet: str, orbit_num: int) -> float:
+        x0, y0 = c_formula.get_coordinates()
+        to_cc = c_formula.get_planet_coordinates(to_planet)
+        if to_cc.x == x0:
+            return self._get_alpha0_by_zero_angles(c_formula, to_planet, orbit_num)
+
+        alpha0 = math.atan(abs(to_cc.y - y0) / abs(to_cc.x - x0))
+        if to_cc.y <= y0 and to_cc.x >= x0:
+            alpha0 = -alpha0
+        elif to_cc.y >= y0 and to_cc.x < x0:
+            alpha0 = math.pi - alpha0
+        elif to_cc.y <= y0 and to_cc.x < x0:
+            alpha0 = math.pi + alpha0
+        return alpha0
+
+    def _get_alpha0_composite(self, c_formula: CFormula, to_planet: str, orbit_num: int):
+        if orbit_num == 1:
+            return self._get_alpha0_by_zero_angles(c_formula, to_planet, orbit_num)
+        return self._get_alpha0_by_distance(c_formula, to_planet, orbit_num)
+
+    def _zero_angles_function(self, c_formula: CFormula, target_angle_function) -> (float, {str, (float, float)}):
         planet_to_value = {}
         res = 0
         for orbit_num, planets in c_formula.soul_formula.orbits.items():
@@ -332,7 +393,7 @@ class AnglesLayoutMaker(LayoutMaker):
             for planet in planets:
                 to_planet = c_formula.soul_formula.links[planet]
 
-                alpha0 = self._get_alpha0(c_formula, to_planet, orbit_num)
+                alpha0 = target_angle_function(c_formula, to_planet, orbit_num)
 
                 cur_alpha = c_formula.get_planet_angle(planet)
                 val1 = math.sin(cur_alpha - alpha0) ** 2
@@ -347,26 +408,49 @@ class AnglesLayoutMaker(LayoutMaker):
                 res += val2
         return res, planet_to_value
 
-    def _zero_angles_gradient_function(self, c_formula: CFormula) -> (
-    [(str, float)], {str, (float, float, float, float)}):
+    def _zero_angles_gradient_function(self, c_formula: CFormula, target_angle_function) -> (
+    [(str, float)], {str, (float, float, float, float, float, float)}):
         planet_to_gradient_value = {}
+        target_angles = {}
 
         planets_order = []
         gradient_values = []
 
+        x0, y0 = c_formula.get_coordinates()
+
         for orbit_num, planets in c_formula.soul_formula.orbits.items():
             alpha_min = self._get_orbit_min_angle(c_formula, orbit_num)
+
+            cur_orbit_radius = c_formula.get_orbit_radius(orbit_num)
+            next_orbit_radius = c_formula.get_orbit_radius(orbit_num + 1)
 
             for planet in planets:
                 res = 0
                 to_planet = c_formula.soul_formula.links[planet]
 
-                alpha0 = self._get_alpha0(c_formula, to_planet, orbit_num)
+                alpha0 = target_angle_function(c_formula, to_planet, orbit_num)
+                target_angles[planet] = alpha0
 
                 cur_alpha = c_formula.get_planet_angle(planet)
-                val1 = 2 * math.sin(cur_alpha - alpha0) * math.cos(cur_alpha - alpha0)
-
+                cur_cc = c_formula.get_planet_coordinates(planet)
+                # val1 = 2 * math.sin(cur_alpha - alpha0) * math.cos(cur_alpha - alpha0)
+                val1 = 2 * (cur_alpha - alpha0)
                 res += val1
+
+                val3 = 0
+
+                for next_planet in c_formula.soul_formula.reverse_links.get(planet, []):
+                    alpha_next = c_formula.get_planet_angle(next_planet)
+                    alpha_next0 = target_angle_function(c_formula, planet, orbit_num + 1)
+                    dd = (cur_orbit_radius / next_orbit_radius) * math.cos(cur_alpha) / math.sqrt(
+                        1 - (math.sin(cur_alpha) ** 2) * (cur_orbit_radius / next_orbit_radius) ** 2)
+                    if cur_cc.y > y0 and cur_cc.x >= x0:
+                        dd = -dd
+                    elif cur_cc.y >= y0 and cur_cc.x < x0:
+                        dd = -dd
+                    val3 += 2 * math.sin(alpha_next - alpha_next0) * math.cos(alpha_next - alpha_next0) * dd
+
+                res += val3
 
                 res1 = 0
                 for other_planet in planets:
@@ -378,7 +462,7 @@ class AnglesLayoutMaker(LayoutMaker):
                 val2 = res1 * (-1000) * 2
                 res += val2
 
-                planet_to_gradient_value[planet] = (val1, val2, res)
+                planet_to_gradient_value[planet] = (val1, val2, val3, res)
 
                 planets_order.append(planet)
                 gradient_values.append(res)
@@ -391,42 +475,42 @@ class AnglesLayoutMaker(LayoutMaker):
         for i in range(len(planets_order)):
             zipped_result.append((planets_order[i], gradient_values[i]))
         for planet, gradient_value in zipped_result:
-            val1, val2, res = planet_to_gradient_value[planet]
-            planet_to_gradient_value[planet] = (val1, val2, res, gradient_value)
+            val1, val2, val3, res = planet_to_gradient_value[planet]
+            target_angle = target_angles[planet]
+            planet_to_gradient_value[planet] = (target_angle, val1, val2, val3, res, gradient_value)
 
         return zipped_result, planet_to_gradient_value
 
-    def _move_by_gradient(self, c_formula: CFormula, gradient_value: [(str, float)], step: float) -> CFormula:
+    def _move_by_gradient(self, c_formula: CFormula, gradient_value: [(str, float)], step: float,
+                          target_angle_function) -> (CFormula, [str]):
         start_formula = c_formula.copy()
-        start_value, _ = self._zero_angles_function(start_formula)
+        start_value, _ = self._zero_angles_function(start_formula, target_angle_function)
         for planet, gradient_val in gradient_value:
             alpha = c_formula.get_planet_angle(planet)
             alpha += step * -gradient_val
             c_formula.set_planet_angle(planet, alpha)
 
-        cur_value, _ = self._zero_angles_function(c_formula)
+        cur_value, _ = self._zero_angles_function(c_formula, target_angle_function)
         if self._is_success_step(cur_value, start_value):
-            return c_formula
+            return c_formula, []
 
         if step > 10 * math.pi / 180:
-            return c_formula
+            return c_formula, []
 
-        is_success = False
+        success_planets = []
         for planet, gradient_val in gradient_value:
             source_alpha = start_formula.get_planet_angle(planet)
             alpha = source_alpha + step * -gradient_val
             start_formula.set_planet_angle(planet, alpha)
 
-            cur_value, _ = self._zero_angles_function(start_formula)
+            cur_value, _ = self._zero_angles_function(start_formula, target_angle_function)
             if not self._is_success_step(cur_value, start_value):
                 start_formula.set_planet_angle(planet, source_alpha)
             else:
-                is_success = True
-        if is_success:
-            return start_formula
-        return c_formula
-
-
+                success_planets.append(planet)
+        if len(success_planets) > 0:
+            return start_formula, success_planets
+        return c_formula, []
 
     def make_start_layout(self, formula: SoulFormula) -> CFormula:
         c_formula = CFormula(formula, AnglesLayoutMaker.planet_radius, AnglesLayoutMaker.orbit_width)
@@ -574,7 +658,7 @@ if __name__ == '__main__':
     builder = FlatlibBuilder()
     drawer = SimpleFormulaDrawer()
 
-    # for formula_date in ['1991-08-20 16:51 +03:00']:
+    # for formula_date in ['1996-12-17 12:02 +03:00']:
     for formula_date in ['1753-04-18 12:02 +03:00', '1986-07-14 12:02 +03:00', '2016-12-30 12:02 +03:00',
                          '1901-06-07 12:02 +03:00', '1939-01-28 12:02 +03:00', '1821-08-13 12:02 +03:00',
                          '1956-05-20 12:02 +03:00', '1987-12-04 12:02 +03:00', '1987-12-24 12:02 +03:00',
