@@ -13,6 +13,7 @@ from view.sf_cairo import SimpleFormulaDrawer, DFormula, CirclePosition, OrbitPo
 from view.sf_cosmogram import DefaultCosmogramDrawer
 from view.sf_geometry import rotate_point
 from view.sf_layout import DefaultLayoutMaker, RectangleFormulaCutter, CircleFormulaCutter
+from view.sf_layout_angles import AnglesLayoutMaker, CircleCutPolicy
 from view.sf_numeric import NumericDrawer
 
 
@@ -521,14 +522,17 @@ class OneCirclePrinter:
         c_drawer.draw_cosmogram(cosmogram, cr)
 
         formula_radius = self.circle_radius * 0.65
-        layout_maker = DefaultLayoutMaker(CircleFormulaCutter(formula_radius))
+        # layout_maker = DefaultLayoutMaker(CircleFormulaCutter(formula_radius))
+        layout_maker = AnglesLayoutMaker()
         drawer = SimpleFormulaDrawer()
 
         cr = cairo.Context(surface.create_for_rectangle(
             self.x - formula_radius, self.y - formula_radius, formula_radius * 2, formula_radius * 2))
         cr.scale(formula_radius * 2, formula_radius * 2)
 
-        d_formula = layout_maker.make_layout(formula.formula, self.width, self.width)
+        # d_formula = layout_maker.make_layout(formula.formula, self.width, self.width)
+        cut_policy = CircleCutPolicy(formula_radius)
+        d_formula = layout_maker.make_layout(formula.formula, self.width, self.width, cut_policy=cut_policy)
         cr.arc(0.5, 0.5, 0.5, 0, 2 * math.pi)
         cr.clip()
         # cr.arc(0.5, 0.5, 0.5, 0, 2 * math.pi)

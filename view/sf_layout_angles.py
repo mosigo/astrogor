@@ -57,6 +57,10 @@ class CFormula:
     # для каждой планеты, находящейся на орбите, храним угол в радианах, под которым она на ней расположена
     _planet_to_angle: {str, float}
 
+    # коэффициенты сжатия по осям x и y, чтобы получить эллипсы вместо окружностей для орбит
+    _compression_ratio_x: float
+    _compression_ratio_y: float
+
     # положение планеты в формуле: в центре ('center') или на орбите ('orbit') и номер центра или орбиты соответственно
     _planet_in_formula: {str, (str, int)}
 
@@ -80,6 +84,9 @@ class CFormula:
         self._x0 = 0.0
         self._y0 = 0.0
 
+        self._compression_ratio_x = 1.0
+        self._compression_ratio_y = 1.0
+
         self._center_radius = 0.0
 
         self._planet_to_angle = {}
@@ -96,6 +103,7 @@ class CFormula:
         res = CFormula(self.soul_formula, self.planet_radius, self.orbit_width)
         res._x0 = self._x0
         res._y0 = self._y0
+        res._compression_ratio_x, res._compression_ratio_y = self._compression_ratio_x, self._compression_ratio_y
 
         res._center_coordinates = self._center_coordinates.copy()
         res._centers = self._centers.copy()
@@ -103,6 +111,7 @@ class CFormula:
 
         res._planet_in_formula = self._planet_in_formula.copy()
         res._planet_to_angle = self._planet_to_angle.copy()
+        res._orbit_label_angles = self._orbit_label_angles.copy()
         return res
 
     def set_center_circle_radius(self, r: float) -> None:
@@ -113,10 +122,13 @@ class CFormula:
 
     def get_orbit_coordinates(self, orbit_num: int) -> CircleCoordinates:
         r = self.get_orbit_radius(orbit_num)
-        return CircleCoordinates(self._x0, self._y0, r)
+        xk, yk = self._compression_ratio_x, self._compression_ratio_y
+        return CircleCoordinates(self._x0 * xk, self._y0 * yk, r)
 
     def get_center_coordinates(self, i: int) -> CircleCoordinates:
-        return self._center_coordinates[i]
+        xk, yk = self._compression_ratio_x, self._compression_ratio_y
+        cc = self._center_coordinates[i]
+        return CircleCoordinates(cc.x * xk, cc.y * yk, cc.r)
 
     def set_center_coordinates(self, center_num: int, coordinates: CircleCoordinates) -> None:
         self._center_coordinates[center_num] = coordinates
@@ -126,21 +138,34 @@ class CFormula:
             coordinates.x += dx
             coordinates.y += dy
 
+    def move_coordinates(self, dx: float, dy: float, scale: float = 1.0):
+        for coordinates in self._center_coordinates:
+            coordinates.x = (coordinates.x + dx) * scale
+            coordinates.y = (coordinates.y + dy) * scale
+            coordinates.r *= scale
+        self._x0 = (self._x0 + dx) * scale
+        self._y0 = (self._y0 + dy) * scale
+
+        self._center_radius *= scale
+        self.orbit_width *= scale
+        self.planet_radius *= scale
+
     def get_planet_coordinates(self, planet: str) -> CircleCoordinates:
         angle = self._planet_to_angle.get(planet)
         place, num = self._planet_in_formula.get(planet)
+        xk, yk = self._compression_ratio_x, self._compression_ratio_y
         if place == 'center':
             cc = self._center_coordinates[num]
             if len(self._centers[num]) == 1:
-                return CircleCoordinates(cc.x, cc.y, self.planet_radius)
-            xp, yp = cc.x + cc.r - self.planet_radius * 1.1, cc.y
-            x, y = rotate_point(cc.x, cc.y, xp, yp, angle)
+                return CircleCoordinates(cc.x * xk, cc.y * yk, self.planet_radius)
+            xp, yp = cc.x * xk + cc.r - self.planet_radius * 1.1, cc.y * yk
+            x, y = rotate_point(cc.x * xk, cc.y * yk, xp, yp, angle)
             return CircleCoordinates(x, y, self.planet_radius)
         elif place == 'orbit':
             orr = self.get_orbit_radius(num)
             xp, yp = self._x0 + orr, self._y0
             x, y = rotate_point(self._x0, self._y0, xp, yp, angle)
-            return CircleCoordinates(x, y, self.planet_radius)
+            return CircleCoordinates(x * xk, y * yk, self.planet_radius)
         raise ValueError(f'Неизвестное расположение планеты: {place} (обрабатываем только "center" и "orbit").')
 
     def set_coordinates(self, x: float, y: float) -> None:
@@ -148,7 +173,8 @@ class CFormula:
         self._y0 = y
 
     def get_coordinates(self) -> (float, float):
-        return self._x0, self._y0
+        xk, yk = self._compression_ratio_x, self._compression_ratio_y
+        return self._x0 * xk, self._y0 * yk
 
     def set_centers(self, centers: [[str]]) -> None:
         self._centers = centers
@@ -176,14 +202,30 @@ class CFormula:
     def set_orbit_label_angles(self, angles: [float]) -> None:
         self._orbit_label_angles = angles
 
+    def get_compress_ratio(self) -> (float, float):
+        return self._compression_ratio_x, self._compression_ratio_y
+
     def get_orbit_label_angles(self, orbit_num) -> [float]:
         r = self.get_orbit_radius(orbit_num)
+        xk, yk = self._compression_ratio_x, self._compression_ratio_y
         x, y = self._x0 + r, self._y0
         res = []
         for alpha in self._orbit_label_angles:
             xo, yo = rotate_point(self._x0, self._y0, x, y, alpha)
-            res.append(CircleCoordinates(xo, yo, self.planet_radius * self.orbit_label_ratio))
+            res.append(CircleCoordinates(xo * xk, yo * yk, self.planet_radius * self.orbit_label_ratio))
         return res
+
+    def get_bounds(self) -> (float, float):
+        width = self._center_radius + len(self.soul_formula.orbits) * self.orbit_width
+        xk, yk = self._compression_ratio_x, self._compression_ratio_y
+        return width * xk, width * yk
+
+    def compress(self):
+        radiuses = [self.get_center_coordinates(i).r for i in range(len(self._centers))]
+        width, height = max(radiuses), sum(radiuses)
+        xk = 1.5 * width / height if width < height else 1.0
+        yk = 1.5 * height / width if height < width else 1.0
+        self._compression_ratio_x, self._compression_ratio_y = xk, yk
 
 
 class OptimizationLogger:
@@ -287,6 +329,101 @@ class PDFOptimizationLogger(OptimizationLogger):
         self.op_type = 'unknown'
 
 
+class CutPolicy:
+
+    @abstractmethod
+    def cut_formula(self, c_formula: CFormula) -> CFormula:
+        pass
+
+
+class NothingCutPolicy(CutPolicy):
+
+    def cut_formula(self, c_formula: CFormula) -> CFormula:
+        return c_formula
+
+
+class RectangleCutPolicy(CutPolicy):
+
+    def __init__(self, width: int, height: int) -> None:
+        self.height = height
+        self.width = width
+
+    def cut_formula(self, c_formula: CFormula) -> CFormula:
+        min_x, min_y, max_x, max_y = \
+            self._get_bounds(c_formula, length_ratio=self.width / self.height)
+        scale_w, scale_h = self.width / (max_x - min_x), self.height / (max_y - min_y)
+        scale = min(scale_w, scale_h)
+        c_formula.move_coordinates(-min_x, -min_y, scale)
+
+        return c_formula
+
+    @staticmethod
+    def _get_bounds(c_formula: CFormula, length_ratio=1.0, space_ratio=0.05):
+        width, height = c_formula.get_bounds()
+        min_x, min_y = width, height
+        max_x, max_y = 0, 0
+        circles: [CirclePosition] = []
+        for i in range(len(c_formula.get_centers())):
+            circles.append(c_formula.get_center_coordinates(i))
+        for _, planets in c_formula.soul_formula.orbits.items():
+            for planet in planets:
+                circles.append(c_formula.get_planet_coordinates(planet))
+
+        for cc in circles:
+            min_x = min(min_x, cc.x - cc.r)
+            min_y = min(min_y, cc.y - cc.r)
+            max_x = max(max_x, cc.x + cc.r)
+            max_y = max(max_y, cc.y + cc.r)
+        if max_x - min_x > (max_y - min_y) * length_ratio:
+            diff = ((max_x - min_x) - (max_y - min_y) * length_ratio) / 2
+            min_y -= diff
+            max_y += diff
+        else:
+            diff = ((max_y - min_y) * length_ratio - (max_x - min_x)) / 2
+            min_x -= diff
+            max_x += diff
+        space = (max_x - min_x) * space_ratio
+        min_x, min_y = min_x - space, min_y - space
+        max_x, max_y = max_x + space, max_y + space
+
+        return min_x, min_y, max_x, max_y
+
+
+class CircleCutPolicy(CutPolicy):
+
+    def __init__(self, radius: float, padding: float = 0.15) -> None:
+        self.padding = padding
+        self.radius = radius
+
+    def cut_formula(self, c_formula: CFormula) -> CFormula:
+        x, y, r = self._get_min_circle(c_formula)
+        r *= 1 + self.padding
+        min_x, min_y = x - r, y - r
+        scale = self.radius / r
+        c_formula.move_coordinates(-min_x, -min_y, scale)
+        return c_formula
+
+    @staticmethod
+    def _get_min_circle(c_formula: CFormula) -> (float, float, float):
+        avg_x, avg_y = 0, 0
+        circles: [CirclePosition] = []
+        for i in range(len(c_formula.get_centers())):
+            circles.append(c_formula.get_center_coordinates(i))
+        for _, planets in c_formula.soul_formula.orbits.items():
+            for planet in planets:
+                circles.append(c_formula.get_planet_coordinates(planet))
+        for cc in circles:
+            avg_x += cc.x
+            avg_y += cc.y
+        avg_x, avg_y = avg_x / len(circles), avg_y / len(circles)
+        avg_r = 0
+        for cc in circles:
+            d = cc.r + math.sqrt((avg_x - cc.x) ** 2 + (avg_y - cc.y) ** 2)
+            avg_r = max(avg_r, d)
+
+        return avg_x, avg_y, avg_r
+
+
 class AnglesLayoutMaker(LayoutMaker):
     planet_radius = 15
     center_padding = 3
@@ -296,13 +433,17 @@ class AnglesLayoutMaker(LayoutMaker):
     def __init__(self, logger: OptimizationLogger = NothingOptimizationLogger()) -> None:
         self.logger = logger
 
-    def make_layout(self, formula: SoulFormula, width: int, height: int) -> DFormula:
+    def make_layout(self, formula: SoulFormula, width: int, height: int,
+                    cut_policy: CutPolicy = NothingCutPolicy()) -> DFormula:
         c_formula = self.make_start_layout(formula)
 
         self.logger.start_new_optimization('zero_a')
         c_formula = self._optimize_to_zero_angles(c_formula, self._get_alpha0_composite)
 
         c_formula = self._place_orbit_labels(c_formula)
+
+        c_formula.compress()
+        c_formula = cut_policy.cut_formula(c_formula)
 
         return convert_cformula_to_dformula(c_formula)
 
@@ -329,8 +470,6 @@ class AnglesLayoutMaker(LayoutMaker):
                 min_alpha = self._get_orbit_min_angle(c_formula, orbit_num) * c_formula.orbit_label_ratio
                 for planet in planets:
                     alpha = c_formula.get_planet_angle(planet)
-                    if alpha < 0:
-                        alpha += math.pi * 2
                     if alpha - min_alpha < res < alpha + min_alpha:
                         success = False
                         break
@@ -614,6 +753,7 @@ class AnglesLayoutMaker(LayoutMaker):
         centers = c.soul_formula.center
         sorted_centers = sorted(centers,
                                 key=lambda cc: AnglesLayoutMaker._center_power(c.soul_formula, cc), reverse=True)
+        sorted_centers = [a[::-1] for a in sorted_centers]
         c.set_centers(sorted_centers)
         radiuses = []
         for i in range(len(sorted_centers)):
@@ -686,6 +826,7 @@ class AnglesLayoutMaker(LayoutMaker):
 def convert_cformula_to_dformula(c_formula: CFormula) -> DFormula:
     d_formula = DFormula(c_formula.soul_formula)
     centers = c_formula.get_centers()
+    xk, yk = c_formula.get_compress_ratio()
     for i in range(len(centers)):
         center = centers[i]
         for planet in center:
@@ -698,7 +839,7 @@ def convert_cformula_to_dformula(c_formula: CFormula) -> DFormula:
             pc = c_formula.get_planet_coordinates(planet)
             d_formula.set_planet_position(planet, CirclePosition(pc.x, pc.y, pc.r, 0))
         oc = c_formula.get_orbit_coordinates(orbit_num)
-        d_formula.set_orbit_position(orbit_num, OrbitPosition(oc.x, oc.y, oc.r, 0, oc.r, 0))
+        d_formula.set_orbit_position(orbit_num, OrbitPosition(oc.x, oc.y, oc.r * xk, 0, oc.r * yk, 0))
 
         for lc in c_formula.get_orbit_label_angles(orbit_num):
             d_formula.add_orbit_label(orbit_num, CirclePosition(lc.x, lc.y, lc.r, 0))
@@ -712,7 +853,7 @@ if __name__ == '__main__':
     builder = FlatlibBuilder()
     drawer = SimpleFormulaDrawer()
 
-    # for formula_date in ['1990-12-13 12:02 +03:00']:
+    # for formula_date in ['1987-01-10 12:02 +05:00']:
     for formula_date in ['1753-04-18 12:02 +03:00', '1986-07-14 12:02 +03:00', '2016-12-30 12:02 +03:00',
                          '1901-06-07 12:02 +03:00', '1939-01-28 12:02 +03:00', '1821-08-13 12:02 +03:00',
                          '1956-05-20 12:02 +03:00', '1987-12-04 12:02 +03:00', '1987-12-24 12:02 +03:00',
@@ -723,7 +864,10 @@ if __name__ == '__main__':
         print(formula)
 
         layout_maker = AnglesLayoutMaker(PDFOptimizationLogger(f'/tmp/{formula_date[:10]}_opt'))
-        d_formula = layout_maker.make_layout(formula, w, h)
+        cut_policy = RectangleCutPolicy(w, h)
+        # cut_policy = CircleCutPolicy(500)
+        # cut_policy = NothingCutPolicy()
+        d_formula = layout_maker.make_layout(formula, w, h, cut_policy=cut_policy)
         print(d_formula.planet_to_position)
         print(d_formula.center_to_position)
         print(d_formula.orbit_to_position)
