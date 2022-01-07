@@ -17,6 +17,23 @@ from ext.sf_geocoder import DefaultSFGeocoder
 app = Flask(__name__)
 
 
+def get_date_param_value(param_name: str, param_default_value: datetime) -> datetime:
+    val = request.args.get(param_name)
+    if val:
+        try:
+            return datetime.strptime(val, '%d.%m.%Y %H:%M')
+        except:
+            pass
+    return param_default_value
+
+
+def get_str_param_value(param_name: str, param_default_value: str) -> str:
+    val = request.args.get(param_name)
+    if val and val.strip():
+            return val
+    return param_default_value
+
+
 @app.route('/', methods=['POST', 'GET'])
 def index():
     return render_template('old.html')
@@ -36,7 +53,7 @@ def old():
 def download_card():
     fio, birthday, city, age_units = get_card_params()
 
-    birthday_unified = datetime.strptime(birthday, '%d.%m.%Y %H:%M').strftime('%Y-%m-%d %H:%M')
+    birthday_unified = birthday.strftime('%Y-%m-%d %H:%M')
     filename = generate_full_card(geocoder, fio, f'{birthday_unified}', city, age_units)
     return send_file(filename)
 
@@ -44,9 +61,9 @@ def download_card():
 def get_card_params():
     cur_dt = datetime.now(pytz.timezone("Europe/Moscow"))
 
-    fio = request.args.get('fio', 'Сегодня')
-    birthday = request.args.get('birthday', cur_dt.strftime('%d.%m.%Y %H:%M'))
-    city = request.args.get('city', 'Москва')
+    fio = get_str_param_value('fio', 'Сегодня')
+    birthday = get_date_param_value('birthday', cur_dt)
+    city = get_str_param_value('city', 'Москва')
     age_units = 'years' if request.args.get('age-in-years', False) else 'days'
 
     return fio, birthday, city, age_units
@@ -56,7 +73,9 @@ def get_card_params():
 def create_card():
     fio, birthday, city, age_units = get_card_params()
 
-    birthday_unified = datetime.strptime(birthday, '%d.%m.%Y %H:%M').strftime('%Y-%m-%d %H:%M')
+    birthday_as_str = birthday.strftime('%d.%m.%Y %H:%M')
+
+    birthday_unified = birthday.strftime('%Y-%m-%d %H:%M')
     filename = generate_card(geocoder, fio, f'{birthday_unified}', city, age_units)
 
     name_tr = translit(fio, "ru", reversed=True)
@@ -64,35 +83,35 @@ def create_card():
     out_file = f'{name_tr}_{birthday_unified[:10]}.pdf'
 
     age_in_years = '&age-in-years=on' if age_units == 'years' else ''
-    link = '/download-card?fio=' + unquote(fio) + '&birthday=' + unquote(birthday) + '&city=' + unquote(city) + \
-           age_in_years
+    link = '/download-card?fio=' + unquote(fio) + '&birthday=' + unquote(birthday_as_str) \
+           + '&city=' + unquote(city) + age_in_years
 
     with open(filename, "rb") as img_file:
         b64_string = base64.b64encode(img_file.read()).decode('utf-8')
         os.remove(filename)
         return render_template('card.html', img_as_base64=b64_string,
-                               fio=fio, birthday=birthday, city=city,
+                               fio=fio, birthday=birthday_as_str, city=city,
                                out_file_name=out_file, download_link=link, age_in_years=age_units == 'years')
 
 
 def get_transit_params():
     cur_dt = datetime.now(pytz.timezone("Europe/Moscow"))
 
-    fio = request.args.get('fio', 'Сегодня')
-    birthday = request.args.get('birthday', cur_dt.strftime('%d.%m.%Y %H:%M'))
-    transit_day = request.args.get('transit-day', cur_dt.strftime('%d.%m.%Y %H:%M'))
-    city = request.args.get('city', 'Москва')
-    cur_city = request.args.get('current-city', 'Москва')
+    fio = get_str_param_value('fio', 'Сегодня')
+    birthday = get_date_param_value('birthday', cur_dt)
+    transit_day = get_date_param_value('transit-day', cur_dt)
+    city = get_str_param_value('city', 'Москва')
+    cur_city = get_str_param_value('current-city', 'Москва')
 
     return fio, birthday, city, transit_day, cur_city
 
 
 @app.route('/transit', methods=['GET'])
 def create_transit():
-    fio, birthday, city, transit_day, cur_city = get_transit_params()
+    fio, birthday_dt, city, transit_dt, cur_city = get_transit_params()
 
-    birthday_dt = datetime.strptime(birthday, '%d.%m.%Y %H:%M')
-    transit_dt = datetime.strptime(transit_day, '%d.%m.%Y %H:%M')
+    birthday = birthday_dt.strftime('%d.%m.%Y %H:%M')
+    transit_day = transit_dt.strftime('%d.%m.%Y %H:%M')
 
     filename = generate_transit(geocoder, birthday_dt, city, transit_dt, cur_city)
 
@@ -122,10 +141,8 @@ def create_transit():
 
 @app.route('/download-transit', methods=['GET'])
 def download_transit():
-    fio, birthday, city, transit_day, cur_city = get_transit_params()
+    fio, birthday_dt, city, transit_dt, cur_city = get_transit_params()
 
-    birthday_dt = datetime.strptime(birthday, '%d.%m.%Y %H:%M')
-    transit_dt = datetime.strptime(transit_day, '%d.%m.%Y %H:%M')
     filename = generate_full_transit(geocoder, birthday_dt, city, transit_dt, cur_city)
     return send_file(filename)
 
