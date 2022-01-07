@@ -73,7 +73,6 @@ class DefaultCosmogramOptimizer(CosmogramOptimizer):
             bucket.append(planet)
         for bucket_num, planets in buckets.items():
             planets.sort(key=lambda p: p.lon)
-            print([p.name for p in planets])
 
         iter_num = 1
         while iter_num <= 30:

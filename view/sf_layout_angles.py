@@ -223,8 +223,11 @@ class CFormula:
     def compress(self):
         radiuses = [self.get_center_coordinates(i).r for i in range(len(self._centers))]
         width, height = max(radiuses), sum(radiuses)
-        xk = 1.5 * width / height if width < height else 1.0
-        yk = 1.5 * height / width if height < width else 1.0
+        min_ratio = self.planet_radius * 2.7 / self.orbit_width
+        if len(self.soul_formula.orbits) <= 1:
+            min_ratio = 0.0
+        xk = max(min_ratio, 1.2 * width / height) if width < height else 1.0
+        yk = max(min_ratio, 1.2 * height / width) if height < width else 1.0
         self._compression_ratio_x, self._compression_ratio_y = xk, yk
 
 
@@ -426,7 +429,7 @@ class CircleCutPolicy(CutPolicy):
 
 class AnglesLayoutMaker(LayoutMaker):
     planet_radius = 15
-    center_padding = 3
+    center_padding = 5
     orbit_width = 50
     center_single_radius = 25
 
@@ -486,8 +489,6 @@ class AnglesLayoutMaker(LayoutMaker):
         step_min = 0.5 * math.pi / 180
         step_max = 30.0 * math.pi / 180
         step = step_max
-
-        print(f'Шаг исходный = {step}, шаг минимальный = {step_min}.')
 
         cur_formula = c_formula
         prev_formula = cur_formula.copy()

@@ -1,18 +1,66 @@
 <html>
 <head>
-    {% block head %}
     <title>Сайт школы русской астрологии «Волхвы»</title>
+    <meta name="Keywords"
+          content="вебинары, учебный, курс, обучение, занятия, формула, душа, души, астрогор, астрология, космограмма, планета, гороскоп, сила, метод, цепочка, диспозитор, владение, astrogor, astrology, astrological, soul, formula, planet, horoscope, method"/>
+    <meta name="description" content="Школа Русской Астрологии Волхвы. Метод Александра Астрогора Формула Души"/>
+    <meta name="author" lang="ru" content="Александр Астрогор"/>
+    <meta name="copyright" lang="ru" content="c 2021, Александр Астрогор"/>
+    <meta name="Document-state" content="Dynamic"/>
+    <meta name="Revisit" content="7"/>
+    <meta name="Robots" content="INDEX,FOLLOW"/>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}" type="image/x-icon"/>
     <link rel="icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}" type="image/x-icon"/>
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='favicon/apple-icon.png') }}" type="image/x-icon">
-    <style>@font-face {font-family: BellotaText; src: url("{{ url_for('static', filename='fonts/BellotaText-Regular.ttf')}}") format("truetype"); "}</style>
-    <style>@font-face {font-family: Bellota; src: url("{{ url_for('static', filename='fonts/Bellota-Bold.ttf')}}") format("truetype");}</style>
-    <style>h1, h2, h3, h4, h5, h6 {font-family: Bellota; font-size: 36px;</style>
-    <style>* {font-family: BellotaText; font-size: 18px;</style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" type="text/css"/>
+    <style>@font-face {
+        font-family: MontserratLight;
+        src: url("{{ url_for('static', filename='fonts/Montserrat-Light.ttf')}}") format("truetype");
+    }</style>
+    <style>@font-face {
+        font-family: MontserratMedium;
+        src: url("{{ url_for('static', filename='fonts/Montserrat-Medium.ttf')}}") format("truetype");
+    }</style>
+    {% block head %}
     {% endblock %}
 </head>
 <body>
+<div class="main-header">
+    <a href="/"><img src="{{ url_for('static', filename='pic/logo_andrey_small.png') }}" class="logo"/></a>
+    {% block header %}
+    {% endblock %}
+</div>
+<div class="main-container">
 {% block body %}
 {% endblock %}
+</div>
+<div id="main-footer">
+    <div class="links">
+        <div class="main-footer-column">
+            <div class="header">Обучение</div>
+            <a href="/">Курсы</a>
+            <a href="/">Рекомендуем</a>
+            <a href="/">Видео</a>
+            <a href="/">Книги</a>
+        </div>
+        <div class="main-footer-column">
+            <div class="header">Консультации</div>
+            <a href="/">Александр Астрогор</a>
+            <a href="/">Евгений Климантов</a>
+        </div>
+        <div class="main-footer-column">
+            <div class="header">Астрологам</div>
+            <a href="/card">Формула Души</a>
+            <a href="/transit">Транзиты</a>
+            <a href="/">Материалы для скачивания</a>
+        </div>
+        <div class="main-footer-column">
+            <div class="header">Блог</div>
+            <div class="header">Контакты</div>
+        </div>
+
+    </div>
+    <div class="copyright">© Александр Астрогор, 2021–2022</div>
+</div>
 </body>
 </html>

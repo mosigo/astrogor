@@ -1,17 +1,18 @@
 import base64
 import configparser
 import os
-import tempfile
-import cairo
+from urllib.parse import unquote
+
 import pytz
 
-from flask import Flask, request, render_template
-from datetime import datetime
+from flask import Flask, request, render_template, send_file, redirect
+from datetime import datetime, timedelta
 
-from model.sf import SoulFormulaWithBorders, NumericInfo
-from model.sf_flatlib import FlatlibBuilder, get_borders
-from ext.sf_geocoder import SFGeocoder
-from view.sf_printer import OneCirclePrinter
+from transliterate import translit
+
+from app.app_sf import generate_full_card, generate_card
+from app.app_transit import generate_transit, generate_full_transit
+from ext.sf_geocoder import DefaultSFGeocoder
 
 app = Flask(__name__)
 
@@ -23,7 +24,7 @@ def index():
 
 @app.route('/fd', methods=['GET'])
 def fd():
-    return render_template('fd.html')
+    return redirect('/card')
 
 
 @app.route('/old', methods=['GET'])
@@ -31,75 +32,102 @@ def old():
     return render_template('index.html')
 
 
-@app.route('/card', methods=['GET'])
-def create_card():
+@app.route('/download-card', methods=['GET'])
+def download_card():
+    fio, birthday, city, age_units = get_card_params()
+
+    birthday_unified = datetime.strptime(birthday, '%d.%m.%Y %H:%M').strftime('%Y-%m-%d %H:%M')
+    filename = generate_full_card(geocoder, fio, f'{birthday_unified}', city, age_units)
+    return send_file(filename)
+
+
+def get_card_params():
     cur_dt = datetime.now(pytz.timezone("Europe/Moscow"))
 
-    fio = request.args.get('fio', 'Сегодняшний день')
-    birthday = request.args.get('birthday', cur_dt.strftime('%d.%m.%Y'))
-    birth_time = request.args.get('birth_time', cur_dt.strftime('%H:%M'))
+    fio = request.args.get('fio', 'Сегодня')
+    birthday = request.args.get('birthday', cur_dt.strftime('%d.%m.%Y %H:%M'))
     city = request.args.get('city', 'Москва')
+    age_units = 'years' if request.args.get('age-in-years', False) else 'days'
 
-    birthday_unified = datetime.strptime(birthday, '%d.%m.%Y').strftime('%Y-%m-%d')
-    filename = generate_card(fio, f'{birthday_unified} {birth_time}', city)
+    return fio, birthday, city, age_units
 
-    # cur_dt_str = cur_dt.strftime('%d.%m.%Y %H:%M мск')
-    # builder = FlatlibBuilder()
-    # cosmo = builder.build_cosmogram(
-    #     cur_dt
-    # )
 
-    # drawer = DefaultCosmogramDrawer(life_years=29.436 * 360 / (360 + 23.82), first_life_year=1, first_life_year_lon=252)
-    # drawer = DefaultCosmogramDrawer(aspects=[60], planet_ruler_place='in_sign')
-    # surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, 2000, 2000)
-    # cr = cairo.Context(surface)
-    # cr.scale(2000, 2000)
-    # drawer.draw_cosmogram(cosmo, cr)
-    #
-    # new_file, filename = tempfile.mkstemp(suffix='.png', prefix='cosmo_')
-    # print(f'Создан временный файл для вывода космограммы: {filename}')
-    # surface.write_to_png(filename)
-    # os.close(new_file)
+@app.route('/card', methods=['GET'])
+def create_card():
+    fio, birthday, city, age_units = get_card_params()
+
+    birthday_unified = datetime.strptime(birthday, '%d.%m.%Y %H:%M').strftime('%Y-%m-%d %H:%M')
+    filename = generate_card(geocoder, fio, f'{birthday_unified}', city, age_units)
+
+    name_tr = translit(fio, "ru", reversed=True)
+    name_tr = name_tr.replace(' ', '_').replace('\'', '').lower()
+    out_file = f'{name_tr}_{birthday_unified[:10]}.pdf'
+
+    age_in_years = '&age-in-years=on' if age_units == 'years' else ''
+    link = '/download-card?fio=' + unquote(fio) + '&birthday=' + unquote(birthday) + '&city=' + unquote(city) + \
+           age_in_years
 
     with open(filename, "rb") as img_file:
         b64_string = base64.b64encode(img_file.read()).decode('utf-8')
         os.remove(filename)
-        return render_template('card.html', img_as_base64=b64_string)
+        return render_template('card.html', img_as_base64=b64_string,
+                               fio=fio, birthday=birthday, city=city,
+                               out_file_name=out_file, download_link=link, age_in_years=age_units == 'years')
 
 
-def generate_card(name, birthday_time, city, death_time=None):
+def get_transit_params():
+    cur_dt = datetime.now(pytz.timezone("Europe/Moscow"))
 
-    geo_res = geocoder.get_geo_position(city, birthday_time)
-    print(f'UTC => {geo_res}')
+    fio = request.args.get('fio', 'Сегодня')
+    birthday = request.args.get('birthday', cur_dt.strftime('%d.%m.%Y %H:%M'))
+    transit_day = request.args.get('transit-day', cur_dt.strftime('%d.%m.%Y %H:%M'))
+    city = request.args.get('city', 'Москва')
+    cur_city = request.args.get('current-city', 'Москва')
 
-    w, h = 210 * 10, 297 * 10
+    return fio, birthday, city, transit_day, cur_city
 
-    builder = FlatlibBuilder()
-    printer = OneCirclePrinter(width=w, height=h, border_offset=50, title_height=80, subtitle_height=40,
-                               text_offset=20, add_info_radius=180, add_info_overlap=25, qr_width=250,
-                               age_units='years')
 
-    dt = datetime.strptime(f'{birthday_time} {geo_res.utc_offset}', '%Y-%m-%d %H:%M %z')
-    death_dt = None
-    if death_time is not None:
-        death_dt = datetime.strptime(f'{death_time} {geo_res.utc_offset}', '%Y-%m-%d %H:%M %z')
-    formula = builder.build_formula(dt, lat=geo_res.lat, lon=geo_res.lon)
-    cosmogram = builder.build_cosmogram(dt, lat=geo_res.lat, lon=geo_res.lon, death_dt=death_dt)
-    start_dt, end_dt = get_borders(dt, lat=geo_res.lat, lon=geo_res.lon)
+@app.route('/transit', methods=['GET'])
+def create_transit():
+    fio, birthday, city, transit_day, cur_city = get_transit_params()
 
-    surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, w, h)
-    cr = cairo.Context(surface)
-    cr.scale(w, w)
-    printer.print_info(name, geo_res.address,
-                       SoulFormulaWithBorders(formula, start_dt, end_dt), cosmogram, surface)
+    birthday_dt = datetime.strptime(birthday, '%d.%m.%Y %H:%M')
+    transit_dt = datetime.strptime(transit_day, '%d.%m.%Y %H:%M')
 
-    new_file, filename = tempfile.mkstemp(suffix='.png', prefix='cosmo_')
-    print(f'Создан временный файл для вывода космограммы: {filename}')
-    surface.write_to_png(filename)
-    os.close(new_file)
+    filename = generate_transit(geocoder, birthday_dt, city, transit_dt, cur_city)
 
-    surface.finish()
-    return filename
+    name_tr = translit(fio, "ru", reversed=True)
+    name_tr = name_tr.replace(' ', '_').replace('\'', '').lower()
+    birthday_unified = birthday_dt.strftime('%Y-%m-%d %H:%M')
+    transit_day_unified = transit_dt.strftime('%Y-%m-%d %H:%M')
+    out_file = f'{name_tr}_tr{birthday_unified[:10]}_to{transit_day_unified[:10]}.pdf'
+
+    params = 'fio=' + unquote(fio) + '&birthday=' + unquote(birthday) + '&city=' + unquote(city) + \
+           '&current-city=' + unquote(cur_city)
+
+    next_transit_day = (transit_dt + timedelta(days=1)).strftime('%d.%m.%Y %H:%M')
+    prev_transit_day = (transit_dt - timedelta(days=1)).strftime('%d.%m.%Y %H:%M')
+
+    next_link = '/transit?' + params + '&transit-day=' + unquote(next_transit_day)
+    prev_link = '/transit?' + params + '&transit-day=' + unquote(prev_transit_day)
+    link = '/download-transit?' + params + '&transit-day=' + unquote(transit_day)
+
+    with open(filename, "rb") as img_file:
+        b64_string = base64.b64encode(img_file.read()).decode('utf-8')
+        os.remove(filename)
+        return render_template('transit.html', img_as_base64=b64_string,
+                               fio=fio, birthday=birthday, city=city, transit_day=transit_day, current_city=cur_city,
+                               out_file_name=out_file, download_link=link, prev_link=prev_link, next_link=next_link)
+
+
+@app.route('/download-transit', methods=['GET'])
+def download_transit():
+    fio, birthday, city, transit_day, cur_city = get_transit_params()
+
+    birthday_dt = datetime.strptime(birthday, '%d.%m.%Y %H:%M')
+    transit_dt = datetime.strptime(transit_day, '%d.%m.%Y %H:%M')
+    filename = generate_full_transit(geocoder, birthday_dt, city, transit_dt, cur_city)
+    return send_file(filename)
 
 
 if __name__ == '__main__':
@@ -107,6 +135,6 @@ if __name__ == '__main__':
     config.read('sf_config.ini')
     config.read('sf_config_local.ini')
 
-    geocoder = SFGeocoder(config.get('Geocoder', 'token'))
+    geocoder = DefaultSFGeocoder(config.get('Geocoder', 'token'))
 
     app.run(debug=True, port=8080)

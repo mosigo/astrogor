@@ -7,7 +7,7 @@ from flatlib.chart import Chart
 from flatlib.datetime import Datetime
 from flatlib.geopos import GeoPos
 
-from ext.sf_geocoder import SFGeocoder
+from ext.sf_geocoder import DefaultSFGeocoder
 from model.sf import SoulFormula, SIGN_TO_HOUSE, SoulFormulaBuilder, PLANET_POWER, Cosmogram, CosmogramPlanet
 
 
@@ -180,7 +180,6 @@ def get_borders(dt: datetime, lat: float, lon: float):
     builder = FlatlibBuilder()
     formula = builder.build_formula(dt, lat=lat, lon=lon)
     formula_id = formula.get_id()
-    print(f'ID формулы        => {formula_id}')
     left = dt - timedelta(hours=1)
     left_formula = builder.build_formula(left, lat=lat, lon=lon)
     while left_formula.get_id() == formula_id:
@@ -207,7 +206,7 @@ if __name__ == '__main__':
     config.read('sf_config.ini')
     config.read('sf_config_local.ini')
 
-    geocoder = SFGeocoder(config.get('Geocoder', 'token'))
+    geocoder = DefaultSFGeocoder(config.get('Geocoder', 'token'))
 
     builder = FlatlibBuilder()
     geo_data = geocoder.get_geo_position('Тобольск')

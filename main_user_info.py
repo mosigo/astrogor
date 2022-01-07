@@ -4,7 +4,7 @@ from datetime import datetime
 import cairo
 from transliterate import translit
 
-from ext.sf_geocoder import SFGeocoder
+from ext.sf_geocoder import DefaultSFGeocoder
 from model.sf import SoulFormulaWithBorders, NumericInfo
 from model.sf_flatlib import FlatlibBuilder, get_borders
 from utils.sf_csv import read_csv_file
@@ -44,7 +44,7 @@ if __name__ == '__main__':
     config.read('sf_config.ini')
     config.read('sf_config_local.ini')
 
-    geocoder = SFGeocoder(config.get('Geocoder', 'token'))
+    geocoder = DefaultSFGeocoder(config.get('Geocoder', 'token'))
 
     row = read_csv_file('in_data/user_info.csv')[-1]
     print(row)

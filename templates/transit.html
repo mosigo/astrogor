@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/card.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/transit.css') }}" type="text/css"/>
 {% endblock %}
 
 {% block header %}
@@ -9,8 +9,9 @@
 
 {% block body %}
 
-<h1>Космограмма и Формула Души</h1>
-<form action="/card" method="get">
+<h1>Транзит космограммы на дату</h1>
+<form action="/transit" method="get">
+    <div class="form-header">Исходная дата</div>
     <div class="form-field">
         <label for="birthday">Дата</label>
         <input type="text" placeholder="01.01.2000 12:00" name="birthday" id="birthday" value="{{birthday}}" size="16"/>
@@ -21,19 +22,23 @@
     <div class="form-field">
         <label for="fio">Имя</label><input type="text" name="fio" id="fio" value="{{fio}}" size="16"/>
     </div>
-
+    <div class="form-header">Транзит на дату</div>
     <div class="form-field">
-        {% if age_in_years %}
-            <input type="checkbox" name="age-in-years" id="age-in-years" checked="checked"/>
-        {% else %}
-            <input type="checkbox" name="age-in-years" id="age-in-years"/>
-        {% endif %}
-        <label for="age-in-years" id="age-in-years-label">Годы вместо дней</label>
+        <label for="transit-day">Дата</label>
+        <input type="text" placeholder="01.01.2000 12:00" name="transit-day" id="transit-day" value="{{transit_day}}" size="16"/>
     </div>
+    <div class="form-field">
+        <label for="city">Город</label><input type="text" name="current-city" id="current-city" value="{{current_city}}" size="16"/>
+    </div>
+
     <div>
         <input type="submit" value="Построить!">
     </div>
 </form>
+<div class="nav-buttons">
+    <a href="{{prev_link}}">⟵ пред.</a> |
+    <a href="{{next_link}}">след. ⟶</a>
+</div>
 <div class="download">
     <a href="{{download_link}}" download="{{out_file_name}}">PDF</a>
 </div>

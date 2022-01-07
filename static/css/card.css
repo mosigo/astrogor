@@ -1,0 +1,15 @@
+.download {
+    text-align: right;
+    margin: 0 0 0 16px;
+}
+
+#age-in-years-label {
+    margin-left: 8px;
+}
+
+@media (max-width: 500px) {
+    #age-in-years-label {
+        height: 70px;
+        margin-left: 0;
+    }
+}

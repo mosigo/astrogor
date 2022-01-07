@@ -1,0 +1,138 @@
+/*Общие стили*/
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: MontserratMedium;
+    font-size: 36px;
+}
+
+* {
+    font-family: MontserratLight;
+}
+
+body {
+    margin: 0;
+    font-size: 18px;
+}
+
+/*Логотип*/
+
+.logo {
+    float: left;
+    margin: 16px 32px 16px 16px;
+    max-width: 300px;
+    max-height: 100px;
+}
+
+/*Основной контейнер, внутри которого всё лежит*/
+
+.main-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 8px;
+}
+
+/*Футер сайта*/
+
+#main-footer {
+    font-size: 12px;
+    background-color: rgba(0, 20, 69, 1);
+    color: white;
+    padding: 16px;
+}
+
+#main-footer a {
+    color: white;
+    display: block;
+    text-decoration: none;
+    padding-left: 8px;
+    padding-bottom: 4px;
+}
+
+#main-footer div.links {
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+#main-footer .main-footer-column {
+    display:inline-block;
+    padding: 0 0 16px;
+    width: 24%;
+    vertical-align: top;
+}
+
+#main-footer .header {
+    font-family: MontserratMedium;
+    padding-bottom: 8px;
+    font-size: 14px;
+}
+
+#main-footer div.copyright {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 16px 0 8px;
+}
+
+/*Общие стили для всех форм*/
+
+form .form-header {
+    font-family: MontserratMedium;
+}
+
+form .form-field {
+    display:inline-block;
+    padding: 0 0 16px;
+    width: 30%;
+}
+
+form label {
+    margin-right: 16px;
+}
+
+form input[type='text'] {
+    margin-right: 32px;
+}
+
+form input {
+    font-size: 18px;
+}
+
+/*Общие стили для генерируемых на всю ширину картинок*/
+.full-img img {
+    width: 100%;
+    height: auto;
+}
+
+/*Мобильная версия*/
+
+@media (max-width: 500px) {
+    /*Формы*/
+
+    form .form-header {
+        margin-bottom: 6px;
+    }
+    form .form-field {
+        width: 100%;
+        padding: 0 0 8px;
+        display:block;
+    }
+    form input[type='text'] {
+        margin-right: 0;
+    }
+    form label {
+        display: block;
+        float: left;
+        width: 80px;
+        height: 15px;
+    }
+
+    /*Футер*/
+
+    #main-footer .main-footer-column {
+        width: 100%;
+    }
+}
+
+
+

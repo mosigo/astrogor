@@ -326,11 +326,9 @@ class TwoCirclePrinter:
 
 class OneCirclePrinter:
 
-    # def __init__(self, width=210, height=297, border_offset=5,
-    #              title_height=10, subtitle_height=10, add_info_radius=18, add_info_overlap=2.5, qr_width=14) -> None:
     def __init__(self, width=210, height=297, border_offset=5,
                  title_height=8, subtitle_height=4, text_offset=2,
-                 add_info_radius=18, add_info_overlap=2.5, qr_width=25, age_units='days',
+                 add_info_radius=18, add_info_overlap=2.5, qr_width=25, age_units='days', with_titles=True,
                  draw_profile: DrawProfile = DrawProfile.DEFAULT) -> None:
         self.draw_profile = draw_profile
         self.age_units = age_units
@@ -343,6 +341,7 @@ class OneCirclePrinter:
         self.height = height - 2 * border_offset
         self.width = width - 2 * border_offset
         self.qr_width = qr_width
+        self.with_titles = with_titles
 
         self.circle_radius = int(self.width / 2)
         space = self.add_info_radius * 1.7
@@ -496,7 +495,7 @@ class OneCirclePrinter:
         cr0.stroke()
 
         qr_x2 = self.width - self.qr_width
-        self.__draw_qr_code(cr0, "https://astrogor.online/fd", qr_x2, 0)
+        self.__draw_qr_code(cr0, "https://astrogor.online/card", qr_x2, 0)
 
         qr_font_size = 0.017
         cr0.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
@@ -512,7 +511,8 @@ class OneCirclePrinter:
         cr0 = cairo.Context(surface)
         cr0.scale(self.width, self.width)
 
-        self._print_titles(cr0, cosmogram, formula, fio, city)
+        if self.with_titles:
+            self._print_titles(cr0, cosmogram, formula, fio, city)
 
         cr = cairo.Context(surface.create_for_rectangle(
             self.x - self.circle_radius, self.y - self.circle_radius, self.circle_radius * 2, self.circle_radius * 2))
