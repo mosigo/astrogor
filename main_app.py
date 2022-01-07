@@ -130,6 +130,16 @@ def download_transit():
     return send_file(filename)
 
 
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('errors/500.html'), 500
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('errors/404.html'), 404
+
+
 if __name__ == '__main__':
     config = configparser.RawConfigParser()
     config.read('sf_config.ini')
@@ -137,4 +147,8 @@ if __name__ == '__main__':
 
     geocoder = DefaultSFGeocoder(config.get('Geocoder', 'token'))
 
-    app.run(debug=True, port=8080)
+    debug = False
+    if config.has_section('App'):
+        debug = config.get('App', 'debug')
+
+    app.run(debug=debug, port=8080)

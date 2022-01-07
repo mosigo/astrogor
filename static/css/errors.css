@@ -1,0 +1,19 @@
+.logo {
+    display: none; !important;
+}
+
+/*Стили для всех ошибок*/
+
+div.error {
+    height: 98%;
+    position: relative;
+}
+
+div.error img {
+    max-width: 500px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}

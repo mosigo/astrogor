@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/errors.css') }}" type="text/css"/>
+{% endblock %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block body %}
+
+<div class="error">
+    <img src="{{ url_for('static', filename='pic/errors/500.png') }}"/>
+</div>
+
+{% endblock %}
