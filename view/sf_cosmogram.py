@@ -1,7 +1,6 @@
 import math
 from abc import abstractmethod
 from datetime import datetime
-from random import random
 from typing import Callable
 
 import cairo
@@ -16,6 +15,7 @@ from view.planet_label import PlanetLabelDrawer
 from view.sf_cairo import DefaultPlanetDrawer, DrawProfile
 from view.sf_geometry import rotate_point
 from view.sign_label import SignLabelDrawer
+from view.sf_cairo_utils import add_text_by_right, add_text_by_left, add_text_by_center
 
 
 class CosmogramDrawer:
@@ -270,17 +270,40 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
         self._draw_cosmo_planets(cr, planet_radius, planet_global_radius, planet_lon_global_radius,
                                  projection_radius, cosmogram2)
 
-        # рисуем текущую дату транзита
+        # рисуем даты по центру круга с космограммой
         cr.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-        date_font_size = 0.06
+        date_font_size = 0.04
         cr.set_font_size(date_font_size)
-        self.add_text_by_center(cr, cosmogram2.dt.strftime('%d.%m.%Y %H:%M'), 0.5 + date_font_size * 0.8 / 2)
+        text_step = 0.1
+        text_y = 0.5 + date_font_size * 0.8 / 2 - text_step * 0.5
+
+        # выводим исходную дату
+        add_text_by_left(cr, cosmogram1.dt.strftime('%d.%m.%Y '), text_y, xl=0.3, stroke=False)
+        cr.set_font_size(date_font_size * 0.5)
+        cr.show_text(cosmogram1.dt.strftime('%H:%M'))
+        cr.stroke()
+
+        # выводим дату транзита
+        text_y += text_step
+        cr.set_font_size(date_font_size)
+        add_text_by_right(cr, cosmogram2.dt.strftime('%d.%m.%Y '), text_y, xr=0.64, stroke=False)
+        cr.set_font_size(date_font_size * 0.5)
+        cr.show_text(cosmogram2.dt.strftime('%H:%M'))
+        cr.stroke()
+
+        # выводим серую линию между датами
+        cr.set_source_rgb(0.9, 0.9, 0.9)
+        cr.set_line_width(0.005)
+        cr.set_line_cap(cairo.LINE_CAP_ROUND)
+        cr.move_to(0.3, 0.5)
+        cr.line_to(0.7, 0.5)
+        cr.stroke()
 
         # рисуем текущую точку жизни по дате транзита
         life_point = cosmogram2.get_life_point_lon()
         if life_point is not None:
-            cr.set_source_rgb(0, 0, 1)
-            self.__draw_life_point(cr, life_point * math.pi / 180, self.planet_projection_radius * 3)
+            cr.set_source_rgb(0, 0.5, 0)
+            self.__draw_life_point(cr, life_point * math.pi / 180, self.planet_projection_radius * 2)
 
         # отмечаем соединения
         lons = []

@@ -18,12 +18,20 @@ def add_text_by_center(cr: cairo.Context, text, y, xl=0, xr=1):
     cr.stroke()
 
 
-def add_text_by_right(cr: cairo.Context, text, y, xr=1):
+def add_text_by_right(cr: cairo.Context, text, y, xr=1, stroke=True):
     te = cr.text_extents(text)
     x = xr - te.width
     cr.move_to(x, y)
     cr.show_text(text)
-    cr.stroke()
+    if stroke:
+        cr.stroke()
+
+
+def add_text_by_left(cr: cairo.Context, text, y, xl=0, stroke=True):
+    cr.move_to(xl, y)
+    cr.show_text(text)
+    if stroke:
+        cr.stroke()
 
 
 def save_to_pdf(out_file_path, width, height, drawer: CairoDrawer):
