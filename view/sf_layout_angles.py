@@ -1,3 +1,4 @@
+import itertools
 import math
 import shutil
 from abc import abstractmethod
@@ -400,7 +401,7 @@ class CircleCutPolicy(CutPolicy):
 
     def cut_formula(self, c_formula: CFormula) -> CFormula:
         x, y, r = self._get_min_circle(c_formula)
-        r *= 1 + self.padding
+        r = r * (1 + self.padding)
         min_x, min_y = x - r, y - r
         scale = self.radius / r
         c_formula.move_coordinates(-min_x, -min_y, scale)
@@ -408,13 +409,17 @@ class CircleCutPolicy(CutPolicy):
 
     @staticmethod
     def _get_min_circle(c_formula: CFormula) -> (float, float, float):
-        avg_x, avg_y = 0, 0
         circles: [CirclePosition] = []
-        for i in range(len(c_formula.get_centers())):
-            circles.append(c_formula.get_center_coordinates(i))
+        centers = c_formula.get_centers()
+        for i in range(len(centers)):
+            # circles.append(c_formula.get_center_coordinates(i))
+            for planet in centers[i]:
+                circles.append(c_formula.get_planet_coordinates(planet))
         for _, planets in c_formula.soul_formula.orbits.items():
             for planet in planets:
                 circles.append(c_formula.get_planet_coordinates(planet))
+
+        avg_x, avg_y = 0, 0
         for cc in circles:
             avg_x += cc.x
             avg_y += cc.y
@@ -436,19 +441,43 @@ class AnglesLayoutMaker(LayoutMaker):
     def __init__(self, logger: OptimizationLogger = NothingOptimizationLogger()) -> None:
         self.logger = logger
 
-    def make_layout(self, formula: SoulFormula, width: int, height: int,
+    def make_layout(self, soul_formula: SoulFormula, width: int, height: int,
                     cut_policy: CutPolicy = NothingCutPolicy()) -> DFormula:
-        c_formula = self.make_start_layout(formula)
 
-        self.logger.start_new_optimization('zero_a')
-        c_formula = self._optimize_to_zero_angles(c_formula, self._get_alpha0_composite)
+        best_formula = None
+        for formula in self._generate_all_formulas(soul_formula):
+            c_formula = self.make_start_layout(formula)
 
-        c_formula = self._place_orbit_labels(c_formula)
+            self.logger.start_new_optimization('zero_a')
+            c_formula = self._optimize_to_zero_angles(c_formula, self._get_alpha0_composite)
 
-        c_formula.compress()
-        c_formula = cut_policy.cut_formula(c_formula)
+            c_formula = self._place_orbit_labels(c_formula)
 
-        return convert_cformula_to_dformula(c_formula)
+            c_formula.compress()
+            c_formula = cut_policy.cut_formula(c_formula)
+
+            if not best_formula or c_formula.planet_radius > best_formula.planet_radius:
+                best_formula = c_formula
+
+        return convert_cformula_to_dformula(best_formula)
+
+    @staticmethod
+    def _generate_all_formulas(formula: SoulFormula) -> [SoulFormula]:
+        centers = sorted(formula.center, key=lambda a: len(a))
+        formula.center = centers
+        center_sizes = [[i for i in range(0, len(a))] for a in formula.center]
+        res = []
+        for idx in itertools.product(*center_sizes):
+            new_centers = []
+            for i in range(len(centers)):
+                cur_center = centers[i]
+                start_index = idx[i]
+                new_cur_center = cur_center[start_index:] + cur_center[:start_index]
+                new_centers.append(new_cur_center)
+            new_formula = formula.copy()
+            new_formula.center = new_centers
+            res.append(new_formula)
+        return res
 
     def _place_orbit_labels(self, c_formula: CFormula) -> CFormula:
         if len(c_formula.soul_formula.orbits) == 0:
