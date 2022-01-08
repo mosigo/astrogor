@@ -175,6 +175,17 @@ class SoulFormula:
             res.append(self.__planet_to_char(planet) + self.__planet_to_char(self.links[planet]))
         return res
 
+    def copy(self):
+        return SoulFormula(
+            self.dt,
+            self.links.copy(),
+            [a.copy() for a in self.center],
+            self.orbits.copy(),
+            self.retro.copy(),
+            self.planet_power.copy(),
+            self.additional_objects. copy()
+        )
+
 
 class SoulFormulaWithBorders:
 

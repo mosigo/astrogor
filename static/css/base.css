@@ -3,6 +3,7 @@
 h1, h2, h3, h4, h5, h6 {
     font-family: MontserratMedium;
     font-size: 36px;
+    line-height: 1em;
 }
 
 * {
@@ -136,6 +137,15 @@ form input {
 
     #main-footer .main-footer-column {
         width: 100%;
+    }
+}
+
+@media (max-width: 1160px) {
+    /*Лого*/
+
+    .logo {
+        display: none;
+        /*max-height: 30px;*/
     }
 }
 

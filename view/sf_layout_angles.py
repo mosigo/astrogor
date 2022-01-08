@@ -865,8 +865,8 @@ if __name__ == '__main__':
         print(formula)
 
         layout_maker = AnglesLayoutMaker(PDFOptimizationLogger(f'/tmp/{formula_date[:10]}_opt'))
-        cut_policy = RectangleCutPolicy(w, h)
-        # cut_policy = CircleCutPolicy(500)
+        # cut_policy = RectangleCutPolicy(w, h)
+        cut_policy = CircleCutPolicy(500)
         # cut_policy = NothingCutPolicy()
         d_formula = layout_maker.make_layout(formula, w, h, cut_policy=cut_policy)
         print(d_formula.planet_to_position)
