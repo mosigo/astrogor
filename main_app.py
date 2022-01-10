@@ -168,4 +168,4 @@ if __name__ == '__main__':
     if config.has_section('App'):
         debug = config.get('App', 'debug')
 
-    app.run(debug=debug, port=8080)
+    app.run(debug=debug, port=8081)

@@ -84,6 +84,7 @@ body {
 
 form .form-header {
     font-family: MontserratMedium;
+    margin: 8px 0;
 }
 
 form .form-field {
@@ -98,6 +99,24 @@ form label {
 
 form input[type='text'] {
     margin-right: 32px;
+    border: 1px solid #FFB800;
+    border-radius: 8px;
+    padding: 4px 8px 4px;
+}
+
+form input[type='submit'] {
+    border: 1px solid #0B143D;
+    border-radius: 8px;
+    padding: 4px 8px 4px;
+    background-color: #0B143D;
+    color: white;
+    margin: 8px 16px 4px 0;
+}
+
+form input[type='submit']:hover {
+    background-color: rgba(0, 20, 69, 0.85);
+    border: 1px solid rgba(0, 20, 69, 0.85);
+    cursor: pointer;
 }
 
 form input {
