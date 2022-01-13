@@ -266,6 +266,11 @@ class Cosmogram:
             return self._get_point_lon(self.cur_time, self.dt)
         return None
 
+    def get_life_point_lon_on_date(self, dt: datetime):
+        if self.death_dt is None:
+            return self._get_point_lon(dt, self.dt)
+        return None
+
     def get_death_point_lon(self):
         if self.death_dt is not None:
             return self._get_point_lon(self.death_dt, self.dt)
@@ -286,11 +291,12 @@ class Cosmogram:
                     p_diff = abs(p2.lon - p1.lon)
                     p_diff = min(360 - p_diff, p_diff)
                     diff = abs(p_diff - aspect)
-                    if diff <= 2 or \
-                            diff <= 10 and all_planets[i] in [const.SUN, const.MOON] or \
-                            diff <= 10 and all_planets[j] in [const.SUN, const.MOON] or \
-                            diff <= 5 and all_planets[i] not in [const.CHIRON, const.NORTH_NODE, 'Lilith', 'Selena'] or \
-                            diff <= 5 and all_planets[j] not in [const.CHIRON, const.NORTH_NODE, 'Lilith', 'Selena']:
+                    if diff <= 1:
+                    # if diff <= 2 or \
+                    #         diff <= 10 and all_planets[i] in [const.SUN, const.MOON] or \
+                    #         diff <= 10 and all_planets[j] in [const.SUN, const.MOON] or \
+                    #         diff <= 5 and all_planets[i] not in [const.CHIRON, const.NORTH_NODE, 'Lilith', 'Selena'] or \
+                    #         diff <= 5 and all_planets[j] not in [const.CHIRON, const.NORTH_NODE, 'Lilith', 'Selena']:
                         res1 = planet_to_aspect.get(all_planets[i], [])
                         res2 = planet_to_aspect.get(all_planets[j], [])
                         if len(res1) == 0:

@@ -262,6 +262,9 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
         self.__draw_separators(
             cr, alpha=2 * math.pi / 12, inner_radius=arc_r, outer_radius=self.main_radius - self.sign_area_width)
 
+        # рисуем аспекты транзита
+        self._draw_transit_aspects(cr, cosmogram1, cosmogram2)
+
         # рисуем планеты транзита
         planet_radius = self._get_planet_radius(cosmogram2, sign_radius)
         planet_global_radius = self.planet_padding + sign_radius + planet_radius
@@ -270,7 +273,13 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
         self._draw_cosmo_planets(cr, planet_radius, planet_global_radius, planet_lon_global_radius,
                                  projection_radius, cosmogram2)
 
+        # рисуем белый залитый круг
+        cr.set_source_rgba(1, 1, 1, 0.8)
+        cr.arc(0.5, 0.5, arc_r, 0, 2 * math.pi)
+        cr.fill()
+
         # рисуем даты по центру круга с космограммой
+        cr.set_source_rgb(0, 0, 0)
         cr.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         date_font_size = 0.04
         cr.set_font_size(date_font_size)
@@ -300,12 +309,15 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
         cr.stroke()
 
         # рисуем текущую точку жизни по дате транзита
-        life_point = cosmogram2.get_life_point_lon()
+        life_point = cosmogram1.get_life_point_lon_on_date(cosmogram2.dt)
+
         if life_point is not None:
             cr.set_source_rgb(0, 0.5, 0)
             self.__draw_life_point(cr, life_point * math.pi / 180, self.planet_projection_radius * 2)
 
         # отмечаем соединения
+        cr.set_source_rgba(0, 0, 1, 0.5)
+        cr.set_line_width(0.01)
         lons = []
         for p, info in cosmogram1.planet_to_cosmogram_info.items():
             lons.append((1, info.lon))
@@ -322,10 +334,51 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
                 x = -projection_radius * math.cos(beta) + 0.5
                 y = projection_radius * math.sin(beta) + 0.5
                 r = self.planet_projection_radius * 2
-                cr.set_source_rgba(1, 0, 0, 0.5)
-                cr.set_line_width(0.01)
+
                 cr.arc(x, y, r, 0, 2 * math.pi)
                 cr.stroke()
+
+    def _draw_transit_aspects(self, cr: cairo.Context, cosmo1: Cosmogram, cosmo2: Cosmogram) -> None:
+        all_planets = [const.SUN, const.MOON,
+                       const.MERCURY, const.VENUS, const.MARS, const.JUPITER, const.SATURN,
+                       const.URANUS, const.NEPTUNE, const.PLUTO, const.CHIRON, const.NORTH_NODE, 'Lilith', 'Selena']
+        pr = self.main_radius - self.sign_area_width
+        pr1 = pr + 0.001
+        pr2 = pr - 0.001
+        cr.set_line_cap(cairo.LINE_CAP_ROUND)
+        for i in range(len(all_planets)):
+            p1 = cosmo1.planet_to_cosmogram_info[all_planets[i]]
+            for j in range(len(all_planets)):
+                p2 = cosmo2.planet_to_cosmogram_info[all_planets[j]]
+
+                for aspect in [60, 90, 120, 180]:
+                    p_diff = abs(p2.lon - p1.lon)
+                    p_diff = min(360 - p_diff, p_diff)
+                    diff = abs(p_diff - aspect)
+                    if diff <= 1:
+                        if aspect % 9 == 0:
+                            cr.set_source_rgba(1, 0, 0, 0.5)
+                        else:
+                            cr.set_source_rgba(0, 1, 0, 0.5)
+
+                        cr.set_line_width(0.0005 + 0.0045 * (1 - diff))
+
+                        x1 = -pr1 * math.cos(p1.lon * math.pi / 180) + 0.5
+                        y1 = pr1 * math.sin(p1.lon * math.pi / 180) + 0.5
+
+                        cr.move_to(x1, y1)
+
+                        x2 = -pr2 * math.cos(p2.lon * math.pi / 180) + 0.5
+                        y2 = pr2 * math.sin(p2.lon * math.pi / 180) + 0.5
+
+                        cr.line_to(x2, y2)
+                        cr.stroke()
+
+                        cr.arc(x1, y1, 0.005, 0, 2 * math.pi)
+                        cr.fill()
+                        cr.arc(x2, y2, 0.005, 0, 2 * math.pi)
+                        cr.fill()
+
 
 
     def _get_planet_radius(self, cosmogram: Cosmogram, radius):

@@ -23,6 +23,12 @@
         <label for="fio">Имя</label><input type="text" name="fio" id="fio" value="{{fio}}" size="15"/>
     </div>
     <div class="form-header">Транзит на дату</div>
+    <div class="nav-buttons">
+        <label></label>
+        день<a href="{{prev_link}}" class="control">⬇</a><a href="{{next_link}}" class="control">⬆</a>
+        <span class="spacer-h"></span>
+        час <a href="{{prev_link_hour}}" class="control">⬇</a><a href="{{next_link_hour}}" class="control">⬆</a>
+    </div>
     <div class="form-field">
         <label for="transit-day">Дата</label>
         <input type="text" placeholder="01.01.2000 12:00" name="transit-day" id="transit-day" value="{{transit_day}}" size="15"/>
@@ -36,10 +42,7 @@
         <a href="/transit">Сбросить</a>
     </div>
 </form>
-<div class="nav-buttons">
-    <a href="{{prev_link}}">⟵ пред.</a> |
-    <a href="{{next_link}}">след. ⟶</a>
-</div>
+
 <div class="download">
     <a href="{{download_link}}" download="{{out_file_name}}">PDF</a>
 </div>

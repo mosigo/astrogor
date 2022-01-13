@@ -129,6 +129,13 @@ def create_transit():
 
     next_link = '/transit?' + params + '&transit-day=' + unquote(next_transit_day)
     prev_link = '/transit?' + params + '&transit-day=' + unquote(prev_transit_day)
+
+    next_transit_hour = (transit_dt + timedelta(hours=1)).strftime('%d.%m.%Y %H:%M')
+    prev_transit_hour = (transit_dt - timedelta(hours=1)).strftime('%d.%m.%Y %H:%M')
+
+    next_link_hour = '/transit?' + params + '&transit-day=' + unquote(next_transit_hour)
+    prev_link_hour = '/transit?' + params + '&transit-day=' + unquote(prev_transit_hour)
+
     link = '/download-transit?' + params + '&transit-day=' + unquote(transit_day)
 
     with open(filename, "rb") as img_file:
@@ -136,7 +143,8 @@ def create_transit():
         os.remove(filename)
         return render_template('transit.html', img_as_base64=b64_string,
                                fio=fio, birthday=birthday, city=city, transit_day=transit_day, current_city=cur_city,
-                               out_file_name=out_file, download_link=link, prev_link=prev_link, next_link=next_link)
+                               out_file_name=out_file, download_link=link, prev_link=prev_link, next_link=next_link,
+                               prev_link_hour=prev_link_hour, next_link_hour=next_link_hour)
 
 
 @app.route('/download-transit', methods=['GET'])
