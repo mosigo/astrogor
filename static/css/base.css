@@ -126,6 +126,7 @@ form .sbm {
     background-color: #0B143D;
     color: white;
     margin: 8px 16px 4px 0;
+    -webkit-appearance: none;
 }
 
 form .sbm:hover {
