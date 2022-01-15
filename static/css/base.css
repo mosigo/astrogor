@@ -3,7 +3,7 @@
 h1, h2, h3, h4, h5, h6 {
     font-family: MontserratMedium;
     font-size: 36px;
-    line-height: 1.1em;
+    line-height: 1em;
 }
 
 * {
@@ -151,11 +151,7 @@ form .chk+label {
 }
 
 form .chk+label:focus {
-    /*box-shadow: 0 0 10px #FFB800;*/
     outline: none;
-    /*border: 1px solid #FFB800;*/
-    /*border-radius: 8px;*/
-    /*padding: 2px;*/
 }
 
 form .chk+label:focus::before {
