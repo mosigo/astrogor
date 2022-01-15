@@ -1,0 +1,20 @@
+{% macro render_checkbox(name, val, label, tabindex) %}
+    <div class="form-field">
+
+        {% if val %}
+            <input type="checkbox" name="{{ name }}" checked="checked" class="chk" id="{{ name }}"/>
+        {% else %}
+            <input type="checkbox" name="{{ name }}" class="chk" id="{{ name }}"/>
+        {% endif %}
+        <label id="{{ name }}-label" for="{{ name }}" tabindex="{{ tabindex }}">
+        {{ label }}
+        </label>
+    </div>
+{% endmacro %}
+
+{% macro render_text_input(name, val, label, placeholder, tabindex) %}
+    <div class="form-field">
+        <span class="label">{{ label }}</span>
+        <input type="text" placeholder="{{ placeholder }}" name="{{ name }}" value="{{ val }}" size="15" class="txt" tabindex="{{ tabindex }}"/>
+    </div>
+{% endmacro %}

@@ -26,7 +26,7 @@
 </head>
 <body>
 <div class="main-header">
-    <a href="/"><img src="{{ url_for('static', filename='pic/logo_andrey_small.png') }}" class="logo"/></a>
+    <a href="/" class="logo" tabindex="-1"><img src="{{ url_for('static', filename='pic/logo_andrey_small.png') }}" tabindex="-1"/></a>
     {% block header %}
     {% endblock %}
 </div>

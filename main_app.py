@@ -30,7 +30,14 @@ def get_date_param_value(param_name: str, param_default_value: datetime) -> date
 def get_str_param_value(param_name: str, param_default_value: str) -> str:
     val = request.args.get(param_name)
     if val and val.strip():
-            return val
+        return val
+    return param_default_value
+
+
+def get_bool_param_value(param_name: str, param_default_value: bool) -> bool:
+    val = request.args.get(param_name)
+    if val and val == 'on':
+        return True
     return param_default_value
 
 
@@ -86,12 +93,16 @@ def create_card():
     link = '/download-card?fio=' + unquote(fio) + '&birthday=' + unquote(birthday_as_str) \
            + '&city=' + unquote(city) + age_in_years
 
+    transit_link = '/transit?' + unquote_str_param('fio', fio) + \
+                   unquote_str_param('birthday', birthday_as_str) + unquote_str_param('city', city)
+
     with open(filename, "rb") as img_file:
         b64_string = base64.b64encode(img_file.read()).decode('utf-8')
         os.remove(filename)
         return render_template('card.html', img_as_base64=b64_string,
                                fio=fio, birthday=birthday_as_str, city=city,
-                               out_file_name=out_file, download_link=link, age_in_years=age_units == 'years')
+                               out_file_name=out_file, download_link=link, age_in_years=age_units == 'years',
+                               transit_link=transit_link)
 
 
 def get_transit_params():
@@ -103,17 +114,33 @@ def get_transit_params():
     city = get_str_param_value('city', 'Москва')
     cur_city = get_str_param_value('current-city', 'Москва')
 
-    return fio, birthday, city, transit_day, cur_city
+    show_source = get_bool_param_value('show-source', False)
+    show_source_to_transit = get_bool_param_value('show-source-to-transit', False)
+    show_transit = get_bool_param_value('show-transit', False)
+
+    return fio, birthday, city, transit_day, cur_city, show_source, show_source_to_transit, show_transit
+
+
+def unquote_str_param(param_name: str, param_value: str) -> str:
+    return f'&{param_name}={unquote(param_value)}'
+
+
+def unquote_bool_param(param_name: str, param_value: bool) -> str:
+    if param_value:
+        return f'&{param_name}=on'
+    return ''
 
 
 @app.route('/transit', methods=['GET'])
 def create_transit():
-    fio, birthday_dt, city, transit_dt, cur_city = get_transit_params()
+    fio, birthday_dt, city, transit_dt, cur_city, show_source, show_source_to_transit, show_transit = \
+        get_transit_params()
 
     birthday = birthday_dt.strftime('%d.%m.%Y %H:%M')
     transit_day = transit_dt.strftime('%d.%m.%Y %H:%M')
 
-    filename = generate_transit(geocoder, birthday_dt, city, transit_dt, cur_city)
+    filename = generate_transit(geocoder, birthday_dt, city, transit_dt, cur_city,
+                                show_source, show_source_to_transit, show_transit)
 
     name_tr = translit(fio, "ru", reversed=True)
     name_tr = name_tr.replace(' ', '_').replace('\'', '').lower()
@@ -121,8 +148,11 @@ def create_transit():
     transit_day_unified = transit_dt.strftime('%Y-%m-%d %H:%M')
     out_file = f'{name_tr}_tr{birthday_unified[:10]}_to{transit_day_unified[:10]}.pdf'
 
-    params = 'fio=' + unquote(fio) + '&birthday=' + unquote(birthday) + '&city=' + unquote(city) + \
-           '&current-city=' + unquote(cur_city)
+    params = unquote_str_param('fio', fio) + unquote_str_param('birthday', birthday) + \
+             unquote_str_param('city', city) + unquote_str_param('current-city', cur_city) + \
+             unquote_bool_param('show-source', show_source) + \
+             unquote_bool_param('show-source-to-transit', show_source_to_transit) + \
+             unquote_bool_param('show-transit', show_transit)
 
     next_transit_day = (transit_dt + timedelta(days=1)).strftime('%d.%m.%Y %H:%M')
     prev_transit_day = (transit_dt - timedelta(days=1)).strftime('%d.%m.%Y %H:%M')
@@ -138,20 +168,27 @@ def create_transit():
 
     link = '/download-transit?' + params + '&transit-day=' + unquote(transit_day)
 
+    fd_link = '/card?' + \
+              unquote_str_param('fio', fio) + unquote_str_param('birthday', birthday) + unquote_str_param('city', city)
+
     with open(filename, "rb") as img_file:
         b64_string = base64.b64encode(img_file.read()).decode('utf-8')
         os.remove(filename)
         return render_template('transit.html', img_as_base64=b64_string,
                                fio=fio, birthday=birthday, city=city, transit_day=transit_day, current_city=cur_city,
                                out_file_name=out_file, download_link=link, prev_link=prev_link, next_link=next_link,
-                               prev_link_hour=prev_link_hour, next_link_hour=next_link_hour)
+                               prev_link_hour=prev_link_hour, next_link_hour=next_link_hour,
+                               show_source=show_source, show_source_to_transit=show_source_to_transit,
+                               show_transit=show_transit, fd_link=fd_link)
 
 
 @app.route('/download-transit', methods=['GET'])
 def download_transit():
-    fio, birthday_dt, city, transit_dt, cur_city = get_transit_params()
+    fio, birthday_dt, city, transit_dt, cur_city, show_source, show_source_to_transit, show_transit = \
+        get_transit_params()
 
-    filename = generate_full_transit(geocoder, birthday_dt, city, transit_dt, cur_city)
+    filename = generate_full_transit(geocoder, birthday_dt, city, transit_dt, cur_city,
+                                     show_source, show_source_to_transit, show_transit)
     return send_file(filename)
 
 

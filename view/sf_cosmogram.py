@@ -246,7 +246,8 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
             cr.move_to(0.09, 0.68)
         cr.show_text(s)
 
-    def draw_transit(self, cosmogram1: Cosmogram, cosmogram2: Cosmogram, cr: cairo.Context):
+    def draw_transit(self, cosmogram1: Cosmogram, cosmogram2: Cosmogram, cr: cairo.Context,
+                     show_source: bool = False, show_source_to_transit: bool = True, show_transit: bool = False):
         self.draw_cosmogram(cosmogram1, cr)
 
         cr.set_source_rgb(0, 0, 0)
@@ -254,7 +255,7 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
         sign_radius = self.main_radius - self.sign_area_width * 1.5
         # рисуем окружность, чтобы отделить зону знака зодиака
         cr.set_line_width(0.001)
-        arc_r = self.main_radius - self.sign_area_width - self.sign_area_width * (1 - self.sign_area_proportion) * 1.1
+        arc_r = self.main_radius - self.sign_area_width - self.sign_area_width * (1 - self.sign_area_proportion) * 1.32
         cr.arc(0.5, 0.5, arc_r, 0, 2 * math.pi)
         cr.stroke()
 
@@ -263,7 +264,7 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
             cr, alpha=2 * math.pi / 12, inner_radius=arc_r, outer_radius=self.main_radius - self.sign_area_width)
 
         # рисуем аспекты транзита
-        self._draw_transit_aspects(cr, cosmogram1, cosmogram2)
+        self._draw_transit_aspects(cr, cosmogram1, cosmogram2, show_source, show_source_to_transit, show_transit)
 
         # рисуем планеты транзита
         planet_radius = self._get_planet_radius(cosmogram2, sign_radius)
@@ -271,7 +272,7 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
         planet_lon_global_radius = sign_radius * 0.96
         projection_radius = self.main_radius - self.sign_area_width
         self._draw_cosmo_planets(cr, planet_radius, planet_global_radius, planet_lon_global_radius,
-                                 projection_radius, cosmogram2)
+                                 projection_radius, cosmogram2, is_filled=True)
 
         # рисуем белый залитый круг
         cr.set_source_rgba(1, 1, 1, 0.8)
@@ -326,7 +327,7 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
         lons = sorted(lons, key=lambda a: a[1])
         for i in range(len(lons) - 1):
             x1, lon1 = lons[i]
-            x2, lon2 = lons[i+1]
+            x2, lon2 = lons[i + 1]
             if x1 != x2 and abs(lon1 - lon2) < 1:
                 lon = (lon1 + lon2) / 2
                 beta = lon * math.pi / 180
@@ -338,7 +339,8 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
                 cr.arc(x, y, r, 0, 2 * math.pi)
                 cr.stroke()
 
-    def _draw_transit_aspects(self, cr: cairo.Context, cosmo1: Cosmogram, cosmo2: Cosmogram) -> None:
+    def _draw_transit_aspects(self, cr: cairo.Context, cosmo1: Cosmogram, cosmo2: Cosmogram,
+                              show_source: bool, show_source_to_transit: bool, show_transit: bool) -> None:
         all_planets = [const.SUN, const.MOON,
                        const.MERCURY, const.VENUS, const.MARS, const.JUPITER, const.SATURN,
                        const.URANUS, const.NEPTUNE, const.PLUTO, const.CHIRON, const.NORTH_NODE, 'Lilith', 'Selena']
@@ -346,40 +348,67 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
         pr1 = pr + 0.001
         pr2 = pr - 0.001
         cr.set_line_cap(cairo.LINE_CAP_ROUND)
-        for i in range(len(all_planets)):
-            p1 = cosmo1.planet_to_cosmogram_info[all_planets[i]]
-            for j in range(len(all_planets)):
-                p2 = cosmo2.planet_to_cosmogram_info[all_planets[j]]
 
+        lons1 = [cosmo1.planet_to_cosmogram_info[p].lon for p in all_planets]
+        lons2 = [cosmo2.planet_to_cosmogram_info[p].lon for p in all_planets]
+        lons2.append(cosmo1.get_life_point_lon_on_date(cosmo2.dt))
+
+        if show_source:
+            self._draw_transit_aspects_for(cr, lons1, lons1, pr1, pr1,
+                                           is_filled1=False, is_filled2=False, alpha=0.1, darkness=0.5)
+
+        if show_transit:
+            self._draw_transit_aspects_for(cr, lons2, lons2, pr2, pr2,
+                                           is_filled1=True, is_filled2=True, alpha=1, darkness=0.6)
+
+        if show_source_to_transit:
+            self._draw_transit_aspects_for(cr, lons1, lons2, pr1, pr2,
+                                           is_filled1=False, is_filled2=True, alpha=0.7, darkness=0)
+
+    @staticmethod
+    def _draw_transit_aspects_for(cr: cairo.Context,
+                                  lons1: [float], lons2: [float],
+                                  pr1: float, pr2: float,
+                                  is_filled1: bool, is_filled2: bool,
+                                  alpha: float, darkness: float) -> None:
+        for p1_lon in lons1:
+            for p2_lon in lons2:
                 for aspect in [60, 90, 120, 180]:
-                    p_diff = abs(p2.lon - p1.lon)
+                    p_diff = abs(p2_lon - p1_lon)
                     p_diff = min(360 - p_diff, p_diff)
                     diff = abs(p_diff - aspect)
                     if diff <= 1:
                         if aspect % 9 == 0:
-                            cr.set_source_rgba(1, 0, 0, 0.5)
+                            cr.set_source_rgba(1 - darkness, 0, 0, alpha)
                         else:
-                            cr.set_source_rgba(0, 1, 0, 0.5)
+                            cr.set_source_rgba(0, 1 - darkness, 0, alpha)
 
                         cr.set_line_width(0.0005 + 0.0045 * (1 - diff))
 
-                        x1 = -pr1 * math.cos(p1.lon * math.pi / 180) + 0.5
-                        y1 = pr1 * math.sin(p1.lon * math.pi / 180) + 0.5
+                        x1 = -pr1 * math.cos(p1_lon * math.pi / 180) + 0.5
+                        y1 = pr1 * math.sin(p1_lon * math.pi / 180) + 0.5
 
                         cr.move_to(x1, y1)
 
-                        x2 = -pr2 * math.cos(p2.lon * math.pi / 180) + 0.5
-                        y2 = pr2 * math.sin(p2.lon * math.pi / 180) + 0.5
+                        x2 = -pr2 * math.cos(p2_lon * math.pi / 180) + 0.5
+                        y2 = pr2 * math.sin(p2_lon * math.pi / 180) + 0.5
 
                         cr.line_to(x2, y2)
                         cr.stroke()
 
-                        cr.arc(x1, y1, 0.005, 0, 2 * math.pi)
-                        cr.fill()
-                        cr.arc(x2, y2, 0.005, 0, 2 * math.pi)
-                        cr.fill()
+                        cr.set_line_width(0.001)
 
+                        cr.arc(x1, y1, 0.003, 0, 2 * math.pi)
+                        if is_filled1:
+                            cr.fill()
+                        else:
+                            cr.stroke()
 
+                        cr.arc(x2, y2, 0.003, 0, 2 * math.pi)
+                        if is_filled2:
+                            cr.fill()
+                        else:
+                            cr.stroke()
 
     def _get_planet_radius(self, cosmogram: Cosmogram, radius):
         # вычисляем радиус планеты = минимум из заданного руками, высоты области для планет
@@ -441,7 +470,6 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
             cr.stroke()
 
         if self.planet_ruler_place == 'inner':
-
             # рисуем лейблы для планет-управителей
             cr.set_line_width(0.08)
             cr.set_source_rgb(0.8, 0.8, 0.8)
@@ -463,7 +491,6 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
                           label_radius=0.015, draw_function=self.__draw_sign_label)
 
         if self.planet_ruler_place == 'in_sign':
-
             # рисуем лейблы для планет-управителей (2)
             cr.set_line_width(0.05)
             # cr.set_source_rgb(0.5, 0.5, 0.5)
@@ -571,7 +598,7 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
 
     def _draw_cosmo_planets(self, cr: cairo.Context, planet_radius,
                             planet_global_radius, planet_lon_global_radius, projection_radius,
-                            cosmogram: Cosmogram):
+                            cosmogram: Cosmogram, is_filled=False):
         planet_optimizer = DefaultCosmogramOptimizer(planet_radius * self.planet_radius_koef, planet_global_radius)
         all_planets = cosmogram.get_planets()
         planet_to_lon = planet_optimizer.make_layout(all_planets)
@@ -589,7 +616,7 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
             y1 = projection_radius * math.sin(beta_projection) + 0.5
             r1 = self.planet_projection_radius
 
-            # координаты точки, куда будет выводится долгота планеты
+            # координаты точки, куда будет выводиться долгота планеты
             x2 = -planet_lon_global_radius * math.cos(beta_planet) + 0.5
             y2 = planet_lon_global_radius * math.sin(beta_planet) + 0.5
 
@@ -619,7 +646,6 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
                                            power=power, is_selected=is_additional, label_line_width=0.1)
 
             # рисуем долготу планеты цифрами
-            cr.set_source_rgb(0, 0, 0)
             cr.set_font_size(0.015)
             cr.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
             lon_as_str = str(math.ceil(planet_info.signlon)) + '°'
@@ -629,6 +655,14 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
             else:
                 x2 -= 0.008
                 y2 += 0.004
+
+            # если требуется белая подложка для долготы планеты, то рисуем её
+            if is_filled:
+                cr.set_source_rgba(1, 1, 1, 0.5)
+                cr.rectangle(x2, y2 - 0.012, 0.02, 0.015)
+                cr.fill()
+
+            cr.set_source_rgb(0, 0, 0)
             cr.move_to(x2, y2)
             cr.show_text(lon_as_str)
             cr.stroke()
@@ -638,7 +672,8 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
         for i in range(3):
             cr.set_source_rgba(r, g, b, self.sign_color_alpha)
             cr.set_line_width(self.sign_area_width * self.sign_area_proportion)
-            cr.arc(0.5, 0.5, self.main_radius - self.sign_area_width * self.sign_area_proportion / 2, psi, psi + math.pi / 6)
+            cr.arc(0.5, 0.5, self.main_radius - self.sign_area_width * self.sign_area_proportion / 2, psi,
+                   psi + math.pi / 6)
             cr.stroke()
 
             cr.set_source_rgba(r, g, b, self.sign_color_alpha / 3)
@@ -687,6 +722,17 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
                 pi1, pi2 = cosmogram.get_planet_info(p1), cosmogram.get_planet_info(p2)
                 x1, y1 = rotate_point(x, y, 0.5 - r, 0.5, -pi1.lon * math.pi / 180)
                 x2, y2 = rotate_point(x, y, 0.5 - r, 0.5, -pi2.lon * math.pi / 180)
+
+                p_diff = cosmogram.get_distance(p1, p2)
+                diff = abs(p_diff - p_aspect)
+                if pi1 in [const.SUN, const.MOON] or pi2 in [const.SUN, const.MOON]:
+                    max_diff = 10
+                elif pi1 in [const.CHIRON, const.NORTH_NODE, 'Lilith', 'Selena'] \
+                        or pi2 in [const.CHIRON, const.NORTH_NODE, 'Lilith', 'Selena']:
+                    max_diff = 5
+                else:
+                    max_diff = 2
+                cr.set_line_width(0.0005 + 0.0095 * (max_diff - diff) / max_diff)
                 cr.move_to(x1, y1)
                 cr.line_to(x2, y2)
                 cr.stroke()
@@ -810,25 +856,23 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
             x0, y0 = planet_to_connection_point[p1]
             for p2 in planets:
                 x2, y2 = planet_to_connection_point[p2]
-                info1 = cosmogram.get_planet_info(p1)
-                info2 = cosmogram.get_planet_info(p2)
-                lon1, lon2 = info1.lon, info2.lon
-                if lon1 - lon2 > 180:
-                    lon2 += 360
-                elif lon2 - lon1 > 180:
-                    lon1 += 360
-                if highlight:
-                    if abs(info1.signlon - info2.signlon) < 1:
-                        cr.set_line_width(0.04)
-                    elif lon1 > lon2 and info1.signlon < info2.signlon:
-                        cr.set_line_width(0.015)
-                    else:
-                        cr.set_line_width(0.002)
+
+                p_diff = cosmogram.get_distance(p1, p2)
+                diff = abs(p_diff - aspect)
+                if p1 in [const.SUN, const.MOON] or p2 in [const.SUN, const.MOON]:
+                    max_diff = 10
+                elif p1 in [const.CHIRON, const.NORTH_NODE, 'Lilith', 'Selena'] \
+                        or p2 in [const.CHIRON, const.NORTH_NODE, 'Lilith', 'Selena']:
+                    max_diff = 5
+                else:
+                    max_diff = 2
+                cr.set_line_width(0.0005 + 0.0095 * (max_diff - diff) / max_diff)
+
                 cr.move_to(x0, y0)
                 cr.line_to(x2, y2)
                 cr.stroke()
 
-        # рисуем лейлбл аспекта внутри круга
+        # рисуем лейбл аспекта внутри круга
         # сначала белый фон
         cr.set_source_rgb(1, 1, 1)
         cr.save()

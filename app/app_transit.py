@@ -1,20 +1,18 @@
 import os
 import tempfile
-from pathlib import Path
 from flatlib import const
 
 import cairo
 
-from datetime import datetime, timedelta
-
-from transliterate import translit
+from datetime import datetime
 
 from ext.sf_geocoder import SFGeocoder
 from model.sf_flatlib import FlatlibBuilder
 from view.sf_cosmogram import DefaultCosmogramDrawer
 
 
-def generate_full_transit(geocoder, birthday_time, city, dt: datetime, cur_city):
+def generate_full_transit(geocoder, birthday_time, city, dt: datetime, cur_city,
+                          show_source: bool, show_source_to_transit: bool, show_transit: bool):
     birthday_as_str = birthday_time.strftime('%Y-%m-%d %H:%M')
     dt_as_str = dt.strftime('%Y-%m-%d %H:%M')
 
@@ -37,14 +35,15 @@ def generate_full_transit(geocoder, birthday_time, city, dt: datetime, cur_city)
                                      planets_to_exclude=[const.PARS_FORTUNA])
 
     drawer = DefaultCosmogramDrawer(planet_ruler_place='in_sign', life_years=0)
-    drawer.draw_transit(cosmo1, cosmo2, cr)
+    drawer.draw_transit(cosmo1, cosmo2, cr, show_source, show_source_to_transit, show_transit)
     surface_pdf.finish()
     os.close(new_file)
 
     return filename
 
 
-def generate_transit(geocoder: SFGeocoder, birthday_time: datetime, city, dt: datetime, cur_city:str) -> str:
+def generate_transit(geocoder: SFGeocoder, birthday_time: datetime, city, dt: datetime, cur_city: str,
+                     show_source: bool, show_source_to_transit: bool, show_transit: bool) -> str:
     birthday_as_str = birthday_time.strftime('%Y-%m-%d %H:%M')
     dt_as_str = dt.strftime('%Y-%m-%d %H:%M')
 
@@ -69,7 +68,7 @@ def generate_transit(geocoder: SFGeocoder, birthday_time: datetime, city, dt: da
                                      planets_to_exclude=[const.PARS_FORTUNA])
 
     drawer = DefaultCosmogramDrawer(planet_ruler_place='in_sign', life_years=0)
-    drawer.draw_transit(cosmo1, cosmo2, cr)
+    drawer.draw_transit(cosmo1, cosmo2, cr, show_source, show_source_to_transit, show_transit)
     surface.write_to_png(filename)
     surface.finish()
     os.close(new_file)

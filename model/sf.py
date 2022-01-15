@@ -276,6 +276,12 @@ class Cosmogram:
             return self._get_point_lon(self.death_dt, self.dt)
         return None
 
+    def get_distance(self, planet1: str, planet2: str):
+        p1 = self.planet_to_cosmogram_info[planet1]
+        p2 = self.planet_to_cosmogram_info[planet2]
+        p_diff = abs(p2.lon - p1.lon)
+        return min(360 - p_diff, p_diff)
+
     def _calc_aspects(self):
         all_planets = [const.SUN, const.MOON,
                        const.MERCURY, const.VENUS, const.MARS, const.JUPITER, const.SATURN,
@@ -283,20 +289,15 @@ class Cosmogram:
         planet_to_aspect = {}
         aspects = []
         for i in range(len(all_planets)):
-            p1 = self.planet_to_cosmogram_info[all_planets[i]]
             for j in range(i + 1, len(all_planets)):
-                p2 = self.planet_to_cosmogram_info[all_planets[j]]
-
                 for aspect in MAJOR_ASPECTS:
-                    p_diff = abs(p2.lon - p1.lon)
-                    p_diff = min(360 - p_diff, p_diff)
+                    p_diff = self.get_distance(all_planets[i], all_planets[j])
                     diff = abs(p_diff - aspect)
-                    if diff <= 1:
-                    # if diff <= 2 or \
-                    #         diff <= 10 and all_planets[i] in [const.SUN, const.MOON] or \
-                    #         diff <= 10 and all_planets[j] in [const.SUN, const.MOON] or \
-                    #         diff <= 5 and all_planets[i] not in [const.CHIRON, const.NORTH_NODE, 'Lilith', 'Selena'] or \
-                    #         diff <= 5 and all_planets[j] not in [const.CHIRON, const.NORTH_NODE, 'Lilith', 'Selena']:
+                    if diff <= 2 or \
+                            diff <= 10 and all_planets[i] in [const.SUN, const.MOON] or \
+                            diff <= 10 and all_planets[j] in [const.SUN, const.MOON] or \
+                            diff <= 5 and all_planets[i] not in [const.CHIRON, const.NORTH_NODE, 'Lilith', 'Selena'] or \
+                            diff <= 5 and all_planets[j] not in [const.CHIRON, const.NORTH_NODE, 'Lilith', 'Selena']:
                         res1 = planet_to_aspect.get(all_planets[i], [])
                         res2 = planet_to_aspect.get(all_planets[j], [])
                         if len(res1) == 0:

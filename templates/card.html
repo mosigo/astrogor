@@ -1,3 +1,4 @@
+{% import "form.html" as marcos %}
 {% extends "base.html" %}
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/card.css') }}" type="text/css"/>
@@ -11,29 +12,19 @@
 
 <h1>Космограмма и Формула Души</h1>
 <form action="/card" method="get">
-    <div class="form-field">
-        <label for="birthday">Дата</label>
-        <input type="text" placeholder="01.01.2000 12:00" name="birthday" id="birthday" value="{{birthday}}" size="15"/>
-    </div>
-    <div class="form-field">
-        <label for="city">Город</label><input type="text" name="city" id="city" value="{{city}}" size="15"/>
-    </div>
-    <div class="form-field">
-        <label for="fio">Имя</label><input type="text" name="fio" id="fio" value="{{fio}}" size="15"/>
+
+    {{ marcos.render_text_input('birthday', birthday, 'Дата', '01.01.2000 12:00', 1) }}
+    {{ marcos.render_text_input('city', city, 'Город', 'Москва', 2) }}
+    {{ marcos.render_text_input('fio', fio, 'Имя', '', 3) }}
+
+    {{ marcos.render_checkbox('age-in-years', age_in_years, 'Годы вместо дней', 4) }}
+
+    <div>
+        <input type="submit" value="Построить!" class="sbm" tabindex="5">
+        <a href="/card" tabindex="6">Сбросить</a>
+        <a href="{{ transit_link }}" tabindex="7">Транзиты</a>
     </div>
 
-    <div class="form-field">
-        {% if age_in_years %}
-            <input type="checkbox" name="age-in-years" id="age-in-years" checked="checked"/>
-        {% else %}
-            <input type="checkbox" name="age-in-years" id="age-in-years"/>
-        {% endif %}
-        <label for="age-in-years" id="age-in-years-label">Годы вместо дней</label>
-    </div>
-    <div>
-        <input type="submit" value="Построить!">
-        <a href="/card">Сбросить</a>
-    </div>
 </form>
 <div class="download">
     <a href="{{download_link}}" download="{{out_file_name}}">PDF</a>
