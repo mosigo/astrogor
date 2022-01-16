@@ -7,6 +7,7 @@ from transliterate import translit
 from model.sf_flatlib import FlatlibBuilder
 from view.sf_cairo import SimpleFormulaDrawer
 from view.sf_layout import DefaultLayoutMaker, RectangleFormulaCutter
+from view.sf_layout_angles import AnglesLayoutMaker, RectangleCutPolicy
 
 
 class Person:
@@ -59,8 +60,8 @@ def read_csv_file(from_path):
 
 
 if __name__ == '__main__':
-    path_to_csv = '/Users/mosigo/Yandex.Disk.localized/Documents/Формула Души/формулы_из_учебника_small.csv'
-    # path_to_csv = '/Users/mosigo/Yandex.Disk.localized/Documents/Формула Души/формулы_из_учебника.csv'
+    # path_to_csv = '/Users/mosigo/Yandex.Disk.localized/Documents/Формула Души/формулы_из_учебника_small.csv'
+    path_to_csv = '/Users/mosigo/Yandex.Disk.localized/Documents/Формула Души/формулы_из_учебника.csv'
     out_dir = '/Users/mosigo/Yandex.Disk.localized/Documents/Формула Души/pics'
 
     formula_width = 100
@@ -74,7 +75,8 @@ if __name__ == '__main__':
     height = formula_height + title_height
 
     builder = FlatlibBuilder()
-    layout_maker = DefaultLayoutMaker(RectangleFormulaCutter(formula_width, formula_height))
+    # layout_maker = DefaultLayoutMaker(RectangleFormulaCutter(formula_width, formula_height))
+    layout_maker = AnglesLayoutMaker()
     drawer = SimpleFormulaDrawer()
 
     rows = read_csv_file(path_to_csv)
@@ -98,7 +100,8 @@ if __name__ == '__main__':
 
         formula = builder.build_formula(person.birthday + timedelta(hours=12))
 
-        d_formula = layout_maker.make_layout(formula)
+        cut_policy = RectangleCutPolicy(formula_width, formula_height)
+        d_formula = layout_maker.make_layout(formula, formula_width, formula_height, cut_policy=cut_policy)
         drawer.draw_formula(d_formula, cr)
 
         diff = title_height * 0.3

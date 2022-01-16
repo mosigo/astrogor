@@ -357,7 +357,8 @@ class RectangleCutPolicy(CutPolicy):
             self._get_bounds(c_formula, length_ratio=self.width / self.height)
         scale_w, scale_h = self.width / (max_x - min_x), self.height / (max_y - min_y)
         scale = min(scale_w, scale_h)
-        c_formula.move_coordinates(-min_x, -min_y, scale)
+        xk, yk = c_formula.get_compress_ratio()
+        c_formula.move_coordinates(-min_x / xk, -min_y / yk, scale)
 
         return c_formula
 
@@ -404,7 +405,8 @@ class CircleCutPolicy(CutPolicy):
         r = r * (1 + self.padding)
         min_x, min_y = x - r, y - r
         scale = self.radius / r
-        c_formula.move_coordinates(-min_x, -min_y, scale)
+        xk, yk = c_formula.get_compress_ratio()
+        c_formula.move_coordinates(-min_x / xk, -min_y / yk, scale)
         return c_formula
 
     @staticmethod
@@ -883,13 +885,13 @@ if __name__ == '__main__':
     builder = FlatlibBuilder()
     drawer = SimpleFormulaDrawer()
 
-    # for formula_date in ['1987-01-10 12:02 +05:00']:
-    for formula_date in ['1753-04-18 12:02 +03:00', '1986-07-14 12:02 +03:00', '2016-12-30 12:02 +03:00',
-                         '1901-06-07 12:02 +03:00', '1939-01-28 12:02 +03:00', '1821-08-13 12:02 +03:00',
-                         '1956-05-20 12:02 +03:00', '1987-12-04 12:02 +03:00', '1987-12-24 12:02 +03:00',
-                         '1987-01-10 12:02 +05:00', '1992-03-19 12:02 +03:00', '1990-12-13 12:02 +03:00',
-                         '1993-12-29 12:02 +03:00', '1996-12-17 12:02 +03:00', '1993-09-08 12:02 +03:00',
-                         '1940-09-23 07:45 +03:00', '1991-08-20 16:51 +03:00']:
+    for formula_date in ['2019-03-15 17:00 +03:00']:
+    # for formula_date in ['1753-04-18 12:02 +03:00', '1986-07-14 12:02 +03:00', '2016-12-30 12:02 +03:00',
+    #                      '1901-06-07 12:02 +03:00', '1939-01-28 12:02 +03:00', '1821-08-13 12:02 +03:00',
+    #                      '1956-05-20 12:02 +03:00', '1987-12-04 12:02 +03:00', '1987-12-24 12:02 +03:00',
+    #                      '1987-01-10 12:02 +05:00', '1992-03-19 12:02 +03:00', '1990-12-13 12:02 +03:00',
+    #                      '1993-12-29 12:02 +03:00', '1996-12-17 12:02 +03:00', '1993-09-08 12:02 +03:00',
+    #                      '1940-09-23 07:45 +03:00', '1991-08-20 16:51 +03:00']:
         formula = builder.build_formula(datetime.strptime(formula_date, '%Y-%m-%d %H:%M %z'))
         print(formula)
 
