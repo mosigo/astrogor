@@ -175,8 +175,8 @@ def create_transit():
     planet_to_connection_res = []
     for planet, (planet_to, dt, _) in planet_to_connection.items():
         dt_as_str = dt.strftime('%d.%m.%Y %H:%M')
-        link = '/transit?' + params + '&transit-day=' + unquote(dt_as_str)
-        planet_to_connection_res.append((planet, planet_to, dt.strftime('%d.%m.%Y'), link, dt))
+        tr_link = '/transit?' + params + '&transit-day=' + unquote(dt_as_str)
+        planet_to_connection_res.append((planet, planet_to, dt.strftime('%d.%m.%Y'), tr_link, dt))
     planet_to_connection_res.sort(key=lambda a: a[4])
 
     with open(filename, "rb") as img_file:
