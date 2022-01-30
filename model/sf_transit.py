@@ -54,7 +54,7 @@ def get_discrete_value(lon: float) -> int:
     return res
 
 
-def find_nearest_connections(cosmo: Cosmogram, from_date: datetime) -> {str, (str, datetime)}:
+def find_nearest_connections(cosmo: Cosmogram, from_date: datetime) -> {str, (str, datetime, str)}:
     all_planets = [const.SUN, const.MOON,
                    const.MERCURY, const.VENUS, const.MARS, const.JUPITER, const.SATURN,
                    const.URANUS, const.NEPTUNE, const.PLUTO, const.CHIRON, const.NORTH_NODE,
@@ -110,12 +110,12 @@ def find_nearest_connections(cosmo: Cosmogram, from_date: datetime) -> {str, (st
         max_step = min([a[2] for a in discrete_lon_to_planets.get(planet_discrete_lon)])
         td = _get_big_timedelta(planet)
         dt = from_date + td + td * max(max_step - 2, 0)
-        p, pdt = find_connection(cosmo, planet, dt)
-        result[planet] = (p, pdt)
+        p, pdt, movement = find_connection(cosmo, planet, dt)
+        result[planet] = (p, pdt, movement)
     return result
 
 
-def find_connection(cosmo: Cosmogram, planet_to_search: str, from_date: datetime) -> (str, datetime):
+def find_connection(cosmo: Cosmogram, planet_to_search: str, from_date: datetime) -> (str, datetime, str):
     builder = FlatlibBuilder()
     dt = from_date
     while True:
@@ -133,7 +133,8 @@ def find_connection(cosmo: Cosmogram, planet_to_search: str, from_date: datetime
                 min_angle = p_diff
                 min_planet = planet
         if min_angle < 1:
-            return min_planet, find_zero_conneсtion(cosmo, planet_to_search, min_planet, dt)
+            return min_planet, find_zero_conneсtion(cosmo, planet_to_search, min_planet, dt), \
+                   transit_cosmo.get_planet_info(planet_to_search).movement
         dt += _get_big_timedelta(planet_to_search)
 
 

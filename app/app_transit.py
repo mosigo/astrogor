@@ -95,17 +95,18 @@ def get_nearest_transit_connections(geocoder: SFGeocoder, birthday_time: datetim
     cosmo1 = builder.build_cosmogram(dt_birthday, lat=geo_res.lat, lon=geo_res.lon,
                                      planets_to_exclude=[const.PARS_FORTUNA])
 
-    res = find_nearest_connections(cosmo1, dt_transit + timedelta(days=1))
+    res = find_nearest_connections(cosmo1, (dt_transit + timedelta(days=1)).replace(hour=0, minute=1))
     view = {}
-    for planet1, (planet2, _) in res.items():
-        b64 = get_connection_pic(planet1, planet2, False, cosmo1.get_planet_info(planet2).movement == const.RETROGRADE)
+    for planet1, (planet2, _, movement1) in res.items():
+        b64 = get_connection_pic(planet1, planet2,
+                                 movement1 == const.RETROGRADE,
+                                 cosmo1.get_planet_info(planet2).movement == const.RETROGRADE)
         view[planet1] = b64
     return res, view
 
 
 def get_connection_pic(planet1: str, planet2: str, is_retro1: bool, is_retro2: bool) -> str:
     new_file, filename = tempfile.mkstemp(suffix='.png', prefix='transit_')
-    print(f'Создан временный файл для вывода пары планет: {filename}')
     h = 100
     w = h * 3
     surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, w, h)
@@ -124,7 +125,7 @@ def get_connection_pic(planet1: str, planet2: str, is_retro1: bool, is_retro2: b
     cr.arc(1.5, 0.5, 0.3, 0, 2 * math.pi)
     cr.fill()
 
-    space = 0.05
+    space = 0.1
 
     cr.set_line_width(0.06)
     cr.set_source_rgb(0, 0, 0)
@@ -141,12 +142,12 @@ def get_connection_pic(planet1: str, planet2: str, is_retro1: bool, is_retro2: b
 
     cr.translate(2, 0)
 
-    space = 0.15
-    cr.set_line_width(0.05)
+    space = 0.1
+    cr.set_line_width(0.06)
 
-    cr.set_source_rgb(0, 0, 0)
+    cr.set_source_rgba(0, 0, 0, 0.5)
     if is_retro2:
-        cr.set_source_rgb(1, 0, 0)
+        cr.set_source_rgba(1, 0, 0, 0.5)
 
     cr.save()
     cr.translate(space, space)

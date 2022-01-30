@@ -173,7 +173,7 @@ def create_transit():
 
     planet_to_connection, planet_to_view = get_nearest_transit_connections(geocoder, birthday_dt, city, transit_dt, cur_city)
     planet_to_connection_res = []
-    for planet, (planet_to, dt) in planet_to_connection.items():
+    for planet, (planet_to, dt, _) in planet_to_connection.items():
         dt_as_str = dt.strftime('%d.%m.%Y %H:%M')
         link = '/transit?' + params + '&transit-day=' + unquote(dt_as_str)
         planet_to_connection_res.append((planet, planet_to, dt.strftime('%d.%m.%Y'), link, dt))
