@@ -248,6 +248,8 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
 
     def draw_transit(self, cosmogram1: Cosmogram, cosmogram2: Cosmogram, cr: cairo.Context,
                      show_source: bool = False, show_source_to_transit: bool = True, show_transit: bool = False):
+        day_of_week_to_label = {0: 'пн', 1: 'вт', 2: 'ср', 3: 'чт', 4: 'пт', 5: 'сб', 6: 'вс'}
+
         self.draw_cosmogram(cosmogram1, cr)
 
         cr.set_source_rgb(0, 0, 0)
@@ -288,17 +290,20 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
         text_y = 0.5 + date_font_size * 0.8 / 2 - text_step * 0.5
 
         # выводим исходную дату
-        add_text_by_left(cr, cosmogram1.dt.strftime('%d.%m.%Y '), text_y, xl=0.3, stroke=False)
+        date_as_str1 = f'{cosmogram1.dt.strftime("%d.%m.%Y")} '
+        add_text_by_left(cr, date_as_str1, text_y, xl=0.3, stroke=False)
         cr.set_font_size(date_font_size * 0.5)
-        cr.show_text(cosmogram1.dt.strftime('%H:%M'))
+        cr.show_text(f'{cosmogram1.dt.strftime("%H:%M")} ({day_of_week_to_label[cosmogram1.dt.weekday()]})')
         cr.stroke()
 
         # выводим дату транзита
         text_y += text_step
         cr.set_font_size(date_font_size)
-        add_text_by_right(cr, cosmogram2.dt.strftime('%d.%m.%Y '), text_y, xr=0.64, stroke=False)
+        date_as_str2 = f'{cosmogram2.dt.strftime("%d.%m.%Y")} '
+        add_text_by_right(cr, date_as_str2, text_y, xr=0.60, stroke=False)
         cr.set_font_size(date_font_size * 0.5)
-        cr.show_text(cosmogram2.dt.strftime('%H:%M'))
+        # cr.show_text(cosmogram2.dt.strftime('%H:%M'))
+        cr.show_text(f'{cosmogram2.dt.strftime("%H:%M")} ({day_of_week_to_label[cosmogram2.dt.weekday()]})')
         cr.stroke()
 
         # выводим серую линию между датами
