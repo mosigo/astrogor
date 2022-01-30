@@ -12,3 +12,30 @@ a.control {
     margin: 0 4px;
     text-decoration: none;
 }
+
+.nearest-connection {
+    display:inline-block;
+    width: 22%;
+}
+
+.nearest-connection a:hover {
+    text-decoration: underline;
+}
+
+.nearest-connection img {
+    max-height:22px;
+    vertical-align: middle;
+}
+
+.nearest-connection a {
+    text-decoration: none;
+}
+
+@media (max-width: 1100px) {
+
+    .nearest-connection {
+        width: 100%;
+        padding: 0 0 8px;
+        display: block;
+    }
+}

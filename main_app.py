@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 from transliterate import translit
 
 from app.app_sf import generate_full_card, generate_card
-from app.app_transit import generate_transit, generate_full_transit
+from app.app_transit import generate_transit, generate_full_transit, get_nearest_transit_connections
 from ext.sf_geocoder import DefaultSFGeocoder
 
 app = Flask(__name__)
@@ -171,6 +171,14 @@ def create_transit():
     fd_link = '/card?' + \
               unquote_str_param('fio', fio) + unquote_str_param('birthday', birthday) + unquote_str_param('city', city)
 
+    planet_to_connection, planet_to_view = get_nearest_transit_connections(geocoder, birthday_dt, city, transit_dt, cur_city)
+    planet_to_connection_res = []
+    for planet, (planet_to, dt) in planet_to_connection.items():
+        dt_as_str = dt.strftime('%d.%m.%Y %H:%M')
+        link = '/transit?' + params + '&transit-day=' + unquote(dt_as_str)
+        planet_to_connection_res.append((planet, planet_to, dt.strftime('%d.%m.%Y'), link, dt))
+    planet_to_connection_res.sort(key=lambda a: a[4])
+
     with open(filename, "rb") as img_file:
         b64_string = base64.b64encode(img_file.read()).decode('utf-8')
         os.remove(filename)
@@ -179,7 +187,8 @@ def create_transit():
                                out_file_name=out_file, download_link=link, prev_link=prev_link, next_link=next_link,
                                prev_link_hour=prev_link_hour, next_link_hour=next_link_hour,
                                show_source=show_source, show_source_to_transit=show_source_to_transit,
-                               show_transit=show_transit, fd_link=fd_link)
+                               show_transit=show_transit, fd_link=fd_link,
+                               planet_to_connection=planet_to_connection_res, planet_to_connection_view=planet_to_view)
 
 
 @app.route('/download-transit', methods=['GET'])

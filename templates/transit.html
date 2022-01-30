@@ -42,6 +42,16 @@
     </div>
 </form>
 
+<h3>Ближайшие соединения</h3>
+<div>
+    {% for planet, planet_to, dt_as_str, link, dt in planet_to_connection %}
+        <div class="nearest-connection">
+            <img src="data:image/gif;base64,{{ planet_to_connection_view[planet] }}"/>
+            <a href="{{ link }}">{{ dt_as_str }}</a>
+        </div>
+    {% endfor %}
+</div>
+
 <div class="download">
     <a href="{{download_link}}" download="{{out_file_name}}">PDF</a>
 </div>

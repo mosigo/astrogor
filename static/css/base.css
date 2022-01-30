@@ -2,8 +2,19 @@
 
 h1, h2, h3, h4, h5, h6 {
     font-family: MontserratMedium;
-    font-size: 36px;
     line-height: 1em;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+h2 {
+    font-size: 32px;
+}
+
+h3 {
+    font-size: 28px;
 }
 
 * {
