@@ -1,11 +1,157 @@
 {% extends "base.html" %}
 {% block head %}
-    {{ super() }}
+{{ super() }}
 <style>
 
 </style>
 {% endblock %}
 {% block body %}
-<h1>Сайт школы русской астрологии «Волхвы»</h1>
-<div>Скоро здесь появится официальный сайт школы русской астрологии «Волхвы». Следите за обновлениями!</div>
+<div class="plate-base">
+    <div class="plate w100 slogan">
+        <div class="text"><p>Астрология — это Божественная мудрость, сотканная из Звёзд!</p></div>
+        <div class="signature">Астрогор А.А.</div>
+    </div>
+</div>
+<div class="plate-base">
+    <div class="plate w100">
+        <div class="plate-inner">
+            <div class="left w25">
+                <img src="{{ url_for('static', filename='pic/astrogor.png') }}"/>
+                <div class="signature">Родился 28 декабря 1949 г. в Иркутске, проживает в Москве.</div>
+            </div>
+            <div class="right w75">
+                <h1>Астрогор Александр Александрович</h1>
+                <div class="text">
+                    <p>Астролог и астропсихолог, целитель, исследователь.</p>
+                    <p>По собственному определению: Человек, говорящий языком звезд.</p>
+                    <p>Руководитель Школы русской астрологии «Волхвы». Член Содружества Профессиональных Астрологов
+                        России.</p>
+                    <p>Начиная с первой половины 80-х гг стал известен как астролог-консультант,
+                        исследователь взаимосвязей здоровья, образа и целей жизни.
+                        Разработал аналитическую методику оценки потенциала личности и событий «Формула Души»,
+                        в основе которой авторская система толкований цепочек астрологических планетарных
+                        диспозиторов по владению.</p>
+                    <p>Автор 17 книг.</p>
+                </div>
+                <div class="action">
+                    <button class="btn">Записаться на консультацию</button>
+                    <span class="caption right">Консультация 1 час — 5 000 руб.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="plate-base">
+    <div class="plate w50">
+        <h1>Планируемые курсы</h1>
+        <div>
+            <img src="{{ url_for('static', filename='pic/sf.png') }}"/>
+        </div>
+        <div class="text-header">Очный курс «Формула Души»</div>
+        <div class="text">
+            <p>21 февраля 2022 г. — 28 марта 2022 г.</p>
+            <p>16 занятий, 3 раза в неделю с 19 до 21 часа.</p>
+            <p>Москва, м. Краснопресненская.</p>
+        </div>
+        <div class="action">
+            <button class="btn">Записаться на курс</button>
+        </div>
+    </div>
+    <div class="plate w50">
+        <h1>Новый выпуск книги</h1>
+        <div>
+            <img src="{{ url_for('static', filename='pic/last_book.png') }}"/>
+        </div>
+        <div class="text-header">Кармическая медицина. Голова, мозг и ум, глаза и слух... под знаком Зодиака — Овен
+        </div>
+        <div class="text">
+            <p>Вышла первая книга из новой серии. Первая из 12-ти: Овен, голова, ум и мозг, зрение и слух, нос, зубы,
+                физиогномика.</p>
+        </div>
+        <div class="action">
+            <a href="https://www.ozon.ru/product/karmicheskaya-meditsina-golova-mozg-i-um-glaza-i-sluh-pod-znakom-zodiaka-oven-407617901/" target="_blank">
+                <button class="btn">Купить на Ozon</button>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="plate-base">
+    <div class="plate w100 dark">
+        <div class="plate-inner">
+            <div class="left w50">
+                <img src="{{ url_for('static', filename='pic/fd.png') }}" class="w100"/>
+            </div>
+            <div class="right w50">
+                <h1>Формула души</h1>
+                <div class="text">
+                    <p>Формула души — это оптимальный путь развития человека, предначертанный ему небесными
+                        телами в момент рождения, выраженный графически в астрологических символах.</p>
+                    <p>Формула души — это схема уникального радиоприёмника: тела человека. Вибрации наших мыслей,
+                        чувств и желаний, будут определять настрой импульсов и вибраций планет для нашего
+                        приёмника. Формула души определяет точный диапазон настройки для каждого человека,
+                        чтобы петь свою песню, играть свою роль.</p>
+                </div>
+                <div class="action">
+                    <a href="/card"><button class="btn">Рассчитать формулу</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="plate-base">
+    <div class="plate w100">
+        <h1>Книги</h1>
+        <div class="plate-inner">
+            <div class="left w25">
+                <img src="{{ url_for('static', filename='pic/book1.png') }}"/>
+                <div class="text">
+                    <p>Формула души. Новейшая космическая психология</p>
+                </div>
+            </div>
+            <div class="left w25">
+                <img src="{{ url_for('static', filename='pic/book2.png') }}"/>
+                <div class="text">
+                    <p>Цветной альбом. Астрология в схемах и таблицах</p>
+                </div>
+            </div>
+            <div class="left w25">
+                <img src="{{ url_for('static', filename='pic/book3.png') }}"/>
+                <div class="text">
+                    <p>Ирония судьбы российских правителей</p>
+                </div>
+            </div>
+            <div class="right w25">
+                <img src="{{ url_for('static', filename='pic/book4.png') }}"/>
+                <div class="text">
+                    <p>Кармическая медицина. Исповедь болячки</p>
+                </div>
+            </div>
+        </div>
+        <div class="action">
+            <a href="/books"><button class="btn">Все книги</button></a>
+        </div>
+    </div>
+</div>
+
+<div class="plate-base">
+    <div class="plate w100">
+        <h1>Видео</h1>
+        <div class="plate-inner">
+            <div class="left w30">
+                <iframe src="https://player.vimeo.com/video/314354084" width="100%" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true"></iframe>
+            </div>
+            <div class="left w30">
+                <iframe src="https://player.vimeo.com/video/275211531" width="100%" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true"></iframe>
+            </div>
+            <div class="left w30">
+                <iframe src="https://player.vimeo.com/video/280072759" width="100%" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true"></iframe>
+            </div>
+        </div>
+        <div class="action">
+            <a href="/videos"><button class="btn">Все видео</button></a>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

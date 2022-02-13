@@ -31,6 +31,14 @@ a.control {
     text-decoration: none;
 }
 
+.plate img {
+    width: unset;
+}
+
+div.full-img img {
+    width: 100%;
+}
+
 @media (max-width: 1100px) {
 
     .nearest-connection {

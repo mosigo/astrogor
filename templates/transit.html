@@ -1,7 +1,8 @@
 {% import "form.html" as marcos %}
 {% extends "base.html" %}
 {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/transit.css') }}" type="text/css"/>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}" type="text/css"/>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/transit.css') }}" type="text/css"/>
 {% endblock %}
 
 {% block header %}
@@ -9,55 +10,60 @@
 {% endblock %}
 
 {% block body %}
+<div class="plate-base">
+    <div class="plate w100">
+        <h1>Транзит космограммы на дату</h1>
+        <form action="/transit" method="get">
 
-<h1>Транзит космограммы на дату</h1>
-<form action="/transit" method="get">
+            <div class="form-header">Исходная дата</div>
 
-    <div class="form-header">Исходная дата</div>
+            {{ marcos.render_text_input('birthday', birthday, 'Дата', '01.01.2000 12:00', 1) }}
+            {{ marcos.render_text_input('city', city, 'Город', 'Москва', 2) }}
+            {{ marcos.render_text_input('fio', fio, 'Имя', '', 3) }}
 
-    {{ marcos.render_text_input('birthday', birthday, 'Дата', '01.01.2000 12:00', 1) }}
-    {{ marcos.render_text_input('city', city, 'Город', 'Москва', 2) }}
-    {{ marcos.render_text_input('fio', fio, 'Имя', '', 3) }}
+            <div class="form-header">Транзит на дату</div>
 
-    <div class="form-header">Транзит на дату</div>
+            {{ marcos.render_text_input('transit-day', transit_day, 'Дата', '01.01.2000 12:00', 4) }}
+            {{ marcos.render_text_input('current-city', current_city, 'Город', '', 5) }}
 
-    {{ marcos.render_text_input('transit-day', transit_day, 'Дата', '01.01.2000 12:00', 4) }}
-    {{ marcos.render_text_input('current-city', current_city, 'Город', '', 5) }}
+            <div class="form-field">
+                <label></label>
+                День<a href="{{prev_link}}" class="control">–</a><a href="{{next_link}}" class="control">+</a>
+                <span class="spacer-h"></span>
+                Час<a href="{{prev_link_hour}}" class="control">–</a><a href="{{next_link_hour}}" class="control">+</a>
+            </div>
 
-    <div class="form-field">
-       <label></label>
-       День<a href="{{prev_link}}" class="control">–</a><a href="{{next_link}}" class="control">+</a>
-       <span class="spacer-h"></span>
-       Час<a href="{{prev_link_hour}}" class="control">–</a><a href="{{next_link_hour}}" class="control">+</a>
-    </div>
+            <div class="form-header">Аспекты</div>
 
-    {{ marcos.render_checkbox('show-source', show_source, 'Натальные аспекты', 6) }}
-    {{ marcos.render_checkbox('show-source-to-transit', show_source_to_transit, 'Аспекты натал-транзит', 7) }}
-    {{ marcos.render_checkbox('show-transit', show_transit, 'Аспекты транзита', 8) }}
+            {{ marcos.render_checkbox('show-source', show_source, 'Натальные аспекты', 6) }}
+            {{ marcos.render_checkbox('show-source-to-transit', show_source_to_transit, 'Аспекты натал-транзит', 7) }}
+            {{ marcos.render_checkbox('show-transit', show_transit, 'Аспекты транзита', 8) }}
 
-    <div>
-        <input type="submit" value="Построить!" class="sbm" tabindex="9">
-        <a href="/transit" tabindex="10">Сбросить</a>
-        <a href="{{ fd_link }}" tabindex="11">Формула Души</a>
-    </div>
-</form>
+            <div>
+                <input type="submit" value="Построить!" class="sbm btn" tabindex="9">
+                <a href="/transit" tabindex="10">Сбросить</a>
+                <a href="{{ fd_link }}" tabindex="11">Формула Души</a>
+            </div>
+        </form>
 
-<h3>Ближайшие соединения</h3>
-<div>
-    {% for planet, planet_to, dt_as_str, link, dt in planet_to_connection %}
-        <div class="nearest-connection">
-            <img src="data:image/gif;base64,{{ planet_to_connection_view[planet] }}"/>
-            <a href="{{ link }}">{{ dt_as_str }}</a>
+        <h3>Ближайшие соединения</h3>
+        <div>
+            {% for planet, planet_to, dt_as_str, link, dt in planet_to_connection %}
+            <div class="nearest-connection">
+                <img src="data:image/gif;base64,{{ planet_to_connection_view[planet] }}"/>
+                <a href="{{ link }}">{{ dt_as_str }}</a>
+            </div>
+            {% endfor %}
         </div>
-    {% endfor %}
-</div>
 
-<div class="download">
-    <a href="{{download_link}}" download="{{out_file_name}}">PDF</a>
-</div>
+        <div class="download">
+            <a href="{{download_link}}" download="{{out_file_name}}">PDF</a>
+        </div>
 
-<div class="full-img">
-    <img src="data:image/gif;base64,{{img_as_base64}}"/>
+        <div class="full-img">
+            <img src="data:image/gif;base64,{{img_as_base64}}"/>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

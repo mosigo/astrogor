@@ -15,19 +15,24 @@
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='favicon/apple-icon.png') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" type="text/css"/>
     <style>@font-face {
-        font-family: MontserratLight;
-        src: url("{{ url_for('static', filename='fonts/Montserrat-Light.ttf')}}") format("truetype");
+        font-family: AstrogorText;
+        src: url("{{ url_for('static', filename='fonts/Montserrat-Regular.ttf')}}") format("truetype");
     }</style>
     <style>@font-face {
-        font-family: MontserratMedium;
+        font-family: AstrogorHeader;
         src: url("{{ url_for('static', filename='fonts/Montserrat-Medium.ttf')}}") format("truetype");
     }</style>
     {% block head %}
     {% endblock %}
 </head>
 <body>
-<div class="main-header">
+<div id="main-header">
     <a href="/" class="logo" tabindex="-1"><img src="{{ url_for('static', filename='pic/logo_andrey_small.png') }}" tabindex="-1"/></a>
+    <span class="phone"><a href="/contacts">+7 (916) 147-9-147</a></span>
+    <span><a href="/tools">Астрологам</a></span>
+    <span><a href="/consultation">Консультации</a></span>
+    <span><a href="/learn">Обучение</a></span>
+    <span><a href="/card">Формула души</a></span>
     {% block header %}
     {% endblock %}
 </div>
@@ -38,26 +43,26 @@
 <div id="main-footer">
     <div class="links">
         <div class="main-footer-column">
-            <div class="header">Обучение</div>
+            <div class="header"><a href="/learn">Обучение</a></div>
             <a href="/">Курсы</a>
             <a href="/">Рекомендуем</a>
             <a href="/">Видео</a>
             <a href="/">Книги</a>
         </div>
         <div class="main-footer-column">
-            <div class="header">Консультации</div>
+            <div class="header"><a href="/consultation">Консультации</a></div>
             <a href="/">Александр Астрогор</a>
             <a href="/">Евгений Климантов</a>
         </div>
         <div class="main-footer-column">
-            <div class="header">Астрологам</div>
+            <div class="header"><a href="/tools">Астрологам</a></div>
             <a href="/card">Формула Души</a>
             <a href="/transit">Транзиты</a>
             <a href="/">Материалы для скачивания</a>
         </div>
         <div class="main-footer-column">
-            <div class="header">Блог</div>
-            <div class="header">Контакты</div>
+            <div class="header"><a href="/blog">Блог</a></div>
+            <div class="header"><a href="/contacts">Контакты</a></div>
         </div>
 
     </div>

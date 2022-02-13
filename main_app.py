@@ -51,8 +51,8 @@ def fd():
     return redirect('/card')
 
 
-@app.route('/old', methods=['GET'])
-def old():
+@app.route('/new', methods=['GET'])
+def new():
     return render_template('index.html')
 
 

@@ -1,7 +1,8 @@
 {% import "form.html" as marcos %}
 {% extends "base.html" %}
 {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/card.css') }}" type="text/css"/>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}" type="text/css"/>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/card.css') }}" type="text/css"/>
 {% endblock %}
 
 {% block header %}
@@ -10,28 +11,32 @@
 
 {% block body %}
 
-<h1>Космограмма и Формула Души</h1>
-<form action="/card" method="get">
+<div class="plate-base">
+    <div class="plate w100">
+        <h1>Космограмма и Формула Души</h1>
+        <form action="/card" method="get">
 
-    {{ marcos.render_text_input('birthday', birthday, 'Дата', '01.01.2000 12:00', 1) }}
-    {{ marcos.render_text_input('city', city, 'Город', 'Москва', 2) }}
-    {{ marcos.render_text_input('fio', fio, 'Имя', '', 3) }}
+            {{ marcos.render_text_input('birthday', birthday, 'Дата', '01.01.2000 12:00', 1) }}
+            {{ marcos.render_text_input('city', city, 'Город', 'Москва', 2) }}
+            {{ marcos.render_text_input('fio', fio, 'Имя', '', 3) }}
 
-    {{ marcos.render_checkbox('age-in-years', age_in_years, 'Годы вместо дней', 4) }}
+            {{ marcos.render_checkbox('age-in-years', age_in_years, 'Годы вместо дней', 4) }}
 
-    <div>
-        <input type="submit" value="Построить!" class="sbm" tabindex="5">
-        <a href="/card" tabindex="6">Сбросить</a>
-        <a href="{{ transit_link }}" tabindex="7">Транзиты</a>
+            <div>
+                <input type="submit" value="Построить!" class="sbm btn" tabindex="5">
+                <a href="/card" tabindex="6">Сбросить</a>
+                <a href="{{ transit_link }}" tabindex="7">Транзиты</a>
+            </div>
+
+        </form>
+        <div class="download">
+            <a href="{{download_link}}" download="{{out_file_name}}">PDF</a>
+        </div>
+
+        <div class="full-img">
+            <img src="data:image/gif;base64,{{img_as_base64}}"/>
+        </div>
     </div>
-
-</form>
-<div class="download">
-    <a href="{{download_link}}" download="{{out_file_name}}">PDF</a>
-</div>
-
-<div class="full-img">
-    <img src="data:image/gif;base64,{{img_as_base64}}"/>
 </div>
 
 {% endblock %}
