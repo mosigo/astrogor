@@ -132,7 +132,7 @@ a.logo img {
     font-size: 16px;
     background-color: rgba(0, 20, 69, 1);
     color: white;
-    padding: 16px;
+    padding: 32px 16px;
 }
 
 #main-footer a {

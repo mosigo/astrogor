@@ -182,6 +182,33 @@
 
 {% include "blocks/books.html" %}
 
+<!--Блок Астрологам-->
+<div class="plate-base">
+    <div class="plate w100">
+        <div class="plate-inner">
+            <div class="left w30">
+                <img src="{{ url_for('static', filename='pic/fd.png') }}" class="w100"/>
+            </div>
+            <div class="left w30">
+                <img src="{{ url_for('static', filename='pic/transit.png') }}" class="w100"/>
+            </div>
+            <div class="right w30">
+                <h1>Астрологам</h1>
+                <div class="text">
+                    <p>Удобные инструменты для расчёта Формулы Души, построения транзитов и полезные материалы
+                        для работы и развития личных и профессиональных качеств.</p>
+                </div>
+                <div class="action">
+                    <a href="/astro">
+                        <button class="btn">Подробнее</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <!--Блок с видео-->
 <!--<div class="plate-base">-->
 <!--    <div class="plate w100">-->
