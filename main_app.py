@@ -66,6 +66,11 @@ def contacts():
     return render_template('contacts.html')
 
 
+@app.route('/books', methods=['GET'])
+def books():
+    return render_template('books.html')
+
+
 @app.route('/download-card', methods=['GET'])
 def download_card():
     fio, birthday, city, age_units = get_card_params()

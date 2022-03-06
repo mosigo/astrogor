@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+<meta name="Keywords" content="астрогор, астрология, обучение, душа, контакты, администратор"/>
+<style>
+
+</style>
+{% endblock %}
+{% block body %}
+
+<!--Блок с цитатой-->
+<div class="plate-base">
+    <div class="plate w100 slogan">
+        <div class="text"><p>То, что вы ищите, тоже ищет вас.</p></div>
+        <div class="signature">Астрогор А.А.</div>
+    </div>
+</div>
+
+<div class="plate-base">
+    <div class="bread-crumbs w100">
+        <span><a href="/">Главная</a></span>
+        <span class="separator"> / </span>
+        <span><a href="/edu">Обучение</a></span>
+        <span class="separator"> / </span>
+        <span>Книги</span>
+    </div>
+</div>
+
+<!--Формула Души-->
+<div class="plate-base">
+    <div class="plate w100">
+        <h1>Формула Души</h1>
+        <p>Все эти книги есть в книжных магазинах, а также доступны для покупки в Интернете.</p>
+        <div class="plate-inner">
+            <div class="left w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/01.png') }}"/>
+                </div>
+                <div class="text">
+                    <h4>Формула души. Новейшая космическая психология</h4>
+                    <p>Учебник</p>
+                </div>
+            </div>
+            <div class="left w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/02.png') }}"/>
+                </div>
+                <div class="text">
+                    <h4>Астрология в схемах и таблицах</h4>
+                    <p>Цветной альбом, формат А4</p>
+                </div>
+            </div>
+            <div class="w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/03.png') }}"/>
+                </div>
+                <div class="text">
+                    <h4>Сила формулы души</h4>
+                    <p>Учебное пособие к книге «Формула Души», формат А4</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Кармическая медицина-->
+<div class="plate-base">
+    <div class="plate w100">
+        <h1>Кармическая медицина</h1>
+        <div class="plate-inner">
+            <div class="left w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/04.png') }}"/>
+                </div>
+                <div class="text">
+                    <h4>Голова, мозг и ум, глаза и слух под знаком Зодиака Овен</h4>
+                    <p>Трактат о причинах возникновения болезней</p>
+                </div>
+            </div>
+            <div class="left w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/05.png') }}"/>
+                </div>
+                <div class="text">
+                    <h4>Книга чувств или интуиция, питание, иммунитет, вегетативная нервная система</h4>
+                    <p>Трактат о причинах возникновения болезней</p>
+                </div>
+            </div>
+            <div class="w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/06.png') }}"/>
+                </div>
+                <div class="text">
+                    <h4>Душа и карма. Формула души и генетика духа</h4>
+                    <p>Трактат о причинах возникновения болезней</p>
+                </div>
+            </div>
+        </div>
+        <div class="plate-inner not-first">
+            <div class="left w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/07.png') }}"/>
+                </div>
+                <div class="text">
+                    <h4>В поисках истины</h4>
+                    <p>Трактат о причинах возникновения болезней</p>
+                </div>
+            </div>
+            <div class="left w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/08.png') }}"/>
+                </div>
+                <div class="text">
+                    <h4>Исповедь болячки</h4>
+                    <p>Трактат о причинах возникновения болезней</p>
+                </div>
+            </div>
+            <div class="w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/09.png') }}"/>
+                </div>
+                <div class="text">
+                    <h4>Исповедь болячки (продолжение)</h4>
+                    <p>Трактат о причинах возникновения болезней</p>
+                </div>
+            </div>
+        </div>
+        <div class="plate-inner not-first">
+            <div class="left w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/10.png') }}"/>
+                </div>
+                <div class="text">
+                    <h4>Кармическое целительство</h4>
+                    <p>Измени сознание — изменишь жизнь</p>
+                </div>
+            </div>
+            <div class="left w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/11.png') }}"/>
+                </div>
+                <div class="text">
+                    <h4>Энергетический вампиризм</h4>
+                    <p>Трактат о причинах возникновения болезней</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Астрология-->
+<div class="plate-base">
+    <div class="plate w100">
+        <h1>Астрология</h1>
+        <div class="plate-inner">
+            <div class="left w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/12.png') }}"/>
+                </div>
+                <div class="text">
+                    <h4>Кресты зодиака</h4>
+                </div>
+            </div>
+            <div class="left w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/13.png') }}"/>
+                </div>
+                <div class="text">
+                    <h4>Сказки зодиака</h4>
+                </div>
+            </div>
+            <div class="w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/14.png') }}"/>
+                </div>
+                <div class="text">
+                    <h4>Астрологическое учение о химических элементах</h4>
+                </div>
+            </div>
+        </div>
+        <div class="plate-inner not-first">
+            <div class="left w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/15.png') }}"/>
+                </div>
+                <div class="text">
+                    <h4>Энциклопедия</h4>
+                    <p>Большая астрологическая медицинская энциклопедия </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Прочее-->
+<div class="plate-base">
+    <div class="plate w100">
+        <h1>Прочее</h1>
+        <div class="plate-inner">
+            <div class="left w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/16.png') }}"/>
+                </div>
+                <div class="text">
+                    <h4>Ирония судьбы российских правителей</h4>
+                    <p>Эзотерическое исследование</p>
+                </div>
+            </div>
+            <div class="left w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/17.png') }}"/>
+                </div>
+                <div class="text">
+                    <h4>Мистика Путина</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -180,78 +180,33 @@
     </div>
 </div>
 
-<!--Блок про книги-->
-<div class="plate-base">
-    <div class="plate w100">
-        <h1>Книги</h1>
-        <p>Все эти книги есть в книжных магазинах, а также доступны для покупки в Интернете.</p>
-        <div class="plate-inner">
-            <div class="left w25">
-                <div class="img">
-                    <img src="{{ url_for('static', filename='pic/books/book1.png') }}"/>
-                </div>
-                <div class="text">
-                    <h4>Формула души. Новейшая космическая психология</h4>
-                </div>
-            </div>
-            <div class="left w25">
-                <div class="img">
-                    <img src="{{ url_for('static', filename='pic/books/book2.png') }}"/>
-                </div>
-                <div class="text">
-                    <h4>Цветной альбом. Астрология в схемах и таблицах</h4>
-                </div>
-            </div>
-            <div class="left w25">
-                <div class="img">
-                    <img src="{{ url_for('static', filename='pic/books/book3.png') }}"/>
-                </div>
-                <div class="text">
-                    <h4>Ирония судьбы российских правителей</h4>
-                </div>
-            </div>
-            <div class="w25">
-                <div class="img">
-                    <img src="{{ url_for('static', filename='pic/books/book4.png') }}"/>
-                </div>
-                <div class="text">
-                    <h4>Кармическая медицина. Исповедь болячки</h4>
-                </div>
-            </div>
-        </div>
-        <div class="action">
-            <a href="/books">
-                <button class="btn">Все книги</button>
-            </a>
-        </div>
-    </div>
-</div>
+{% include "blocks/books.html" %}
 
 <!--Блок с видео-->
-<div class="plate-base">
-    <div class="plate w100">
-        <h1>Видео</h1>
-        <div class="plate-inner">
-            <div class="left w30">
-                <iframe src="https://player.vimeo.com/video/314354084" width="100%" frameborder="0"
-                        webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true"></iframe>
-            </div>
-            <div class="left w30">
-                <iframe src="https://player.vimeo.com/video/275211531" width="100%" frameborder="0"
-                        webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true"></iframe>
-            </div>
-            <div class="w30">
-                <iframe src="https://player.vimeo.com/video/280072759" width="100%" frameborder="0"
-                        webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true"></iframe>
-            </div>
-        </div>
-        <div class="action">
-            <a href="/videos">
-                <button class="btn">Все видео</button>
-            </a>
-        </div>
-    </div>
-</div>
+<!--<div class="plate-base">-->
+<!--    <div class="plate w100">-->
+<!--        <h1>Видео</h1>-->
+<!--        <div class="plate-inner">-->
+<!--            <div class="left w30">-->
+<!--                <iframe src="https://player.vimeo.com/video/314354084" width="100%" frameborder="0"-->
+<!--                        webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true"></iframe>-->
+<!--            </div>-->
+<!--            <div class="left w30">-->
+<!--                <iframe src="https://player.vimeo.com/video/275211531" width="100%" frameborder="0"-->
+<!--                        webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true"></iframe>-->
+<!--            </div>-->
+<!--            <div class="w30">-->
+<!--                <iframe src="https://player.vimeo.com/video/280072759" width="100%" frameborder="0"-->
+<!--                        webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true"></iframe>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="action">-->
+<!--            <a href="/videos">-->
+<!--                <button class="btn">Все видео</button>-->
+<!--            </a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 <!--Блок про кармическую медицину-->
 <div class="plate-base">
