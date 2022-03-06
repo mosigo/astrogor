@@ -25,7 +25,7 @@ h3 {
     font-size: 18px;
     color: #6E69EB;
     margin-top: 20px;
-    line-height: 28px;
+    line-height: 24px;
 }
 
 a {
@@ -179,6 +179,73 @@ a.logo img {
     height: auto;
 }
 
+/*Хлебные крошки*/
+.bread-crumbs {
+    padding: 22px 16px;
+}
+.bread-crumbs a {
+    color: #6E69EB;
+}
+
+.bread-crumbs a:hover {
+    color: #6356F8;
+}
+.bread-crumbs span.separator {
+    width: 23px;
+    display: inline-block;
+    text-align: center;
+}
+
+/*Списки с буллитами*/
+
+ul {
+    padding-left: 0;
+}
+
+ul li {
+    list-style-type: none;
+    text-indent: -26px;
+    padding-left: 26px;
+    padding-bottom: 12px;
+}
+
+ul li:before {
+    color: #6E69EB;
+    content: "●";
+    margin-right: 16px;
+    padding-left: 0;
+}
+
+/*Ссылки на контакты*/
+.contacts {
+    margin: 12px 0;
+}
+.contacts span {
+    display: inline-block;
+}
+
+.contacts a {
+    text-decoration: none;
+    height: 32px;
+    width: 32px;
+}
+
+.contacts .no-img {
+    margin: 0px 8px 0 0;
+    color: #6E69EB;
+}
+
+.contacts a img {
+    display: inline;
+    width: 32px;
+    height: 32px;
+}
+
+/*Для ФИО контактного лица убираем отступ сверху*/
+.adm h4 {
+    margin-top: 0;
+}
+
 /*Общие стили для текста*/
 .signature {
     font-style: italic;
@@ -203,6 +270,13 @@ a.logo img {
     border: 1px solid #D6D6D8;
     border-radius: 8px;
     padding: 24px 38px;
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.img img {
+    display: block;
+    margin: 0 auto;
 }
 
 .label {
@@ -296,6 +370,14 @@ a.logo img {
     object-fit: cover;
 }
 
+.plate a {
+    color: #6E69EB;
+}
+
+.plate a:hover {
+    color: #6356F8;
+}
+
 .plate h1, .plate h2, .plate h3 {
     margin-top: 0;
 }
@@ -337,6 +419,10 @@ a.logo img {
 .plate .action a {
     text-decoration: none;
     padding: 0;
+}
+
+.plate-fixed-height350 {
+    height: 350px;
 }
 
 /*Мобильная версия*/

@@ -56,6 +56,16 @@ def new():
     return render_template('index.html')
 
 
+@app.route('/edu', methods=['GET'])
+def edu():
+    return render_template('edu.html')
+
+
+@app.route('/contacts', methods=['GET'])
+def contacts():
+    return render_template('contacts.html')
+
+
 @app.route('/download-card', methods=['GET'])
 def download_card():
     fio, birthday, city, age_units = get_card_params()

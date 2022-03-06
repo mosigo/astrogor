@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+<meta name="Keywords" content="астрогор, астрология, обучение, душа"/>
+<style>
+
+</style>
+{% endblock %}
+{% block body %}
+
+<!--Блок с цитатой-->
+<div class="plate-base">
+    <div class="plate w100 slogan">
+        <div class="text"><p>Будущее должно быть заложено в настоящем.</p></div>
+        <div class="signature">Астрогор А.А.</div>
+    </div>
+</div>
+
+<div class="plate-base">
+    <a id="offline"></a>
+    <div class="bread-crumbs w100">
+        <span><a href="/">Главная</a></span>
+        <span class="separator"> / </span>
+        <span>Обучение</span>
+    </div>
+</div>
+
+<!--Офлайн-->
+<div class="plate-base">
+    <div class="plate w100">
+        <h1>Офлайн обучение</h1>
+        <div class="plate-inner">
+            <div class="w25 inner-block">
+                <div class="text-header">Формула души</div>
+                <div class="label">Объём</div>
+                <div class="text">16 занятий</div>
+                <div class="label">Продолжительность</div>
+                <div class="text">2 месяца</div>
+                <div class="action">
+                    <a href="/courses/fd">
+                        <button class="btn">Подробнее</button>
+                    </a>
+                </div>
+            </div>
+            <div class="w25 inner-block">
+                <div class="text-header">Классическая астрология</div>
+                <div class="label">Объём</div>
+                <div class="text">12 занятий</div>
+                <div class="label">Продолжительность</div>
+                <div class="text">1.5 месяца</div>
+                <div class="action">
+                    <a href="/courses/astro">
+                        <button class="btn">Подробнее</button>
+                    </a>
+                </div>
+            </div>
+            <div class="w25 inner-block">
+                <div class="text-header">Кармическая медицина</div>
+                <div class="label">Объём</div>
+                <div class="text">12 занятий</div>
+                <div class="label">Продолжительность</div>
+                <div class="text">1.5 месяца</div>
+                <div class="action">
+                    <a href="/courses/karma">
+                        <button class="btn">Подробнее</button>
+                    </a>
+                </div>
+            </div>
+            <div class="w25 inner-block">
+                <div class="text-header">Хиромантия</div>
+                <div class="label">Объём</div>
+                <div class="text">8 занятий</div>
+                <div class="label">Продолжительность</div>
+                <div class="text">1 месяц</div>
+                <div class="action">
+                    <a href="/courses/palmistry">
+                        <button class="btn">Подробнее</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <p>Все курсы читает Астрогор А.А.</p>
+        <p>Обучение проходит в Центре развития «Открытая реальность» по адресу: Москва, Волков пер, д. 4.</p>
+        <p>Занятия три раза в неделю по понедельникам, средам и пятницам. С 19:00 до 21:00.</p>
+        <p>Запись и справки у <a href="/contacts#offline-edu">администратора офлайн обучения</a>.</p>
+    </div>
+</div>
+
+<!--Онлайн-->
+<div class="plate-base">
+    <a id="online"></a>
+    <div class="plate w100">
+        <h1>Онлайн обучение</h1>
+        <div class="plate-inner">
+            <div class="w25 inner-block">
+                <div class="text-header">Формула души</div>
+                <div class="label">Объём</div>
+                <div class="text">16 видеозаписей</div>
+                <div class="label">Продолжительность</div>
+                <div class="text">32 часа</div>
+                <div class="action">
+                    <a href="/courses/fd">
+                        <button class="btn">Подробнее</button>
+                    </a>
+                </div>
+            </div>
+            <div class="w25 inner-block">
+                <div class="text-header">Классическая астрология</div>
+                <div class="label">Объём</div>
+                <div class="text">12 видеозаписей</div>
+                <div class="label">Продолжительность</div>
+                <div class="text">24 часа</div>
+                <div class="action">
+                    <a href="/courses/astro">
+                        <button class="btn">Подробнее</button>
+                    </a>
+                </div>
+            </div>
+            <div class="w25 inner-block">
+                <div class="text-header">Кармическая медицина</div>
+                <div class="label">Объём</div>
+                <div class="text">12 видеозаписей</div>
+                <div class="label">Продолжительность</div>
+                <div class="text">24 часа</div>
+                <div class="action">
+                    <a href="/courses/karma">
+                        <button class="btn">Подробнее</button>
+                    </a>
+                </div>
+            </div>
+            <div class="w25 inner-block">
+                <div class="text-header">Хиромантия</div>
+                <div class="label">Объём</div>
+                <div class="text">8 видеозаписей</div>
+                <div class="label">Продолжительность</div>
+                <div class="text">16 часов</div>
+                <div class="action">
+                    <a href="/courses/palmistry">
+                        <button class="btn">Подробнее</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <p>Курсы представляют собой видеозаписи занятий с курсов офлайн обучения.</p>
+        <p>Курсы могут быть приобретены только полностью, без разрыва платежа.</p>
+        <p>Доступ к записям будет активен 3 месяца с момента оплаты курса.</p>
+        <p>Для прохождения курсов «Формула Души» и «Классическая астрология» необходимы: учебник «Формула Души»,
+            пособие к учебнику «Сила Формулы Души» и цветной альбом «Астрология в схемах и таблицах».</p>
+        <p>Доступ к материалам через <a href="/contacts#online-edu">администратора онлайн обучения</a>.</p>
+    </div>
+</div>
+
+<!--Летняя школа на Светлояре-->
+<div class="plate-base">
+    <a id="svetloyar"></a>
+    <div class="plate w100">
+        <h1>Летняя школа на Светлояре</h1>
+        <div class="plate-inner">
+            <div class="w25 inner-block">
+                <div class="text-header">Формула души</div>
+                <div class="label">Объём</div>
+                <div class="text">16 занятий</div>
+                <div class="label">Продолжительность</div>
+                <div class="text">8 дней</div>
+                <div class="action">
+                    <a href="/courses/fd">
+                        <button class="btn">Подробнее</button>
+                    </a>
+                </div>
+            </div>
+            <div class="w25 inner-block">
+                <div class="text-header">Классическая астрология</div>
+                <div class="label">Объём</div>
+                <div class="text">12 занятий</div>
+                <div class="label">Продолжительность</div>
+                <div class="text">6 дней</div>
+                <div class="action">
+                    <a href="/courses/astro">
+                        <button class="btn">Подробнее</button>
+                    </a>
+                </div>
+            </div>
+            <div class="w25 inner-block">
+                <div class="text-header">Кармическая медицина</div>
+                <div class="label">Объём</div>
+                <div class="text">12 занятий</div>
+                <div class="label">Продолжительность</div>
+                <div class="text">6 дней</div>
+                <div class="action">
+                    <a href="/courses/karma">
+                        <button class="btn">Подробнее</button>
+                    </a>
+                </div>
+            </div>
+            <div class="w25 inner-block">
+                <div class="text-header">Хиромантия</div>
+                <div class="label">Объём</div>
+                <div class="text">8 занятий</div>
+                <div class="label">Продолжительность</div>
+                <div class="text">4 дня</div>
+                <div class="action">
+                    <a href="/courses/palmistry">
+                        <button class="btn">Подробнее</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <p>Все курсы читает Астрогор А.А.</p>
+        <p>Обучение проходит за городом, в летнем поместье Астрогора А.А. по адресу: Нижегородская область,
+            Воскресенский район, деревня Шадрино, ул. Фабричная, дом 15.</p>
+        <p>Занятия два раза в день: утром и вечером, по 2 часа.</p>
+        <p>Проживание оплачивается дополнительно: в гостинице или в частном секторе.</p>
+        <p>Проезд от Нижнего Новгорода на электричке (~1 час) до г. Семёнов
+            (родина Хохломской Росписи — возможны экскурсии), далее автобусом «Семёнов-Воскресенское»
+            или маршрутным такси 45 км до села Владимирское (озеро Светлояр)
+            и 5 км до д. Шадрино.</p>
+        <p>Астрогор или администратор встретят в селе Владимирское и довезут до места.
+            Размещение в гостиницу или в частный сектор. Если ехать самостоятельно по навигатору,
+            то в поиске укажите «Шадрино Воскресенский район»,
+            так как в Нижегородской области три Шадрино! :)</p>
+        <p>Запись и справки у <a href="/contacts">администратора офлайн обучения</a>.</p>
+    </div>
+</div>
+
+
+{% endblock %}

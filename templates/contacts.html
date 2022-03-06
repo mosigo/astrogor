@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+<meta name="Keywords" content="астрогор, астрология, обучение, душа, контакты, администратор"/>
+<style>
+
+</style>
+{% endblock %}
+{% block body %}
+
+<!--Блок с цитатой-->
+<div class="plate-base">
+    <div class="plate w100 slogan">
+        <div class="text"><p>Астрология — это Божественная мудрость, сотканная из Звёзд!</p></div>
+        <div class="signature">Астрогор А.А.</div>
+    </div>
+</div>
+
+<div class="plate-base">
+    <div class="bread-crumbs w100">
+        <span><a href="/">Главная</a></span>
+        <span class="separator"> / </span>
+        <span>Контакты</span>
+    </div>
+</div>
+
+<!--Администраторы-->
+<div class="plate-base">
+    <div class="plate w100">
+        <h1>Администраторы</h1>
+        <div class="plate-inner not-first">
+            <div class="left w25">
+                <img src="{{ url_for('static', filename='pic/contacts/offline.png') }}"/>
+            </div>
+            <div class="right w75 adm">
+                <a id="offline-edu"></a>
+                <h4>Галина Ивановна Дмитриева</h4>
+                <p>Администратор офлайн-обучения</p>
+                <div class="contacts"><span class="no-img">+7 (916) 147-9-147</span></div>
+                <div class="contacts">
+                    <span>
+                        <a href="https://wa.me/79161479147" target="_blank">
+                            <img src="{{ url_for('static', filename='pic/contacts/WhatsApp.png') }}"/>
+                        </a>
+                    </span>
+                </div>
+                <ul>
+                    <li>Запись на офлайн-курсы.</li>
+                    <li>Получение информации о курсах.</li>
+                    <li>Заказ авторских книг по «Формуле Души» и «Кармической медицине» для тех,
+                        кто проходит обучение.</li>
+                    <li>Получение информации о летней школе на Светлояре.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="plate-inner not-first">
+            <div class="left w25">
+                <img src="{{ url_for('static', filename='pic/contacts/online.png') }}"/>
+            </div>
+            <div class="right w75 adm">
+                <a id="online-edu"></a>
+                <h4>Анна Александровна Дунаева</h4>
+                <p>Администратор онлайн-обучения</p>
+                <div class="contacts"><span class="no-img">+7 (977) 262-69-90</span></div>
+                <div class="contacts">
+                    <span>
+                        <a href="https://wa.me/79772626990" target="_blank">
+                            <img src="{{ url_for('static', filename='pic/contacts/WhatsApp.png') }}"/>
+                        </a>
+                    </span>
+                </div>
+                <ul>
+                    <li>Информация по онлайн-курсам.</li>
+                    <li>Приобретение онлайн-курсов.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Ведущие курсов-->
+<div class="plate-base">
+    <div class="plate w100">
+        <h1>Ведущий курсов</h1>
+        <div class="plate-inner not-first">
+            <div class="left w25">
+                <img src="{{ url_for('static', filename='pic/contacts/astrogor.png') }}"/>
+            </div>
+            <div class="right w75 adm">
+                <h4>Александр Александрович Астрогор</h4>
+                <p>Астролог, астропсихолог, писатель. Автор метода «Формула Души»</p>
+                <div class="contacts">
+                    <span class="no-img">+7 (957) 098-87-87,</span>
+                    <span class="no-img">astrogor49@mail.ru</span>
+                </div>
+                <div class="contacts">
+                    <span>
+                        <a href="https://wa.me/79570988787" target="_blank">
+                            <img src="{{ url_for('static', filename='pic/contacts/WhatsApp.png') }}"/>
+                        </a>
+                    </span>
+                    <span>
+                        <a href="skype:astrogor4949?chat" target="_blank">
+                            <img src="{{ url_for('static', filename='pic/contacts/Skype.png') }}"/>
+                        </a>
+                    </span>
+                    <span>
+                        <a href="https://vk.com/aleksandrastrogor" target="_blank">
+                            <img src="{{ url_for('static', filename='pic/contacts/Vk.png') }}"/>
+                        </a>
+                    </span>
+                    <span>
+                        <a href="https://www.youtube.com/channel/UCEIG5UTdr54mqkB8D2TJf_A" target="_blank">
+                            <img src="{{ url_for('static', filename='pic/contacts/YouTube.png') }}"/>
+                        </a>
+                    </span>
+                </div>
+                <ul>
+                    <li>Индивидуальные консультации по личным и деловым вопросам на очном приёме, либо онлайн.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+{% endblock %}
