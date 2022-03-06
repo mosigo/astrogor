@@ -29,8 +29,7 @@
                         <p>08.03.2022</p>
                         <h4>Новый сайт</h4>
                         <p>Мы обновили сайт! Теперь здесь гораздо больше информации,
-                            а также появится новый инструмент для построения Формулы Души.</p>
-                        <p>Ура!</p>
+                            а также появился <a href="/card">новый инструмент</a> для построения Формулы Души.</p>
                     </div>
                 </div>
             </div>
@@ -40,7 +39,6 @@
                         <p>01.03.2022</p>
                         <h4>Статья «Монолог вакцины»</h4>
                         <p>Александр Астрогор, глава из книги «Кармическая медицина».<br/> <br/> </p>
-                        <p> </p>
                     </div>
                 </div>
             </div>
@@ -209,93 +207,7 @@
     </div>
 </div>
 
-<!--Блок с видео-->
-<!--<div class="plate-base">-->
-<!--    <div class="plate w100">-->
-<!--        <h1>Видео</h1>-->
-<!--        <div class="plate-inner">-->
-<!--            <div class="left w30">-->
-<!--                <iframe src="https://player.vimeo.com/video/314354084" width="100%" frameborder="0"-->
-<!--                        webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true"></iframe>-->
-<!--            </div>-->
-<!--            <div class="left w30">-->
-<!--                <iframe src="https://player.vimeo.com/video/275211531" width="100%" frameborder="0"-->
-<!--                        webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true"></iframe>-->
-<!--            </div>-->
-<!--            <div class="w30">-->
-<!--                <iframe src="https://player.vimeo.com/video/280072759" width="100%" frameborder="0"-->
-<!--                        webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true"></iframe>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="action">-->
-<!--            <a href="/videos">-->
-<!--                <button class="btn">Все видео</button>-->
-<!--            </a>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--Блок про кармическую медицину-->
-<div class="plate-base">
-    <div class="plate w100 dark">
-        <div class="plate-inner">
-            <div class="left w50">
-                <h1>Кармическая медицина</h1>
-                <div class="text">
-                    <p>Кармическая медицина — новое учение о возникновении болезней. Это закон Кармы — закон
-                        причин и следствий. Болезнь прячет в себе ваши мысли, эмоции, чувства и желания,
-                        каждое из которых имеет своё уязвимое место в организме.</p>
-                    <p>Вы узнаете о любой болезни с точки зрения Кармы, об энергетическом вампиризме,
-                        о тайнах рождения и смерти, о перерождении и наследственных заболеваниях,
-                        о кармических причинах детских болезней, о влиянии на наше здоровье параллельного мира,
-                        как избежать всего этого шквала следствий, поняв причины.</p>
-                </div>
-                <div class="action">
-                    <a href="/courses/karma">
-                        <button class="btn">Подробнее</button>
-                    </a>
-                </div>
-            </div>
-            <div class="right w50">
-                <img src="{{ url_for('static', filename='pic/karma.png') }}" class="w100"/>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--Блок с фотографиями-->
-<div class="plate-base">
-    <div class="plate w100">
-        <h1>Фотографии</h1>
-        <div class="plate-inner">
-            <div class="left w30">
-                <img src="{{ url_for('static', filename='pic/photos/01.png') }}" class="w100"/>
-            </div>
-            <div class="left w30">
-                <img src="{{ url_for('static', filename='pic/photos/02.png') }}" class="w100"/>
-            </div>
-            <div class="w30">
-                <img src="{{ url_for('static', filename='pic/photos/03.png') }}" class="w100"/>
-            </div>
-        </div>
-        <div class="plate-inner not-first">
-            <div class="left w30">
-                <img src="{{ url_for('static', filename='pic/photos/04.png') }}" class="w100"/>
-            </div>
-            <div class="left w30">
-                <img src="{{ url_for('static', filename='pic/photos/05.png') }}" class="w100"/>
-            </div>
-            <div class="w30">
-                <img src="{{ url_for('static', filename='pic/photos/06.png') }}" class="w100"/>
-            </div>
-        </div>
-        <div class="action">
-            <a href="/photos">
-                <button class="btn">Все фотографии</button>
-            </a>
-        </div>
-    </div>
-</div>
+{% include "blocks/soft.html" %}
 
 <!--Блок с дополнительными курсами и направлениями-->
 <div class="plate-base">
@@ -340,78 +252,76 @@
             </div>
         </div>
         <div class="action">
-            <a href="/friends">
+            <a href="/others">
                 <button class="btn">Подробнее</button>
             </a>
         </div>
     </div>
 </div>
 
-<!--Блок с дополнительными курсами и направлениями-->
+<!--Блок про кармическую медицину-->
 <div class="plate-base">
-    <div class="plate w100">
-        <h1>Творчество наших друзей</h1>
+    <div class="plate w100 dark">
         <div class="plate-inner">
-            <div class="left w30">
-                <div class="img plate-fixed-height350">
-                    <img src="{{ url_for('static', filename='pic/art/01.png') }}"/>
-                </div>
-                <div class="text">
-                    <h4>Художник ???</h4>
-                    <p>Портрет Астрогора А.А., 2016 г.</p>
-                </div>
+            <div class="left w50">
+                <img src="{{ url_for('static', filename='pic/karma.png') }}" class="w100"/>
             </div>
-            <div class="left w30">
-                <div class="img plate-fixed-height350">
-                    <img src="{{ url_for('static', filename='pic/art/02.png') }}"/>
-                </div>
+            <div class="right w50">
+                <h1>Кармическая медицина</h1>
                 <div class="text">
-                    <h4>Художник Нина Ежова</h4>
-                    <p>Рисунок</p>
+                    <p>Кармическая медицина — новое учение о возникновении болезней. Это закон Кармы — закон
+                        причин и следствий. Болезнь прячет в себе ваши мысли, эмоции, чувства и желания,
+                        каждое из которых имеет своё уязвимое место в организме.</p>
+                    <p>Вы узнаете о любой болезни с точки зрения Кармы, об энергетическом вампиризме,
+                        о тайнах рождения и смерти, о перерождении и наследственных заболеваниях,
+                        о кармических причинах детских болезней, о влиянии на наше здоровье параллельного мира,
+                        как избежать всего этого шквала следствий, поняв причины.</p>
                 </div>
-            </div>
-            <div class="w30">
-                <div class="img plate-fixed-height350">
-                    <img src="{{ url_for('static', filename='pic/art/03.png') }}"/>
-                </div>
-                <div class="text">
-                    <h4>Автор Святослав Клиндухов</h4>
-                    <p>Скульптура</p>
-                </div>
-            </div>
-        </div>
-        <div class="plate-inner not-first">
-            <div class="left w30">
-                <div class="img plate-fixed-height350">
-                    <img src="{{ url_for('static', filename='pic/art/04.png') }}"/>
-                </div>
-                <div class="text">
-                    <h4>Заслуж. художник РФ Людмила Кузнецова</h4>
-                    <p>Рисунок (г. Пенза)</p>
-                </div>
-            </div>
-            <div class="left w30">
-                <div class="img plate-fixed-height350">
-                    <img src="{{ url_for('static', filename='pic/art/05.png') }}"/>
-                </div>
-                <div class="text">
-                    <h4>Художник Майя Никитенко</h4>
-                    <p>Рисунок (г. Житомир)</p>
-                </div>
-            </div>
-            <div class="w30">
-                <div class="img plate-fixed-height350">
-                    <img src="{{ url_for('static', filename='pic/art/06.png') }}"/>
-                </div>
-                <div class="text">
-                    <h4>Художник Вячеслав Клиндухов</h4>
-                    <p>Графика</p>
+                <div class="action">
+                    <a href="/courses/karma">
+                        <button class="btn">Подробнее</button>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+{% include "blocks/videos.html" %}
+
+<!--Блок с фотографиями-->
+<div class="plate-base">
+    <div class="plate w100">
+        <h1>Фотографии</h1>
+        <div class="plate-inner">
+            <div class="left w30">
+                <img src="{{ url_for('static', filename='pic/photos/01.png') }}" class="w100"/>
+            </div>
+            <div class="left w30">
+                <img src="{{ url_for('static', filename='pic/photos/02.png') }}" class="w100"/>
+            </div>
+            <div class="w30">
+                <img src="{{ url_for('static', filename='pic/photos/03.png') }}" class="w100"/>
+            </div>
+        </div>
+        <div class="plate-inner not-first">
+            <div class="left w30">
+                <img src="{{ url_for('static', filename='pic/photos/04.png') }}" class="w100"/>
+            </div>
+            <div class="left w30">
+                <img src="{{ url_for('static', filename='pic/photos/05.png') }}" class="w100"/>
+            </div>
+            <div class="w30">
+                <img src="{{ url_for('static', filename='pic/photos/06.png') }}" class="w100"/>
+            </div>
+        </div>
+        <div class="action">
+            <a href="/photos">
+                <button class="btn">Все фотографии</button>
+            </a>
+        </div>
+    </div>
+</div>
 
 <!--Блок про летнюю школу на Светлояре-->
 <div class="plate-base">

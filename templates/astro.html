@@ -118,13 +118,13 @@
             </div>
             <div class="left w25">
                 <div class="img">
-                    <a href="{{ url_for('static', filename='pic/downloads/03.jpg') }}"
-                       download="solar_and_lunar_types_of_people.jpg">
-                        <img src="{{ url_for('static', filename='pic/downloads/03_small.png') }}"/>
+                    <a href="{{ url_for('static', filename='pic/downloads/10.jpeg') }}"
+                       download="personal_horoscope_and_soul_formula.jpeg">
+                        <img src="{{ url_for('static', filename='pic/downloads/10_small.png') }}"/>
                     </a>
                 </div>
                 <div class="text">
-                    <h4>Солнечные и лунные типы людей</h4>
+                    <h4>Бланк «Личный гороскоп и Формула Души»</h4>
                 </div>
             </div>
             <div class="w25">
@@ -197,20 +197,10 @@
                     <h4>Бланк для построения космограммы</h4>
                 </div>
             </div>
-            <div class="left w25">
-                <div class="img">
-                    <a href="{{ url_for('static', filename='pic/downloads/10.jpeg') }}"
-                       download="personal_horoscope_and_soul_formula.jpeg">
-                        <img src="{{ url_for('static', filename='pic/downloads/10_small.png') }}"/>
-                    </a>
-                </div>
-                <div class="text">
-                    <h4>Бланк «Личный гороскоп и Формула Души»</h4>
-                </div>
-            </div>
         </div>
     </div>
 </div>
 
 <a id="soft"></a>
+{% include "blocks/soft.html" %}
 {% endblock %}

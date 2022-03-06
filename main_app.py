@@ -71,6 +71,11 @@ def books():
     return render_template('books.html')
 
 
+@app.route('/videos', methods=['GET'])
+def videos():
+    return render_template('videos.html')
+
+
 @app.route('/astro', methods=['GET'])
 def astro():
     return render_template('astro.html')
