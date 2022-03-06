@@ -209,55 +209,7 @@
 
 {% include "blocks/soft.html" %}
 
-<!--Блок с дополнительными курсами и направлениями-->
-<div class="plate-base">
-    <div class="plate w100">
-        <h1>Дополнительные курсы и направления</h1>
-        <div class="plate-inner">
-            <div class="left w25">
-                <div class="img">
-                    <img src="{{ url_for('static', filename='pic/others/zotova.png') }}"/>
-                </div>
-                <div class="text">
-                    <h4>Светлана Зотова</h4>
-                    <p>Авторская школа, Вебинары</p>
-                </div>
-            </div>
-            <div class="left w25">
-                <div class="img">
-                    <img src="{{ url_for('static', filename='pic/others/drezvyannikov.png') }}"/>
-                </div>
-                <div class="text">
-                    <p><h4>Сергей Дресвянников</h4></p>
-                    <p>Авторские курсы «Формула Карьеры» и «Конкорд. Метрика»</p>
-                </div>
-            </div>
-            <div class="left w25">
-                <div class="img">
-                    <img src="{{ url_for('static', filename='pic/others/shishkin.png') }}"/>
-                </div>
-                <div class="text">
-                    <h4>Иван Шишкин</h4>
-                    <p>Авторский метод МАК-терапии</p>
-                </div>
-            </div>
-            <div class="w25">
-                <div class="img">
-                    <img src="{{ url_for('static', filename='pic/others/startseva.png') }}"/>
-                </div>
-                <div class="text">
-                    <h4>Светлана Старцева</h4>
-                    <p>Курс по методу «Формула Души» в г. Санкт-Петербурге</p>
-                </div>
-            </div>
-        </div>
-        <div class="action">
-            <a href="/others">
-                <button class="btn">Подробнее</button>
-            </a>
-        </div>
-    </div>
-</div>
+{% include "blocks/others.html" %}
 
 <!--Блок про кармическую медицину-->
 <div class="plate-base">

@@ -81,6 +81,11 @@ def astro():
     return render_template('astro.html')
 
 
+@app.route('/others', methods=['GET'])
+def others():
+    return render_template('others.html')
+
+
 @app.route('/consultations', methods=['GET'])
 def consultations():
     return render_template('consultations.html')

@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+<meta name="Keywords" content="астрогор, астрология, обучение, душа, консультации"/>
+<style>
+
+</style>
+{% endblock %}
+{% block body %}
+
+<!--Блок с цитатой-->
+<div class="plate-base">
+    <div class="plate w100 slogan">
+        <div class="text"><p>Астрология — это музыка для души, свет для ума и праздник
+            для сердца!</p></div>
+        <div class="signature">Астрогор А.А.</div>
+    </div>
+</div>
+
+<!--Хлебные крошки-->
+<div class="plate-base">
+    <div class="bread-crumbs w100">
+        <span><a href="/new">Главная</a></span>
+        <span class="separator"> / </span>
+        <span><a href="/edu">Обучение</a></span>
+        <span class="separator"> / </span>
+        <span>Рекомендуем</span>
+    </div>
+</div>
+
+<!--Светлана Зотова-->
+<div class="plate-base">
+    <div class="plate w100">
+        <a id="zotova"></a>
+        <h1>Светлана Зотова</h1>
+        <div class="plate-inner not-first">
+            <div class="left w25">
+                <img src="{{ url_for('static', filename='pic/others/zotova.png') }}"/>
+            </div>
+            <div class="right w75 adm">
+                <p>Астропсихолог, создатель авторского курса</p>
+                <div class="text">
+                    <p>Открыла свою авторскую школу, в которой может подготовить к экзаменам
+                        по Формуле Души и другим курсам.</p>
+                    <p>Создала авторский курс, который раскрывает, как использовать планетарные качества
+                        для решения жизненных задач.</p>
+                </div>
+                <ul>
+                    <li>
+                        <a href="https://ludkin.justclick.ru/DIPLOM">Подготовка к диплому</a>
+                    </li>
+                    <li>
+                        <a href="https://ludkin.justclick.ru/magik">Курс «Магия планет»</a>
+                    </li>
+                    <li>
+                        <a href="https://ludkin.justclick.ru/zzdorovaya">Курс «Здоровая женщина»</a>
+                    </li>
+                </ul>
+                <div class="action">
+                    <a href="https://ludkin.justclick.ru" target="_blank">
+                        <button class="btn">На сайт Светланы</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Сергей Дресвянников-->
+<div class="plate-base">
+    <div class="plate w100">
+        <a id="dresvyannikov"></a>
+        <h1>Сергей Дресвянников</h1>
+        <div class="plate-inner not-first">
+            <div class="left w25">
+                <img src="{{ url_for('static', filename='pic/others/drezvyannikov.png') }}"/>
+            </div>
+            <div class="right w75 adm">
+                <p>Астропсихолог, разработчик методов «Формула Карьеры» и «Конкорд. метрика»</p>
+                <div class="text">
+                    <p>Авторские курсы повышения квалификации для астропсихологов-консультантов,
+                        применяющих «Формулу Души».</p>
+                </div>
+                <ul>
+                    <li>Метод прогнозирования «Аспекты к Точке Жизни. Событийные ряды.
+                        Быстрая Точка Жизни» (18 часов) </li>
+                    <li>«Селена и Лилит. Верхний Зодиак или Созвездия на куспидах» (23.5 часов)</li>
+                    <li>«Руны и Зодиак» (15 часов)</li>
+                    <li>«12 тайн Зодиака. Информация из домов космограммы» (12 часов)</li>
+                    <li>«Карта Личного Пространства. Планеты на местности. Релокация (карта переезда)» (20 часов)</li>
+                    <li>«Формула Карьеры. Формула Силы и Счастья» (62 часа)</li>
+                </ul>
+                <div class="action">
+                    <a href="https://formula.careers/contacts/" target="_blank">
+                        <button class="btn">На сайт Сергея</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Иван Шишкин-->
+<div class="plate-base">
+    <div class="plate w100">
+        <a id="shishkin"></a>
+        <h1>Иван Шишкин</h1>
+        <div class="plate-inner not-first">
+            <div class="left w25">
+                <img src="{{ url_for('static', filename='pic/others/shishkin.png') }}"/>
+            </div>
+            <div class="right w75 adm">
+                <p>Психолог, выпускник школы Астрогора</p>
+                <div class="contacts">
+                    <span class="no-img">+7 (926) 335-75-75,</span>
+                    <span class="no-img">achernar999@gmail.com</span>
+                </div>
+                <div class="contacts">
+                    <span>
+                        <a href="https://wa.me/79263357575" target="_blank">
+                            <img src="{{ url_for('static', filename='pic/contacts/WhatsApp.png') }}"/>
+                        </a>
+                    </span>
+                </div>
+                <div class="text">
+                    <p>Преподавал метод «Формула души» в Институте Психотерапии и Клинической Психологии.</p>
+                    <p>Разработал собственный метод МАК-терапии, в котором объединил астрологию и психотерапию.
+                        Проводит семинары, консультации, обучение Формуле Души в Москве в группах и индивидуально.</p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Светлана Старцева -->
+<div class="plate-base">
+    <div class="plate w100">
+        <a id="startseva"></a>
+        <h1>Светлана Старцева</h1>
+        <div class="plate-inner not-first">
+            <div class="left w25">
+                <img src="{{ url_for('static', filename='pic/others/startseva.png') }}"/>
+            </div>
+            <div class="right w75 adm">
+                <p>Ведущая курса по методу А.А. Астрогора «Формула Души» в г. Санкт-Петербурге</p>
+                <div class="contacts">
+                    <span class="no-img">+7 (962) 508-78-99</span>
+                </div>
+                <div class="contacts">
+                    <span>
+                        <a href="https://wa.me/79625087899" target="_blank">
+                            <img src="{{ url_for('static', filename='pic/contacts/WhatsApp.png') }}"/>
+                        </a>
+                    </span>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Katarina Stern-->
+<div class="plate-base">
+    <div class="plate w100">
+        <a id="stern"></a>
+        <h1>Katarina Stern</h1>
+        <div class="plate-inner not-first">
+            <div class="left w25">
+                <img src="{{ url_for('static', filename='pic/others/stern.png') }}"/>
+            </div>
+            <div class="right w75 adm">
+                <p>Дипломированный астролог, хиромант, астропсихолог. Германия</p>
+                <div class="contacts">
+                    <span class="no-img">+49 (0) 177-608-73-68,</span>
+                    <span class="no-img">info-kstarina@mail.ru</span>
+                </div>
+                <div class="contacts">
+                    <span>
+                        <a href="https://wa.me/4901776087368" target="_blank">
+                            <img src="{{ url_for('static', filename='pic/contacts/WhatsApp.png') }}"/>
+                        </a>
+                    </span>
+                </div>
+                <div class="text">
+                    <p>С тем, кто желает получить первоначальные навыки астролога, я охотно делюсь своими знаниями
+                        и регулярно провожу Online курсы по программе А.Астрогора «Формула Души»
+                        или «Новейшая космическая психология».</p>
+                </div>
+                <ul>
+                    <li>Помогу раскрыть сильные и слабые качества вашего характера</li>
+                    <li>Укажу, на что вы должны обратить внимание, заботясь о своём здоровье. Например,
+                        какие дни будут благоприятными и противопоказаны при операциях</li>
+                    <li>Подскажу, в каком виде спорта, в какой профессии вы добьетесь успеха</li>
+                    <li>Посмотрю, какие дни будут благоприятны для поездок, заключения деловых договоров,
+                        приобретения недвижимости</li>
+                    <li>Опишу, какими качествами должен обладать ваш идеальный спутник жизни</li>
+                    <li>Отвечу, при каких условия вы сможете создать семью, родить детей</li>
+                </ul>
+                <div class="text">
+                    <p>Ваши дети — отдельная тема.</p>
+                </div>
+                <ul>
+                    <li>С какой миссией пришёл в этот свет ваш ребёнок</li>
+                    <li>В какой деятельности он сможет проявить себя наиболее полно</li>
+                    <li>Какие таланты и стороны характера надо развивать</li>
+                    <li>Какие методы воспитания будут для него эффективны</li>
+                    <li>Какое время наиболее благоприятно для зачатия и рождения будущего ребёнка</li>
+                </ul>
+                <div class="text">
+                    <p>Во время консультаций женщин, желающих иметь детей, я помогу определить оптимальные условия
+                        и дни зачатия. Мои консультации помогли появиться на свет уже 17 малышам!</p>
+                </div>
+                <div class="action">
+                    <a href="https://www.astroformula.de" target="_blank">
+                        <button class="btn">На сайт Катарины</button>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
