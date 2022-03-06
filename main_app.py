@@ -71,6 +71,16 @@ def books():
     return render_template('books.html')
 
 
+@app.route('/astro', methods=['GET'])
+def astro():
+    return render_template('astro.html')
+
+
+@app.route('/consultations', methods=['GET'])
+def consultations():
+    return render_template('consultations.html')
+
+
 @app.route('/download-card', methods=['GET'])
 def download_card():
     fio, birthday, city, age_units = get_card_params()

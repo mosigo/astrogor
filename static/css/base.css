@@ -396,6 +396,10 @@ ul li:before {
     font-size: 28px;
 }
 
+.plate.slogan p {
+     line-height: 36px;
+}
+
 .plate.slogan .signature {
     text-align: right;
     font-size: 18px;

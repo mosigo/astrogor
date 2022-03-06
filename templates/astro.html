@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+<meta name="Keywords" content="астрогор, астрология, обучение, душа, астрологам, транзиты"/>
+<style>
+
+</style>
+{% endblock %}
+{% block body %}
+
+<!--Блок с цитатой-->
+<div class="plate-base">
+    <div class="plate w100 slogan">
+        <div class="text"><p>Астрология — это музыка для души, свет для ума и праздник
+            для сердца!</p></div>
+        <div class="signature">Астрогор А.А.</div>
+    </div>
+</div>
+
+<!--Хлебные крошки-->
+<div class="plate-base">
+    <div class="bread-crumbs w100">
+        <span><a href="/">Главная</a></span>
+        <span class="separator"> / </span>
+        <span>Астрологам</span>
+    </div>
+</div>
+
+<!--Формула Души-->
+<div class="plate-base">
+    <div class="plate w100">
+        <div class="plate-inner">
+            <div class="left w50">
+                <h1>Формула души</h1>
+                <div class="text">
+                    <p>Вы хотите узнать какая у вас душа, из чего она состоит? Что объединяет и разъединяет
+                        людей, в чём индивидуальность каждого человека, как и чему учить ребёнка,
+                        как мы выбираем свою профессию?
+                        На все эти вопросы отвечает метод Астрогора «Формула Души».</p>
+                    <p>С помощью нашего инструмента вы легко рассчитаете Формулу Души,
+                        для этого достаточно ввести дату, время и место рождения.</p>
+                    <p>Чтобы верно трактовать построенную Формулу, обратитесь
+                        за <a href="/consultations">консультацией</a> к нашим экспертам,
+                        пройдите у нас <a href="/edu">обучение</a> или воспользуйтесь
+                        <a href="/books">учебником «Формула Души»</a>.</p>
+                </div>
+                <div class="action">
+                    <a href="/card">
+                        <button class="btn">Построить Формулу Души</button>
+                    </a>
+                </div>
+            </div>
+            <div class="right w50">
+                <img src="{{ url_for('static', filename='pic/fd.png') }}" class="w100"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Транзиты-->
+<div class="plate-base">
+    <div class="plate w100 dark">
+        <div class="plate-inner">
+            <div class="left w50">
+                <img src="{{ url_for('static', filename='pic/transit.png') }}" class="w100"/>
+            </div>
+            <div class="right w50">
+                <h1>Транзиты</h1>
+                <div class="text">
+                    <p>Транзиты позволяют узнать, в какой день больше всего шансов встретить свою вторую половинку,
+                        помогают выбрать дату для важного события, показывают периоды повышенной энергии и спады.
+                        С помощью транзитов можно получить ответ про конкретный день из прошлого или будущего.</p>
+                    <p>Наш инструмент позволяет построить транзит космограммы на конкретную дату.
+                        Введя дату, время и место рождения и указав интересующий вас день, вы получите карту
+                        с соединениями и аспектами. Также вы можете найти даты ближайших соединений планет
+                        из вашей натальной карты с планетами конкретного дня.</p>
+                    <p>Чтобы верно трактовать построенные транзиты, обратитесь
+                        за <a href="/consultations">консультацией</a> к нашим экспертам.</p>
+                </div>
+                <div class="action">
+                    <a href="/card">
+                        <button class="btn">Построить транзиты</button>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--Материалы для скачивания-->
+<div class="plate-base">
+    <div class="plate w100">
+        <h1>Материалы для скачивания</h1>
+        <div class="plate-inner">
+            <div class="left w25">
+                <div class="img">
+                    <a href="{{ url_for('static', filename='pic/downloads/01.jpg') }}"
+                       download="moon_houses.jpg">
+                        <img src="{{ url_for('static', filename='pic/downloads/01_small.png') }}"/>
+                    </a>
+                </div>
+                <div class="text">
+                    <h4>Лунные дома</h4>
+                </div>
+            </div>
+            <div class="left w25">
+                <div class="img">
+                    <a href="{{ url_for('static', filename='pic/downloads/02.jpeg') }}"
+                       download="medical_horar_and_zodiac.jpeg">
+                        <img src="{{ url_for('static', filename='pic/downloads/02_small.png') }}"/>
+                    </a>
+                </div>
+                <div class="text">
+                    <h4>Медицинский хорар и зодиак</h4>
+                </div>
+            </div>
+            <div class="left w25">
+                <div class="img">
+                    <a href="{{ url_for('static', filename='pic/downloads/03.jpg') }}"
+                       download="solar_and_lunar_types_of_people.jpg">
+                        <img src="{{ url_for('static', filename='pic/downloads/03_small.png') }}"/>
+                    </a>
+                </div>
+                <div class="text">
+                    <h4>Солнечные и лунные типы людей</h4>
+                </div>
+            </div>
+            <div class="w25">
+                <div class="img">
+                    <a href="{{ url_for('static', filename='pic/downloads/04.jpg') }}"
+                       download="astrology_for_beginners.jpg">
+                        <img src="{{ url_for('static', filename='pic/downloads/04_small.png') }}"/>
+                    </a>
+                </div>
+                <div class="text">
+                    <h4>Астрология начинающим с нуля</h4>
+                </div>
+            </div>
+        </div>
+        <div class="plate-inner not-first">
+            <div class="left w25">
+                <div class="img">
+                    <a href="{{ url_for('static', filename='pic/downloads/05.jpg') }}"
+                       download="cosmogram_form_and_formula_of_the_soul.jpg">
+                        <img src="{{ url_for('static', filename='pic/downloads/05_small.png') }}"/>
+                    </a>
+                </div>
+                <div class="text">
+                    <h4>Бланк «космограмма и формула души»</h4>
+                </div>
+            </div>
+            <div class="left w25">
+                <div class="img">
+                    <a href="{{ url_for('static', filename='pic/downloads/06.jpg') }}"
+                       download="god_and_the_12_zodiac_signs.jpg">
+                        <img src="{{ url_for('static', filename='pic/downloads/06_small.png') }}"/>
+                    </a>
+                </div>
+                <div class="text">
+                    <h4>Бог и 12 знаков зодиака</h4>
+                </div>
+            </div>
+            <div class="left w25">
+                <div class="img">
+                    <a href="{{ url_for('static', filename='pic/downloads/07.jpg') }}"
+                       download="crosses_and_zodiac_houses.jpg">
+                        <img src="{{ url_for('static', filename='pic/downloads/07_small.png') }}"/>
+                    </a>
+                </div>
+                <div class="text">
+                    <h4>Кресты и дома зодиака. Пособие</h4>
+                </div>
+            </div>
+            <div class="w25">
+                <div class="img">
+                    <a href="{{ url_for('static', filename='pic/downloads/08.jpeg') }}"
+                       download="zodiac_table_of_chemical_elements.jpeg">
+                        <img src="{{ url_for('static', filename='pic/downloads/08_small.png') }}"/>
+                    </a>
+                </div>
+                <div class="text">
+                    <h4>Зодиакальная таблица химических элементов</h4>
+                </div>
+            </div>
+        </div>
+        <div class="plate-inner not-first">
+            <div class="left w25">
+                <div class="img">
+                    <a href="{{ url_for('static', filename='pic/downloads/09.jpg') }}"
+                       download="cosmogram.jpg">
+                        <img src="{{ url_for('static', filename='pic/downloads/09_small.png') }}"/>
+                    </a>
+                </div>
+                <div class="text">
+                    <h4>Бланк для построения космограммы</h4>
+                </div>
+            </div>
+            <div class="left w25">
+                <div class="img">
+                    <a href="{{ url_for('static', filename='pic/downloads/10.jpeg') }}"
+                       download="personal_horoscope_and_soul_formula.jpeg">
+                        <img src="{{ url_for('static', filename='pic/downloads/10_small.png') }}"/>
+                    </a>
+                </div>
+                <div class="text">
+                    <h4>Бланк «Личный гороскоп и Формула Души»</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
