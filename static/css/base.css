@@ -184,6 +184,7 @@ a.logo img {
     font-style: italic;
     font-size: 14px;
     line-height: 22px;
+    color: #696969;
 }
 
 .text {
@@ -195,6 +196,19 @@ a.logo img {
     margin-top: 12px;
     margin-bottom: 0;
     line-height: 28px;
+}
+
+.img {
+    background: #FCFBFB;
+    border: 1px solid #D6D6D8;
+    border-radius: 8px;
+    padding: 24px 38px;
+}
+
+.label {
+    padding-top: 18px;
+    color: #696969;
+    font-size: 14px;
 }
 
 .caption {
@@ -217,6 +231,10 @@ a.logo img {
     display: flex;
     flex-direction: row;
     width: 100%;
+}
+
+.plate-inner.not-first {
+    margin-top: 40px;
 }
 
 .plate-inner .w50 {
@@ -245,6 +263,23 @@ a.logo img {
 
 .plate-base .right {
     padding: 0 0 0 24px;
+}
+
+.inner-block {
+    border-radius: 12px;
+    border: 1px solid #F0F0F0;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 20px;
+    margin-right: 24px;
+}
+
+.inner-block .text-header {
+    height: 60px;
+}
+
+.inner-block .action  {
+    display: block;
 }
 
 .plate {
@@ -283,6 +318,7 @@ a.logo img {
     text-align: right;
     font-size: 18px;
     padding-top: 12px;
+    color: white;
 }
 
 .plate.dark {
@@ -342,6 +378,10 @@ a.logo img {
         flex-direction: column;
     }
 
+    .plate-inner.not-first {
+        margin-top: 0;
+    }
+
     .plate-base .left {
         padding: 0;
     }
@@ -362,6 +402,20 @@ a.logo img {
 
     .plate.w100, .plate.w50 {
         width: 82%;
+    }
+
+    .plate-inner .inner-block {
+        padding-top: 0;
+        margin-top: 10px;
+        width: 90%;
+    }
+
+    .plate-inner .inner-block .text-header {
+        height: unset;
+    }
+
+    .plate.slogan {
+        font-size: 22px;
     }
 }
 
