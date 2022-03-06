@@ -129,7 +129,7 @@ a.logo img {
 /*Футер сайта*/
 
 #main-footer {
-    font-size: 12px;
+    font-size: 16px;
     background-color: rgba(0, 20, 69, 1);
     color: white;
     padding: 16px;
@@ -140,7 +140,7 @@ a.logo img {
     display: block;
     text-decoration: none;
     padding-left: 8px;
-    padding-bottom: 4px;
+    padding-bottom: 12px;
 }
 
 #main-footer a:hover {
@@ -162,8 +162,9 @@ a.logo img {
 
 #main-footer .header a {
     font-family: AstrogorHeader;
-    padding-bottom: 8px;
-    font-size: 14px;
+    padding-bottom: 16px;
+    font-size: 18px;
+    padding-left: 0;
 }
 
 #main-footer div.copyright {
