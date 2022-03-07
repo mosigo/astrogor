@@ -54,8 +54,8 @@
 <!--Блок с новостями #2 -->
 <div class="plate-base">
     <div class="plate w50">
-        <h1>Планируемые курсы</h1>
-        <div>
+        <h1>Сейчас идёт</h1>
+        <div class="img">
             <img src="{{ url_for('static', filename='pic/sf.png') }}"/>
         </div>
         <div class="text-header">Очный курс «Формула Души»</div>
@@ -66,7 +66,7 @@
         </div>
         <div class="action">
             <a href="/contacts#offline-edu">
-                <button class="btn">Записаться на курс</button>
+                <button class="btn">Связаться с администратором</button>
             </a>
         </div>
     </div>
@@ -84,44 +84,16 @@
         <div class="action">
             <a href="https://www.ozon.ru/product/karmicheskaya-meditsina-golova-mozg-i-um-glaza-i-sluh-pod-znakom-zodiaka-oven-407617901/"
                target="_blank">
-                <button class="btn">Купить на Ozon</button>
+                <button class="btn w50">Купить на Ozon</button>
+            </a>
+            <a href="/books">
+                <button class="btn second w50">Все книги</button>
             </a>
         </div>
     </div>
 </div>
 
-<!--Блок про Сан Саныча-->
-<div class="plate-base">
-    <div class="plate w100">
-        <div class="plate-inner">
-            <div class="left w25">
-                <img src="{{ url_for('static', filename='pic/astrogor.png') }}"/>
-                <div class="signature">Родился 28 декабря 1949 г. в Иркутске, проживает в Москве.</div>
-            </div>
-            <div class="right w75">
-                <h1>Астрогор Александр Александрович</h1>
-                <div class="text">
-                    <p>Астролог и астропсихолог, целитель, исследователь.</p>
-                    <p>По собственному определению: Человек, говорящий языком звёзд.</p>
-                    <p>Руководитель Школы русской астрологии «Волхвы». Член Содружества Профессиональных Астрологов
-                        России.</p>
-                    <p>Начиная с первой половины 80-х гг стал известен как астролог-консультант,
-                        исследователь взаимосвязей здоровья, образа и целей жизни.
-                        Разработал аналитическую методику оценки потенциала личности и событий «Формула Души»,
-                        в основе которой авторская система толкований цепочек астрологических планетарных
-                        диспозиторов по владению.</p>
-                    <p>Автор 17 книг.</p>
-                </div>
-                <div class="action">
-                    <a href="/consultations#astrogor">
-                        <button class="btn">Записаться на консультацию</button>
-                    </a>
-<!--                    <span class="caption right">Консультация 1 час — 5 000 руб.</span>-->
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+{% include "blocks/astrogor.html" %}
 
 <!--Блок с Формулой Души-->
 <div class="plate-base">

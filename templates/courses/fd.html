@@ -1,0 +1,336 @@
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+<meta name="Keywords" content="астрогор, астрология, обучение, душа"/>
+<style>
+img.pic {
+    width: 128px;
+}
+.text-header, .inner-block .text-header {
+    height: 40px;
+}
+
+@media (max-width: 1000px) {
+    .disappearing {
+        display: none;
+    }
+}
+</style>
+{% endblock %}
+{% block body %}
+
+<!--Блок с цитатой-->
+<div class="plate-base">
+    <div class="plate w100 slogan">
+        <div class="text"><p>Формула Души — это звучащая в человеке Вселенная.</p></div>
+        <div class="signature">Астрогор А.А.</div>
+    </div>
+</div>
+
+<!--Хлебные крошки-->
+<div class="plate-base">
+    <a id="offline"></a>
+    <div class="bread-crumbs w100">
+        <span><a href="/new">Главная</a></span>
+        <span class="separator"> / </span>
+        <span><a href="/edu">Обучение</a></span>
+        <span class="separator"> / </span>
+        <span>Формула Души</span>
+    </div>
+</div>
+
+
+<!--О чём курс-->
+<div class="plate-base">
+    <a id="about"></a>
+    <div class="plate w100">
+        <h1>О курсе</h1>
+        <div class="text">
+            <p>«Формула души» — авторский курс Александра Астрогора, на котором, под руководством автора
+                вы поймёте простую Истину: «Звёзды не только склоняют, но и заставляют нас делать то,
+                что ИМИ Предначертано!»</p>
+        </div>
+
+        <div class="plate-inner">
+            <div class="left w25">
+                <p><img src="{{ url_for('static', filename='pic/fd.png') }}"/></p>
+            </div>
+            <div class="right w75">
+
+                <div class="text-header">Узнаете о новейшей космической психологии</div>
+                <div class="text">
+                    <p>Вы узнаете о том, что у каждого человека, родившегося на Земле, существует своя
+                        неповторимая Формула души, которая соткана из 10 реальных планет,
+                        названия которых даже не нужно учить, их знают все: от Солнца до Плутона.</p>
+                </div>
+
+                <div class="text-header">Знать астрологию не обязательно</div>
+                <div class="text">
+                    <p>Достаточно понять и разобраться в планетарных символах, о которых ёмко и красочно
+                        расскажут на занятиях. Вы познаете ещё одну Истину: что «Астрология —
+                        это Божественная Мудрость, сотканная из Звёзд!»</p>
+                </div>
+
+                <div class="action">
+                    <a href="/contacts#offline-edu">
+                        <button class="btn">Записаться на курс</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Чему научитесь-->
+<div class="plate-base">
+    <a id="skills"></a>
+    <div class="plate w100">
+        <h1>Чему научитесь</h1>
+
+        <div class="plate-inner">
+
+            <div class="left w75">
+                <div class="text-header">Рассчитывать формулу</div>
+                <div class="text">
+                    <p>На курсе вы научитесь самостоятельно рассчитывать и рисовать формулу души любого человека,
+                        или формулу события.</p>
+                </div>
+
+                <div class="text-header">Трактовать формулу</div>
+                <div class="text">
+                    <p>Получите все необходимые сведения о силе и качестве формулы души,
+                        применимые к конкретному человеку: о его характере, пристрастиях,
+                        способностях общаться, насколько его натура целостна или склонна к метаниям.</p>
+                </div>
+
+                <div class="text-header">Помогать другим людям</div>
+                <div class="text">
+                    <p>Научитесь советом помогать всем людям в решении их не только генеральной линии жизни,
+                        но и практическом использовании своей силы, способностей и талантов в повседневной жизни.</p>
+                </div>
+
+                <div class="text-header">Быть интересным собеседником</div>
+                <div class="text">
+                    <p>Вы удовлетворите интерес любого человека, ибо все хотят знать, для чего они родились,
+                        какой путь должны пройти и как его пройти, не навредив себе.</p>
+                    <p>Все эти знания, опыт консультаций, позволят слушателям в будущем быть постоянно
+                        востребованными, интересными собеседниками, умеющими заглянуть в самую глубину
+                        человеческой души, чтобы протянуть ей руку помощи.</p>
+                </div>
+
+                <div class="action">
+                    <a href="/contacts#offline-edu">
+                        <button class="btn">Записаться на курс</button>
+                    </a>
+                </div>
+            </div>
+            <div class="right w25">
+                <p><img src="{{ url_for('static', filename='pic/courses/fd_all.png') }}" class="disappearing"/></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "blocks/astrogor_teacher.html" %}
+
+<!--Программа курса-->
+<div class="plate-base">
+    <div class="plate w100">
+        <h1>Программа курса</h1>
+        <div class="plate-inner">
+            <div class="w25 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/fd_01.png') }}" class="pic"/>
+                <div class="text-header">1. Построение Формулы</div>
+                <div class="text">
+                    <p>Построение космограммы и формулы души (цепочки диспозиторов).
+                        Знакомство с компьютерной программой.</p>
+                </div>
+            </div>
+            <div class="w25 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/fd_02.png') }}" class="pic"/>
+                <div class="text-header">2. Центр Формулы</div>
+                <div class="text">
+                    <p>Семилетние циклы космограммы. Общий вид формулы. Один центр, два центра, три и более центров.</p>
+                </div>
+            </div>
+            <div class="w25 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/fd_03.png') }}" class="pic"/>
+                <div class="text-header">3. Типы людей</div>
+                <div class="text">
+                    <p>Солнечные и Лунные типы людей — полный набор характеристик о влиянии этих планет
+                        на характер и судьбу человека.</p>
+                </div>
+            </div>
+            <div class="w25 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/fd_04.png') }}" class="pic"/>
+                <div class="text-header">4. Орбиты</div>
+                <div class="text">
+                    <p>Орбиты — планеты вокруг центра формулы. Их значение для восприятия
+                        окружающего мира человека. Разбор орбит.</p>
+                </div>
+            </div>
+        </div>
+        <div class="plate-inner not-first">
+            <div class="w25 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/fd_05.png') }}" class="pic"/>
+                <div class="text-header">5. Солнце</div>
+                <div class="text">
+                    <p>Толкование планет: Солнце и его характеристики в формуле души.</p>
+                </div>
+            </div>
+            <div class="w25 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/fd_06.png') }}" class="pic"/>
+                <div class="text-header">6. Луна</div>
+                <div class="text">
+                    <p>Луна и её характеристики в формуле души.</p>
+                </div>
+            </div>
+            <div class="w25 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/fd_07.png') }}" class="pic"/>
+                <div class="text-header">7. Меркурий</div>
+                <div class="text">
+                    <p>Меркурий — его значение для судьбы человека, побуждающие мотивы поведения.</p>
+                </div>
+            </div>
+            <div class="w25 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/fd_08.png') }}" class="pic"/>
+                <div class="text-header">8. Венера</div>
+                <div class="text">
+                    <p>Венера — её способности и работа чувств. Что и кого она любит?
+                        Достоинства и проблемы Венеры, болезни.</p>
+                </div>
+            </div>
+        </div>
+        <div class="plate-inner not-first">
+            <div class="w25 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/fd_09.png') }}" class="pic"/>
+                <div class="text-header">9. Марс</div>
+                <div class="text">
+                    <p>Марс — планета, дающая силу, напористость и уверенность в себе.
+                        Его проблемы и достоинства.</p>
+                </div>
+            </div>
+            <div class="w25 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/fd_10.png') }}" class="pic"/>
+                <div class="text-header">10. Юпитер</div>
+                <div class="text">
+                    <p>Юпитер — раскрывает социальные ориентиры и значимость человека в обществе.</p>
+                </div>
+            </div>
+            <div class="w25 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/fd_11.png') }}" class="pic"/>
+                <div class="text-header">11. Сатурн</div>
+                <div class="text">
+                    <p>Сатурн — расскажет о том, как человек принимает законы, судьбу,
+                        какое у него будет отношение к работе.</p>
+                </div>
+            </div>
+            <div class="w25 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/fd_12.png') }}" class="pic"/>
+                <div class="text-header">12. Уран, Нептун</div>
+                <div class="text">
+                    <p>Трансурановые планеты — Уран и Нептун, их глобальное воздействие
+                        на сознание и психику людей. Дети индиго.</p>
+                </div>
+            </div>
+        </div>
+        <div class="plate-inner not-first">
+            <div class="w25 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/fd_13.png') }}" class="pic"/>
+                <div class="text-header">13. Плутон</div>
+                <div class="text">
+                    <p>Плутон — планета коллективной воли.</p>
+                </div>
+            </div>
+            <div class="w25 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/fd_14.png') }}" class="pic"/>
+                <div class="text-header">14. Сила планет</div>
+                <div class="text">
+                    <p>Сила планет в баллах для формулы души. Сумма силы планет в центре
+                        и за центром формулы.</p>
+                </div>
+            </div>
+            <div class="w25 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/fd_15.png') }}" class="pic"/>
+                <div class="text-header">15. Транзиты</div>
+                <div class="text">
+                    <p>Транзитная формула.  Формула успеха.</p>
+                </div>
+            </div>
+            <div class="w25 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/fd_16.png') }}" class="pic"/>
+                <div class="text-header">16. Совместимость</div>
+                <div class="text">
+                    <p>Совместимость людей по Формуле Души.</p>
+                </div>
+            </div>
+        </div>
+        <div class="action">
+            <a href="/contacts#offline-edu">
+                <button class="btn">Записаться на курс</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!--Книги-->
+<div class="plate-base">
+    <div class="plate w100">
+        <h1>Учебные пособия</h1>
+        <div class="plate-inner">
+            <div class="left w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/01.png') }}"/>
+                </div>
+                <div class="text">
+                    <div class="text-header">Формула души. Новейшая космическая психология</div>
+                    <p>Учебник</p>
+                </div>
+            </div>
+            <div class="left w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/02.png') }}"/>
+                </div>
+                <div class="text">
+                    <div class="text-header">Астрология в схемах и таблицах</div>
+                    <p>Цветной альбом</p>
+                </div>
+            </div>
+            <div class="w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/03.png') }}"/>
+                </div>
+                <div class="text">
+                    <div class="text-header">Сила формулы души</div>
+                    <p>Учебное пособие к книге «Формула Души»</p>
+                </div>
+            </div>
+        </div>
+        <div class="action">
+            <a href="/books">
+                <button class="btn">Все книги</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!--Другие курсы-->
+<div class="plate-base">
+    <div class="plate w100">
+        <h1>Другие курсы</h1>
+        <div class="plate-inner">
+            <div class="left w30">
+                {% include "blocks/about_astro.html" %}
+            </div>
+            <div class="left w30">
+                {% include "blocks/about_karma.html" %}
+            </div>
+            <div class="w30">
+                {% include "blocks/about_palmistry.html" %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

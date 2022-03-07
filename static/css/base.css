@@ -71,6 +71,20 @@ body {
     cursor: pointer;
 }
 
+.btn.w50 {
+    width: 49%;
+}
+
+.btn.w100 {
+    width: 100%;
+}
+
+.btn.second {
+    color: black;
+    background-color: white;
+    border: 1px solid #D6D6D8;
+}
+
 /*Логотип*/
 
 a.logo {
@@ -455,6 +469,13 @@ ul li:before {
         margin-top: 0;
     }
 
+    /*Кнопки*/
+
+    .btn.w50 {
+        width: 100%;
+        margin-bottom: 6px;
+    }
+
     /*Плашки*/
     .plate .w50 {
         width: 100%;
@@ -507,6 +528,10 @@ ul li:before {
 
     .plate-inner .inner-block .text-header {
         height: unset;
+    }
+
+    .header-num {
+        text-align: left;
     }
 
     .plate.slogan {

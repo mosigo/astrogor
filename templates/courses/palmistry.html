@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+<meta name="Keywords" content="астрогор, астрология, обучение, душа"/>
+<style>
+img.pic {
+    width: 128px;
+}
+.text-header, .inner-block .text-header {
+    height: 40px;
+}
+
+@media (max-width: 1000px) {
+    .disappearing {
+        display: none;
+    }
+}
+</style>
+{% endblock %}
+{% block body %}
+
+<!--Блок с цитатой-->
+<div class="plate-base">
+    <div class="plate w100 slogan">
+        <div class="text"><p>Правду дополняет ясность.</p></div>
+        <div class="signature">Астрогор А.А.</div>
+    </div>
+</div>
+
+<!--Хлебные крошки-->
+<div class="plate-base">
+    <a id="offline"></a>
+    <div class="bread-crumbs w100">
+        <span><a href="/new">Главная</a></span>
+        <span class="separator"> / </span>
+        <span><a href="/edu">Обучение</a></span>
+        <span class="separator"> / </span>
+        <span>Хиромантия</span>
+    </div>
+</div>
+
+
+<!--О чём курс-->
+<div class="plate-base">
+    <a id="about"></a>
+    <div class="plate w100">
+        <h1>О курсе</h1>
+        <div class="text">
+            <p>Хиромантия — одна из древнейших эзотерических наук, которая является частью астрологии.</p>
+        </div>
+
+        <div class="plate-inner">
+            <div class="left w25">
+                <p><img src="{{ url_for('static', filename='pic/palmistry.png') }}"/></p>
+            </div>
+            <div class="right w75">
+
+                <div class="text-header">Сверхспособности не нужны</div>
+                <div class="text">
+                    <p>Для чтения по руке не нужны сверхспособности, всё строится на знании влияния небесных тел,
+                        астрологических вычислениях и некоторых других данных.</p>
+                </div>
+
+                <div class="action">
+                    <a href="/contacts#offline-edu">
+                        <button class="btn">Записаться на курс</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Чему научитесь-->
+<div class="plate-base">
+    <a id="skills"></a>
+    <div class="plate w100">
+        <h1>Чему научитесь</h1>
+
+        <div class="plate-inner">
+
+            <div class="left w75">
+                <div class="text-header">Характеризовать человека</div>
+                <div class="text">
+                    <p>Узнаете о формах рук, ключевых линиях, холмах. О связи руки и астрологии.
+                        Научитесь трактовать знаки на ладони.</p>
+                </div>
+
+                <div class="text-header">Считывать информацию</div>
+                <div class="text">
+                    <p>Узнаете, на какие параметры рук стоит обращать внимание при встрече, что означает их размер,
+                        полнота, мягкость или твёрдость, какие символы являются основными.</p>
+                </div>
+
+                <div class="text-header">Подбирать партнёра</div>
+                <div class="text">
+                    <p>Способен ли человек на глубокие чувства, требователен ли в отношениях,
+                        однолюб или тяготеет к беспорядочным связям, эмоционален или сдержан.</p>
+                </div>
+
+                <div class="action">
+                    <a href="/contacts#offline-edu">
+                        <button class="btn">Записаться на курс</button>
+                    </a>
+                </div>
+            </div>
+            <div class="right w25">
+                <p><img src="{{ url_for('static', filename='pic/courses/fd_all.png') }}" class="disappearing"/></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "blocks/astrogor_teacher.html" %}
+
+<!--Программа курса-->
+<div class="plate-base">
+    <div class="plate w100">
+        <h1>Программа курса</h1>
+        <div class="plate-inner">
+            <div class="w50 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/palmistry_01.png') }}" class="pic"/>
+                <div class="text-header">1. Рука, судьба, характер</div>
+                <div class="text">
+                    <p>История хиромантии. Литература. Нужно ли предсказывать судьбу? Библия о руках.
+                        Формы рук. Солнечные и лунные психотипы людей, определение их по рукам.
+                        Рукопожатия и жесты. Планетарные влияния по пальцам. Стихии и Зодиак на пальцах.</p>
+                </div>
+            </div>
+            <div class="w50 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/palmistry_02.png') }}" class="pic"/>
+                <div class="text-header">2. Проблемы и болезни</div>
+                <div class="text">
+                    <p>Размер и форма пальцев. Значение линий на пальцах. Энергетические блоки.
+                        Подушечки пальцев и рисунки на них. Проблемы и болезни, читаемые на пальцах.
+                        Потеря рук, пальцев или отдельных фаланг.</p>
+                </div>
+            </div>
+        </div>
+        <div class="plate-inner not-first">
+            <div class="w50 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/palmistry_03.png') }}" class="pic"/>
+                <div class="text-header">3. Ногти</div>
+                <div class="text">
+                    <p>Ногти психический мир человека. Форма и размер ногтей. Знаки на ногтях.
+                        Патология ногтей и здоровье.</p>
+                </div>
+            </div>
+            <div class="w50 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/palmistry_04.png') }}" class="pic"/>
+                <div class="text-header">4. Планеты и зодиак</div>
+                <div class="text">
+                    <p>Зодиакальное и планетарное влияние на пальцах и ладони.</p>
+                </div>
+            </div>
+        </div>
+        <div class="plate-inner not-first">
+            <div class="w50 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/palmistry_05.png') }}" class="pic"/>
+                <div class="text-header">5. Холм Венеры</div>
+                <div class="text">
+                    <p>Управляемые и неуправляемые чувства. Душа и плоть. Плотские и духовные браки.
+                        Чувственные блоки – блок мужа, родительский блок. Линии обид.
+                        Брак со штампом в паспорте и без. Устойчивость брака на ваших руках.
+                        Линия здоровья: размер, значение и толкование. Сила Марса и Плутона на холме Венеры.</p>
+                </div>
+            </div>
+            <div class="w50 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/palmistry_06.png') }}" class="pic"/>
+                <div class="text-header">6. Холмы, линии, бугры</div>
+                <div class="text">
+                    <p>По холмам и линиям ладони. Ладонь, как материалистический и идеалистический мир человека.
+                        Планетарные влияния на ладони. Холмы и бугры. Чакры на ладони. Ладонь,
+                        как поле жизни или поле брани. Линия судьбы: значение, построение, размер и толкование.
+                        С какой судьбой вы родились?</p>
+                </div>
+            </div>
+            </div>
+        <div class="plate-inner not-first">
+            <div class="w50 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/palmistry_07.png') }}" class="pic"/>
+                <div class="text-header">7. Линии интуиции, ума, сердца</div>
+                <div class="text">
+                    <p>Линия интуиции: построение, размер, значение и толкование. Линия ума — ментальный мир человека.
+                        Свободный или зависимый у вас ум? Линия сердца – астральный мир человека. Дети на вашей ладони.</p>
+                </div>
+            </div>
+            <div class="w50 inner-block">
+                <img src="{{ url_for('static', filename='pic/courses/palmistry_08.png') }}" class="pic"/>
+                <div class="text-header">8. Линия Солнца</div>
+                <div class="text">
+                    <p>Линия Солнца: значение, построение и толкование. Кольцо Венеры. Прочие линии.
+                        Знаки на ладони: родинки, бородавки, островки, звёздочки, треугольники, квадраты,
+                        цветные точки, раны, шрамы.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Другие курсы-->
+<div class="plate-base">
+    <div class="plate w100">
+        <h1>Другие курсы</h1>
+        <div class="plate-inner">
+            <div class="left w30">
+                {% include "blocks/about_fd.html" %}
+            </div>
+            <div class="left w30">
+                {% include "blocks/about_astro.html" %}
+            </div>
+            <div class="w30">
+                {% include "blocks/about_karma.html" %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

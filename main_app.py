@@ -91,6 +91,26 @@ def consultations():
     return render_template('consultations.html')
 
 
+@app.route('/courses/fd', methods=['GET'])
+def course_fd():
+    return render_template('courses/fd.html')
+
+
+@app.route('/courses/astro', methods=['GET'])
+def course_astro():
+    return render_template('courses/astro.html')
+
+
+@app.route('/courses/karma', methods=['GET'])
+def course_karma():
+    return render_template('courses/karma.html')
+
+
+@app.route('/courses/palmistry', methods=['GET'])
+def course_palmistry():
+    return render_template('courses/palmistry.html')
+
+
 @app.route('/download-card', methods=['GET'])
 def download_card():
     fio, birthday, city, age_units = get_card_params()

@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+<meta name="Keywords" content="астрогор, астрология, обучение, душа"/>
+<style>
+img.pic {
+    width: 128px;
+}
+.text-header, .inner-block .text-header {
+    height: 40px;
+}
+
+@media (max-width: 1000px) {
+    .disappearing {
+        display: none;
+    }
+}
+</style>
+{% endblock %}
+{% block body %}
+
+<!--Блок с цитатой-->
+<div class="plate-base">
+    <div class="plate w100 slogan">
+        <div class="text"><p>Мы не можем запретить дурным мыслям иногда приходить к нам в голову.
+            Но мы можем не позволять им гнездиться в нашем мозгу.</p></div>
+        <div class="signature">Астрогор А.А.</div>
+    </div>
+</div>
+
+<!--Хлебные крошки-->
+<div class="plate-base">
+    <a id="offline"></a>
+    <div class="bread-crumbs w100">
+        <span><a href="/new">Главная</a></span>
+        <span class="separator"> / </span>
+        <span><a href="/edu">Обучение</a></span>
+        <span class="separator"> / </span>
+        <span>Кармическая медицина</span>
+    </div>
+</div>
+
+
+<!--О чём курс-->
+<div class="plate-base">
+    <a id="about"></a>
+    <div class="plate w100">
+        <h1>О курсе</h1>
+        <div class="text">
+            <p>Вы болеете? Болеют ваши родственники? Дети? Вы устали от такой жизни? Или вы здоровы и
+                хотите оставаться такими до конца жизни? Решить эти проблемы поможет Кармическая медицина —
+                новое учение о возникновении болезней.</p>
+        </div>
+
+        <div class="plate-inner">
+            <div class="left w25">
+                <p><img src="{{ url_for('static', filename='pic/karma_emblema.png') }}"/></p>
+            </div>
+            <div class="right w75">
+
+                <ul>
+                    <li>Две Истины: Бог и Космос взойдут на вершину вашего здоровья.</li>
+                    <li>Это закон Кармы – закон причин и следствий.</li>
+                    <li>Болезнь прячет в себе ваши мысли, эмоции, чувства и желания,
+                        каждое из которых имеет своё уязвимое место в организме.</li>
+                </ul>
+
+                <div class="action">
+                    <a href="/contacts#offline-edu">
+                        <button class="btn">Записаться на курс</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Чему научитесь-->
+<div class="plate-base">
+    <a id="skills"></a>
+    <div class="plate w100">
+        <h1>Зачем идти на курс</h1>
+
+        <div class="plate-inner">
+
+            <div class="left w75">
+
+                <div class="text-header">Болезни и Карма</div>
+                <div class="text">
+                    <p>Вы узнаете о любой болезни с точки зрения Кармы, об энергетическом вампиризме,
+                        о тайнах рождения и смерти, о перерождении и наследственных заболеваниях,
+                        о кармических причинах детских болезней, о влиянии на наше здоровье параллельного мира,
+                        как избежать всего этого шквала следствий, поняв причины.</p>
+                </div>
+
+                <div class="text-header">Кому нужны эти знания</div>
+                <div class="text">
+                    <p>Эти знания доступны и необходимы всем людям, они нужны специалистам — врачам
+                        и народным целителям, астрологам и экстрасенсам, психологам и педагогам.</p>
+                </div>
+
+                <div class="text-header">Болеть — стыдно</div>
+                <div class="text">
+                    <p>Скоро придёт время, когда нам стыдно будет сказать о своей болезни, ибо все будут знать
+                        чем мы плохи и грешны перед собой, перед другими людьми, перед Природой и перед Богом.</p>
+                </div>
+
+                <div class="action">
+                    <a href="/contacts#offline-edu">
+                        <button class="btn">Записаться на курс</button>
+                    </a>
+                </div>
+            </div>
+            <div class="right w25">
+                <p><img src="{{ url_for('static', filename='pic/courses/fd_all.png') }}" class="disappearing"/></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "blocks/astrogor_teacher.html" %}
+
+<!--Книги-->
+<div class="plate-base">
+    <div class="plate w100">
+        <h1>Учебные пособия</h1>
+        <div class="plate-inner">
+            <div class="left w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/10.png') }}"/>
+                </div>
+                <div class="text">
+                    <div class="text-header">Кармическое целительство</div>
+                    <p>Измени сознание — изменишь жизнь</p>
+                </div>
+            </div>
+            <div class="left w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/05.png') }}"/>
+                </div>
+                <div class="text">
+                    <div class="text-header">Книга чувств</div>
+                    <p>Трактат о причинах возникновения болезней</p>
+                </div>
+            </div>
+            <div class="w30">
+                <div class="img">
+                    <img src="{{ url_for('static', filename='pic/books/06.png') }}"/>
+                </div>
+                <div class="text">
+                    <div class="text-header">Душа и карма. Формула души и генетика духа</div>
+                    <p>Трактат о причинах возникновения болезней</p>
+                </div>
+            </div>
+        </div>
+        <div class="action">
+            <a href="/books#karma">
+                <button class="btn">Все книги</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!--Другие курсы-->
+<div class="plate-base">
+    <div class="plate w100">
+        <h1>Другие курсы</h1>
+        <div class="plate-inner">
+            <div class="left w30">
+                {% include "blocks/about_fd.html" %}
+            </div>
+            <div class="left w30">
+                {% include "blocks/about_astro.html" %}
+            </div>
+            <div class="w30">
+                {% include "blocks/about_palmistry.html" %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
