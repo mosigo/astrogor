@@ -37,13 +37,6 @@
             {{ marcos.render_text_input('transit-day', transit_day, 'Дата', '01.01.2000 12:00', 4) }}
             {{ marcos.render_text_input('current-city', current_city, 'Город', '', 5) }}
 
-            <div class="form-field">
-                <label></label>
-                День<a href="{{prev_link}}" class="control">–</a><a href="{{next_link}}" class="control">+</a>
-                <span class="spacer-h"></span>
-                Час<a href="{{prev_link_hour}}" class="control">–</a><a href="{{next_link_hour}}" class="control">+</a>
-            </div>
-
             <div class="form-header">Аспекты</div>
 
             {{ marcos.render_checkbox('show-source', show_source, 'Натальные аспекты', 6) }}
