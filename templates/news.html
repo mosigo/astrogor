@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+<meta name="Keywords" content="астрогор, астрология, обучение, душа"/>
+<style>
+img.pic {
+    width: 128px;
+}
+.text-header, .inner-block .text-header {
+    height: 40px;
+}
+
+@media (max-width: 1000px) {
+    .disappearing {
+        display: none;
+    }
+}
+</style>
+{% endblock %}
+{% block body %}
+
+<!--Блок с цитатой-->
+<div class="plate-base">
+    <div class="plate w100 slogan">
+        <div class="text"><p>Звёзды не только склоняют, но и заставляют нас делать то, что Ими Предначертано.</p></div>
+        <div class="signature">Астрогор А.А.</div>
+    </div>
+</div>
+
+<!--Хлебные крошки-->
+<div class="plate-base">
+    <a id="offline"></a>
+    <div class="bread-crumbs w100">
+        <span><a href="/new">Главная</a></span>
+        <span class="separator"> / </span>
+        <span>Новости</span>
+    </div>
+</div>
+
+
+<!--Новый сайт-->
+<div class="plate-base">
+    <a id="001"></a>
+    <div class="plate w100">
+        <h1>Новый сайт</h1>
+        <div class="label">08.03.2022</div>
+
+        <div class="plate-inner">
+            <div class="left w75">
+                <div class="text">
+                    <p>Мы обновили сайт! Теперь у нас много новых разделов.</p>
+                </div>
+                <div class="text">
+                    <p>В разделе <a href="/astro">Астрологам</a> вы найдёте два онлайн-инструмента:
+                        <a href="/card">построение Формулы Души</a>, <a href="/transit">построение транзитов</a>
+                        натальной карты на конкретную дату. Также в этом разделе представлены
+                        «<a href="/astro#downloads">Материалы для скачивания</a>» — знаменитые схемы и таблицы от Сан Саныча,
+                        пустые бланки для построения космограмм и другие материалы. Там же <a href="/astro#soft">есть ссылки</a>
+                        на сайты астрологических программ AstroFD и ZET.</p>
+                </div>
+            </div>
+            <div class="right w25">
+                <p><img src="{{ url_for('static', filename='pic/fd.png') }}"/></p>
+            </div>
+        </div>
+
+        <div class="plate-inner not-first">
+            <div class="left w25">
+                <p><img src="{{ url_for('static', filename='pic/books/book1.png') }}"/></p>
+            </div>
+            <div class="right w75">
+                <div class="text">
+                    <p>Раздел «<a href="/books">Книги</a>» содержит информацию обо всех книгах, выпущенных Астрогором.
+                        Мы не даём ссылок на покупку этих книг где-либо, но все они легко ищутся поиском в интернете.
+                        Теперь вы можете на одной странице увидеть всё, что доступно к чтению.</p>
+                </div>
+                <div class="text">
+                    <p>Мы собрали на <a href="/videos">одной странице</a> и все «Видео». Они разделены по тематикам:
+                        <a href="/videos#fd">Формула Души</a>, <a href="/videos#astro">астрология</a>,
+                        <a href="/videos#karma">кармическая медицина</a>. Отдельно собраны
+                        <a href="/videos#books">презентации книг и творческие встречи</a>. Выложены записи с
+                        <a href="/videos#svetloyar">летней школы</a> на озере Светлояр. Есть видео с передач
+                        «<a href="/videos#expert">Совет эксперта</a>» и «<a href="/videos#labirint">Лабиринты жизни»</a>
+                        телеканала «Семья». </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="plate-inner not-first">
+            <div class="left w75">
+                <div class="text">
+                    <p>Больше информации про <a href="/others">наших друзей</a>, чьи школы
+                        и авторские курсы мы рекомендуем.</p>
+                </div>
+                <div class="text">
+                    <p>Появился раздел «<a href="/consultations">Консультации</a>», где можно записаться на консультацию
+                        по любым вопросам к нашим экспертам.</p>
+                </div>
+                <div class="text">
+                    <p>Отдельная <a href="/contacts">страничка с контактами</a> наших администраторов
+                        офлайн и онлайн обучения.</p>
+                </div>
+                <div class="text">
+                    <p>И по-прежнему вся-вся информация на нашей <a href="/">Главной странице</a>.
+                        Надеемся, что вам будет удобно и полезно!</p>
+                </div>
+            </div>
+            <div class="right w25">
+                <p><img src="{{ url_for('static', filename='pic/contacts/klimantov.png') }}"/></p>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+{% endblock %}

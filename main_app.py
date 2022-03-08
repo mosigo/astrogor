@@ -91,6 +91,11 @@ def consultations():
     return render_template('consultations.html')
 
 
+@app.route('/news', methods=['GET'])
+def news():
+    return render_template('news.html')
+
+
 @app.route('/courses/fd', methods=['GET'])
 def course_fd():
     return render_template('courses/fd.html')
