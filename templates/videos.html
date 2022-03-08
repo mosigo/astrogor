@@ -3,8 +3,47 @@
 {{ super() }}
 <meta name="Keywords" content="астрогор, астрология, обучение, душа, контакты, администратор"/>
 <style>
+    #player {
+        display: none;
+    }
 
+    .plate-inner img {
+        width: 100%;
+        height: 180px;
+        cursor: pointer;
+    }
+
+    .plate-inner img:hover {
+        box-shadow: 0 0 10px #6E69EB;
+    }
+
+    a.youtube {
+        text-decoration: none;
+        color: black;
+    }
 </style>
+<script>
+    window.onload = function () {
+        var IMG = document.getElementsByTagName('img');
+        var player = document.getElementById('player');
+        for (var i = 0; i < IMG.length; i++) {
+            if (IMG[i].src.indexOf('youtube') == -1) {
+                continue;
+            }
+
+            IMG[i].onclick = function () {
+                var rect = this.getBoundingClientRect();
+                player.style.display = 'block';
+                player.style.position = 'absolute';
+                var y0 = document.documentElement.scrollTop || document.body.scrollTop;
+                player.style.left = rect.left + 'px';
+                player.style.top = (rect.top + y0) + 'px';
+                var idIMG = this.src.replace(/https...img.youtube.com.vi.([\s\S]*?).0.jpg/g, '$1');
+                player.src = 'https://www.youtube.com/embed/' + idIMG;
+            };
+        }
+    }
+</script>
 {% endblock %}
 {% block body %}
 
@@ -33,158 +72,115 @@
         <h1>Формула Души</h1>
         <div class="plate-inner">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/BWsFaJG1qb8"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <img src="https://img.youtube.com/vi/BWsFaJG1qb8/0.jpg"/>
+                <iframe id="player" width="305" height="180" src="https://www.youtube.com/embed/BWsFaJG1qb8"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
                 <div class="text">
-                    <h4>Александр Астрогор. Мастер-класс, Формула души</h4>
+                    <a href="https://www.youtube.com/watch?v=BWsFaJG1qb8" target="_blank" class="youtube">
+                        <h4>Александр Астрогор. Мастер-класс, Формула души</h4>
+                    </a>
                 </div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/a9Nofhlsgk4"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <img src="https://img.youtube.com/vi/a9Nofhlsgk4/0.jpg"/>
                 <div class="text">
-                    <h4>Александр Астрогор. Мастер-класс, Формула Души и здоровье. Часть 1</h4>
+                    <a href="https://www.youtube.com/watch?v=a9Nofhlsgk4" target="_blank" class="youtube">
+                        <h4>Александр Астрогор. Мастер-класс, Формула Души и здоровье. Часть 1</h4>
+                    </a>
                 </div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/WvMQsfZhSes"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Александр Астрогор. Мастер-класс, Формула Души и здоровье. Часть 2</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/WvMQsfZhSes/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=WvMQsfZhSes" target="_blank" class="youtube">
+                    <h4>Александр Астрогор. Мастер-класс, Формула Души и здоровье. Часть 2</h4></a></div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/9dhuyP0BMRg"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Тайна нисхождения души. Александр Астрогор</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/9dhuyP0BMRg/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=9dhuyP0BMRg" target="_blank" class="youtube">
+                    <h4>Тайна нисхождения души. Александр Астрогор</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/86TJcF0UgIc"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Александр Астрогор. Зодиакальная химия</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/86TJcF0UgIc/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=86TJcF0UgIc" target="_blank" class="youtube">
+                    <h4>Александр Астрогор. Зодиакальная химия</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/BdAqdUUEEzo"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Формула души и женское счастье</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/BdAqdUUEEzo/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=BdAqdUUEEzo" target="_blank" class="youtube">
+                    <h4>Формула души и женское счастье</h4></a></div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/QJBDiLk-iD4"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Формула души. Гостевая встреча</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/QJBDiLk-iD4/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=QJBDiLk-iD4" target="_blank" class="youtube">
+                    <h4>Формула души. Гостевая встреча</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/jB87HywX1sM"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>О Формуле души</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/jB87HywX1sM/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=jB87HywX1sM" target="_blank" class="youtube">
+                    <h4>О Формуле души</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/tfVuqUrRrXE"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Формула души</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/tfVuqUrRrXE/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=tfVuqUrRrXE" target="_blank" class="youtube">
+                    <h4>Формула души</h4></a></div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/oAdsEFtfj10"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Александр Астрогор о работе онлайн школы Формулы Души</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/oAdsEFtfj10/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=oAdsEFtfj10" target="_blank" class="youtube">
+                    <h4>Александр Астрогор о работе онлайн школы Формулы Души</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/oDzv4n1JrNo"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Совместимость в браке. Солнечные и Лунные типы людей. Запись вебинара от 22.05.2015г</h4>
+                <img src="https://img.youtube.com/vi/oDzv4n1JrNo/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=oDzv4n1JrNo" target="_blank" class="youtube">
+                    <h4>Совместимость в браке. Солнечные и Лунные типы людей. Запись вебинара от 22.05.2015г</h4></a>
                 </div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/aAlQJe5Be4M"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Совет от астролога Александра Астрогора — Как определить предназначение человека?</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/aAlQJe5Be4M/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=aAlQJe5Be4M" target="_blank" class="youtube">
+                    <h4>Совет от астролога Александра Астрогора — Как определить предназначение человека?</h4></a></div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/9u5oqR4mSMo"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Александр Астрогор, Формула Души, Урок 0</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/9u5oqR4mSMo/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=9u5oqR4mSMo" target="_blank" class="youtube">
+                    <h4>Александр Астрогор, Формула Души, Урок 0</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/QTUGHVZw2fU"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Астрогор. О начале авторизованного обучения через интернет методу «Формула Души»</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/QTUGHVZw2fU/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=QTUGHVZw2fU" target="_blank" class="youtube">
+                    <h4>Астрогор. О начале авторизованного обучения через интернет методу «Формула Души»</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/UegpOG-uDT8"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Фрагмент занятия по толкованию Формулы Души</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/UegpOG-uDT8/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=UegpOG-uDT8" target="_blank" class="youtube">
+                    <h4>Фрагмент занятия по толкованию Формулы Души</h4></a></div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/1rNGTo5HzUc"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Курс астропсихологии «Формула души» Астрогора. 27.01.2013</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/1rNGTo5HzUc/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=1rNGTo5HzUc" target="_blank" class="youtube">
+                    <h4>Курс астропсихологии «Формула души» Астрогора. 27.01.2013</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/Eg8Hh6B1VuY"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Дети Индиго А.Астрогор</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/Eg8Hh6B1VuY/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=Eg8Hh6B1VuY" target="_blank" class="youtube">
+                    <h4>Дети Индиго А.Астрогор</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/_V7ywSs5flY"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>О новом курсе «Формула Души» — Астрогор Александр Александрович</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/_V7ywSs5flY/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=_V7ywSs5flY" target="_blank" class="youtube">
+                    <h4>О новом курсе «Формула Души» — Астрогор Александр Александрович</h4></a></div>
             </div>
         </div>
     </div>
@@ -197,154 +193,103 @@
         <h1>Астрология</h1>
         <div class="plate-inner">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/2YMIo339jlE"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Астрогор. Что такое астрология, предсказание астролога Путину, Формула Души</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/2YMIo339jlE/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=2YMIo339jlE" target="_blank" class="youtube">
+                    <h4>Астрогор. Что такое астрология, предсказание астролога Путину, Формула Души</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/Ov4Kj3lkb0c"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Прогноз на 2022 год. Астролог Александр Астрогор</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/Ov4Kj3lkb0c/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=Ov4Kj3lkb0c" target="_blank" class="youtube">
+                    <h4>Прогноз на 2022 год. Астролог Александр Астрогор</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/u9rKbNdupR0"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Ирония судьбы правителей Руси. Часть 1</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/u9rKbNdupR0/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=u9rKbNdupR0" target="_blank" class="youtube">
+                    <h4>Ирония судьбы правителей Руси. Часть 1</h4></a></div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/tGhxXXDN4Kk"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Вакуум в космограмме</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/tGhxXXDN4Kk/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=tGhxXXDN4Kk" target="_blank" class="youtube">
+                    <h4>Вакуум в космограмме</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/oeHKvhn8Qnk"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Меркурий в центре Формулы Души. Некоторые особенности</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/oeHKvhn8Qnk/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=oeHKvhn8Qnk" target="_blank" class="youtube">
+                    <h4>Меркурий в центре Формулы Души. Некоторые особенности</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/4Dwy8ZXpGfk"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Вебинар 14.03.2015. Путешествие в мир Астрологии. Часть 6</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/4Dwy8ZXpGfk/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=4Dwy8ZXpGfk" target="_blank" class="youtube">
+                    <h4>Вебинар 14.03.2015. Путешествие в мир Астрологии. Часть 6</h4></a></div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/oXFkGeP88dc"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Вебинар 14.03.2015. Путешествие в мир Астрологии. Часть 2</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/oXFkGeP88dc/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=oXFkGeP88dc" target="_blank" class="youtube">
+                    <h4>Вебинар 14.03.2015. Путешествие в мир Астрологии. Часть 2</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/fcMSEjlT9AU"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Вебинар 14.03.2015. Путешествие в мир Астрологии. Часть 1</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/fcMSEjlT9AU/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=fcMSEjlT9AU" target="_blank" class="youtube">
+                    <h4>Вебинар 14.03.2015. Путешествие в мир Астрологии. Часть 1</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/-Zty02k4Rho"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Вебинар 14.03.2015. Путешествие в мир Астрологии. Часть 3</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/-Zty02k4Rho/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=-Zty02k4Rho" target="_blank" class="youtube">
+                    <h4>Вебинар 14.03.2015. Путешествие в мир Астрологии. Часть 3</h4></a></div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/m9lMZGbMUwQ"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Вебинар 14.03.2015. Путешествие в мир Астрологии. Часть 5</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/m9lMZGbMUwQ/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=m9lMZGbMUwQ" target="_blank" class="youtube">
+                    <h4>Вебинар 14.03.2015. Путешествие в мир Астрологии. Часть 5</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/TqEU7a2FBYg"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Вебинар 14.03.2015. Путешествие в мир Астрологии. Часть 4</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/TqEU7a2FBYg/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=TqEU7a2FBYg" target="_blank" class="youtube">
+                    <h4>Вебинар 14.03.2015. Путешествие в мир Астрологии. Часть 4</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/LAL81CpgsRw"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Астрология наука или ложь. Астропсихолог Иван Шишкин</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/LAL81CpgsRw/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=LAL81CpgsRw" target="_blank" class="youtube">
+                    <h4>Астрология наука или ложь. Астропсихолог Иван Шишкин</h4></a></div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/Zuup-T5UUVY"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>ВШКА «День Астролога». А.Астрогор. Часть 2</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/Zuup-T5UUVY/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=Zuup-T5UUVY" target="_blank" class="youtube">
+                    <h4>ВШКА «День Астролога». А.Астрогор. Часть 2</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/9FfVDWs6C_U"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>ВШКА «День Астролога». А.Астрогор. Часть 1</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/9FfVDWs6C_U/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=9FfVDWs6C_U" target="_blank" class="youtube">
+                    <h4>ВШКА «День Астролога». А.Астрогор. Часть 1</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/OQ-lq1m_f5s"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Астрогор А.</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/OQ-lq1m_f5s/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=OQ-lq1m_f5s" target="_blank" class="youtube">
+                    <h4>Астрогор А.</h4></a></div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/0iRdSXmG7Y4"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Прогноз на 2021 год. Джули По и Астрогор</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/0iRdSXmG7Y4/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=0iRdSXmG7Y4" target="_blank" class="youtube">
+                    <h4>Прогноз на 2021 год. Джули По и Астрогор</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/-u-i04-jboo"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Нумерология. Лабиринт. Ирония Судьбы российских правителей. Александр Астрогор</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/-u-i04-jboo/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=-u-i04-jboo" target="_blank" class="youtube">
+                    <h4>Нумерология. Лабиринт. Ирония Судьбы российских правителей. Александр Астрогор</h4></a></div>
             </div>
             <div class="w30">
                 <iframe src="https://vk.com/video_ext.php?oid=95920566&id=456239034&hash=3099cef760899281&hd=2"
-                        width="100%" height="180" allow="autoplay; encrypted-media;
+                        width="100%" height="180" allow=" encrypted-media;
                         fullscreen; picture-in-picture;" frameborder="0" allowfullscreen></iframe>
                 <div class="text">
                     <h4>Отчёт с праздника Дня астролога, 2019</h4>
@@ -353,24 +298,18 @@
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/dYUzieLAjuY"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Код индиго. Часть 8. Интервью с Астрогором А.А.</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/dYUzieLAjuY/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=dYUzieLAjuY" target="_blank" class="youtube">
+                    <h4>Код индиго. Часть 8. Интервью с Астрогором А.А.</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/8Q5GIUGdkmA"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Интервью с Астрогором</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/8Q5GIUGdkmA/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=8Q5GIUGdkmA" target="_blank" class="youtube">
+                    <h4>Интервью с Астрогором</h4></a></div>
             </div>
             <div class="w30">
                 <iframe src="https://vk.com/video_ext.php?oid=36498597&id=456239457&hash=d5d06c0d1e534dd3&hd=2"
-                        width="100%" height="180" allow="autoplay; encrypted-media;
+                        width="100%" height="180" allow=" encrypted-media;
                         fullscreen; picture-in-picture;" frameborder="0" allowfullscreen></iframe>
                 <div class="text">
                     <h4>В кулуарах съезда. О крестах Зодиака</h4>
@@ -379,20 +318,14 @@
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/QkVvxOiefrE"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Нужно ли давать детям Астрологию. Ответ А.Астрогора</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/QkVvxOiefrE/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=QkVvxOiefrE" target="_blank" class="youtube">
+                    <h4>Нужно ли давать детям Астрологию. Ответ А.Астрогора</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/Kvn6gydxacg"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Астрология Корана. Астрогор Александр</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/Kvn6gydxacg/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=Kvn6gydxacg" target="_blank" class="youtube">
+                    <h4>Астрология Корана. Астрогор Александр</h4></a></div>
             </div>
         </div>
     </div>
@@ -405,94 +338,64 @@
         <h1>Кармическая медицина</h1>
         <div class="plate-inner">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/Li5SLHqnpEg"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>А. Астрогор — как таблица Менделеева и созвездия могут предупредить болезни</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/Li5SLHqnpEg/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=Li5SLHqnpEg" target="_blank" class="youtube">
+                    <h4>А. Астрогор — как таблица Менделеева и созвездия могут предупредить болезни</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/V8mH_WmYNDw"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>А.Астрогор «Как быть здоровым»</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/V8mH_WmYNDw/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=V8mH_WmYNDw" target="_blank" class="youtube">
+                    <h4>А.Астрогор «Как быть здоровым»</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/-srWpI4Uy-8"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Как не стать мытарем при жизни и после неё</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/-srWpI4Uy-8/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=-srWpI4Uy-8" target="_blank" class="youtube">
+                    <h4>Как не стать мытарем при жизни и после неё</h4></a></div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/G7DDu1iueSk"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Энергетический вампиризм в семейных отношениях</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/G7DDu1iueSk/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=G7DDu1iueSk" target="_blank" class="youtube">
+                    <h4>Энергетический вампиризм в семейных отношениях</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/M0g4CyQhbFA"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Кармическая медицина и химическая таблица элементов Менделеева</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/M0g4CyQhbFA/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=M0g4CyQhbFA" target="_blank" class="youtube">
+                    <h4>Кармическая медицина и химическая таблица элементов Менделеева</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/DFZZEcFNrtw"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Астрогор. Исповедь болячки. Глава 4. «Хлеб и молоко»</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/DFZZEcFNrtw/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=DFZZEcFNrtw" target="_blank" class="youtube">
+                    <h4>Астрогор. Исповедь болячки. Глава 4. «Хлеб и молоко»</h4></a></div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/FLnZZYAywjc"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Астрогор. Исповедь болячки. Глава 1. «Проверка на вшивость»</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/FLnZZYAywjc/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=FLnZZYAywjc" target="_blank" class="youtube">
+                    <h4>Астрогор. Исповедь болячки. Глава 1. «Проверка на вшивость»</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/nndzG3f79Sw"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Александр Астрогор «Сказка о Золотой Рыбке»</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/nndzG3f79Sw/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=nndzG3f79Sw" target="_blank" class="youtube">
+                    <h4>Александр Астрогор «Сказка о Золотой Рыбке»</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/_cm5B7MLvMk"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Книга Чувств. Часть 2. «Животная или растительная»</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/_cm5B7MLvMk/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=_cm5B7MLvMk" target="_blank" class="youtube">
+                    <h4>Книга Чувств. Часть 2. «Животная или растительная»</h4></a></div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/gQyoX0pWA2A"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Астрогор Александр Александрович и Сварг Еремеев Андрей Дмитриевич</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/gQyoX0pWA2A/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=gQyoX0pWA2A" target="_blank" class="youtube">
+                    <h4>Астрогор Александр Александрович и Сварг Еремеев Андрей Дмитриевич</h4></a></div>
             </div>
             <div class="left w30">
                 <iframe src="https://vk.com/video_ext.php?oid=95920566&id=456239096&hash=3a69b119a67edc8e&hd=2"
-                        width="100%" height="180" allow="autoplay; encrypted-media;
+                        width="100%" height="180" allow=" encrypted-media;
                         fullscreen; picture-in-picture;" frameborder="0" allowfullscreen></iframe>
                 <div class="text">
                     <h4>Часть выступления на съезде «День Целителя», Москва, 20.02.2021г.</h4>
@@ -509,106 +412,72 @@
         <h1>Презентации книг и творческие встречи</h1>
         <div class="plate-inner">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/puptQt9Cpbc"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Астрологическое учение о химических элементах</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/puptQt9Cpbc/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=puptQt9Cpbc" target="_blank" class="youtube">
+                    <h4>Астрологическое учение о химических элементах</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/KEHT6n6G890"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>«Кармическая астрология — Овен». Презентация новой книги</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/KEHT6n6G890/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=KEHT6n6G890" target="_blank" class="youtube">
+                    <h4>«Кармическая астрология — Овен». Презентация новой книги</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/sgaNkdpUDxM"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Московская презентация книги «Ирония судьбы российских правителей» — Александр Астрогор</h4>
+                <img src="https://img.youtube.com/vi/sgaNkdpUDxM/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=sgaNkdpUDxM" target="_blank" class="youtube">
+                    <h4>Московская презентация книги «Ирония судьбы российских правителей» — Александр Астрогор</h4></a>
                 </div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/mfn46BRDbOs"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>10.11.2019 — Встреча с Александром Астрогором «Астрология для любознательных»</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/mfn46BRDbOs/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=mfn46BRDbOs" target="_blank" class="youtube">
+                    <h4>10.11.2019 — Встреча с Александром Астрогором «Астрология для любознательных»</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/WrAb77lWISQ"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>21 июля 2019 года, творческая встреча Александра Астрогора «В поисках Души»</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/WrAb77lWISQ/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=WrAb77lWISQ" target="_blank" class="youtube">
+                    <h4>21 июля 2019 года, творческая встреча Александра Астрогора «В поисках Души»</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/778YFZJ8574"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Интересная астрология — Открытая встреча с Александром Астрогором 9.06.2019 г.</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/778YFZJ8574/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=778YFZJ8574" target="_blank" class="youtube">
+                    <h4>Интересная астрология — Открытая встреча с Александром Астрогором 9.06.2019 г.</h4></a></div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/M-nrz_hrWnk"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Выступление на фестивале-выставке «Здоровый образ жизни. Эко-мир»</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/M-nrz_hrWnk/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=M-nrz_hrWnk" target="_blank" class="youtube">
+                    <h4>Выступление на фестивале-выставке «Здоровый образ жизни. Эко-мир»</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/AHfE6FAGmY8"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Встреча с Александром Астрогором «Кармическая медицина»</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/AHfE6FAGmY8/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=AHfE6FAGmY8" target="_blank" class="youtube">
+                    <h4>Встреча с Александром Астрогором «Кармическая медицина»</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/_NlnppTz4Fk"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Астрогор — звездочёт, маг и волшебник</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/_NlnppTz4Fk/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=_NlnppTz4Fk" target="_blank" class="youtube">
+                    <h4>Астрогор — звездочёт, маг и волшебник</h4></a></div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/9qfyCPoWBWg"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Презентация книги Александра Астрогора «Кармическая астрология — Овен»</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/9qfyCPoWBWg/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=9qfyCPoWBWg" target="_blank" class="youtube">
+                    <h4>Презентация книги Александра Астрогора «Кармическая астрология — Овен»</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/DfT7IA7U7EE"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Встреча с Александром Астрогором «Новейшая космическая психология»</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/DfT7IA7U7EE/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=DfT7IA7U7EE" target="_blank" class="youtube">
+                    <h4>Встреча с Александром Астрогором «Новейшая космическая психология»</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/p30CWam81ZY"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
+                <img src="https://img.youtube.com/vi/p30CWam81ZY/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=p30CWam81ZY" target="_blank" class="youtube">
                     <h4>Учебник «Формула Души» — презентация нового издания. Выступает автор, Александр Астрогор</h4>
-                </div>
+                </a></div>
             </div>
         </div>
     </div>
@@ -622,33 +491,27 @@
         <div class="plate-inner">
             <div class="left w30">
                 <iframe src="https://vk.com/video_ext.php?oid=-174843427&id=456239024&hash=fe42acdfe5b0b89b&hd=2"
-                        width="100%" height="180" allow="autoplay; encrypted-media;
+                        width="100%" height="180" allow="encrypted-media;
                         fullscreen; picture-in-picture;" frameborder="0" allowfullscreen></iframe>
                 <div class="text">
                     <h4>Трогательные моменты на Светлояре</h4>
                 </div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/sY3b1UyEPTY"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Полёт над Светлояром — прекрасная летняя атмосфера</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/sY3b1UyEPTY/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=sY3b1UyEPTY" target="_blank" class="youtube">
+                    <h4>Полёт над Светлояром — прекрасная летняя атмосфера</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/3-I26jZlVQg"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Светлояр — русское зазеркалье. Документальный фильм</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/3-I26jZlVQg/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=3-I26jZlVQg" target="_blank" class="youtube">
+                    <h4>Светлояр — русское зазеркалье. Документальный фильм</h4></a></div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
                 <iframe src="https://vk.com/video_ext.php?oid=36498597&id=456239331&hash=073167c3c0b902ae&hd=2"
-                        width="100%" height="180" allow="autoplay; encrypted-media;
+                        width="100%" height="180" allow="encrypted-media;
                         fullscreen; picture-in-picture;" frameborder="0" allowfullscreen></iframe>
                 <div class="text">
                     <h4>Вечер у костра</h4>
@@ -665,72 +528,48 @@
         <h1>Совет эксперта. Телеканал «Семья»</h1>
         <div class="plate-inner">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/lfQSQWKnZK0"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Питание и судьба</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/lfQSQWKnZK0/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=lfQSQWKnZK0" target="_blank" class="youtube">
+                    <h4>Питание и судьба</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/YDjzJOGQBsI"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Питание и судьба. Часть 2</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/YDjzJOGQBsI/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=YDjzJOGQBsI" target="_blank" class="youtube">
+                    <h4>Питание и судьба. Часть 2</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/qyp9aSfE1rg"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Питание и судьба. Часть 4</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/qyp9aSfE1rg/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=qyp9aSfE1rg" target="_blank" class="youtube">
+                    <h4>Питание и судьба. Часть 4</h4></a></div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/gmEikGcW3wA"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Питание и судьба. Часть 6</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/gmEikGcW3wA/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=gmEikGcW3wA" target="_blank" class="youtube">
+                    <h4>Питание и судьба. Часть 6</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/l9I8ehFloXg"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Питание и судьба. Часть 7</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/l9I8ehFloXg/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=l9I8ehFloXg" target="_blank" class="youtube">
+                    <h4>Питание и судьба. Часть 7</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/EJSgyPE0lek"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Питание и судьба. Часть 8</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/EJSgyPE0lek/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=EJSgyPE0lek" target="_blank" class="youtube">
+                    <h4>Питание и судьба. Часть 8</h4></a></div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/nuHWR3XfzhA"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Питание и судьба. Часть 9</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/nuHWR3XfzhA/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=nuHWR3XfzhA" target="_blank" class="youtube">
+                    <h4>Питание и судьба. Часть 9</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/eBwfDX-qYxA"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Питание и судьба. Часть 10</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/eBwfDX-qYxA/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=eBwfDX-qYxA" target="_blank" class="youtube">
+                    <h4>Питание и судьба. Часть 10</h4></a></div>
             </div>
         </div>
     </div>
@@ -743,106 +582,70 @@
         <h1>Лабиринты жизни. Телеканал «Семья»</h1>
         <div class="plate-inner">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/jI_4K1br9pE"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Астрология как наука</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/jI_4K1br9pE/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=jI_4K1br9pE" target="_blank" class="youtube">
+                    <h4>Астрология как наука</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/CInp82dAw2k"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Астрология и химия</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/CInp82dAw2k/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=CInp82dAw2k" target="_blank" class="youtube">
+                    <h4>Астрология и химия</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/25Xd42tMkzY"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Формула души</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/25Xd42tMkzY/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=25Xd42tMkzY" target="_blank" class="youtube">
+                    <h4>Формула души</h4></a></div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/9r1u1NEp3n0"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Индиго</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/9r1u1NEp3n0/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=9r1u1NEp3n0" target="_blank" class="youtube">
+                    <h4>Индиго</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/Pogw1xkN_JM"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Карма</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/Pogw1xkN_JM/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=Pogw1xkN_JM" target="_blank" class="youtube">
+                    <h4>Карма</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/rq8JkR6xd18"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Астрология брака</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/rq8JkR6xd18/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=rq8JkR6xd18" target="_blank" class="youtube">
+                    <h4>Астрология брака</h4></a></div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/ebRSdyNyj-M"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Философия жизни</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/ebRSdyNyj-M/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=ebRSdyNyj-M" target="_blank" class="youtube">
+                    <h4>Философия жизни</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/qb21VTbRfdA"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Мистическая история. Часть 1/</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/qb21VTbRfdA/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=qb21VTbRfdA" target="_blank" class="youtube">
+                    <h4>Мистическая история. Часть 1/</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/r-uobpB5tH0"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Мистическая история. Часть 2</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/r-uobpB5tH0/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=r-uobpB5tH0" target="_blank" class="youtube">
+                    <h4>Мистическая история. Часть 2</h4></a></div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/InBBS--sa9E"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Мистическая история. Часть 3</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/InBBS--sa9E/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=InBBS--sa9E" target="_blank" class="youtube">
+                    <h4>Мистическая история. Часть 3</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/Ktoz8ZoXNS8"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Судьба человека</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/Ktoz8ZoXNS8/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=Ktoz8ZoXNS8" target="_blank" class="youtube">
+                    <h4>Судьба человека</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/Z4WGKwmHo0A"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Вампиризм</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/Z4WGKwmHo0A/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=Z4WGKwmHo0A" target="_blank" class="youtube">
+                    <h4>Вампиризм</h4></a></div>
             </div>
         </div>
     </div>
@@ -855,43 +658,30 @@
         <h1>Отзывы</h1>
         <div class="plate-inner">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/nvo9TBcWZDc"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>«Формула Души» — защита диплома после онлайн обучения в школе Русской Астрологии Волхвы</h4>
+                <img src="https://img.youtube.com/vi/nvo9TBcWZDc/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=nvo9TBcWZDc" target="_blank" class="youtube">
+                    <h4>«Формула Души» — защита диплома после онлайн обучения в школе Русской Астрологии Волхвы</h4></a>
                 </div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/xZvt_OCHCxk"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Максим, г. Киев — отзыв о Школе Русской Астрологии «Волхвы»</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/xZvt_OCHCxk/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=xZvt_OCHCxk" target="_blank" class="youtube">
+                    <h4>Максим, г. Киев — отзыв о Школе Русской Астрологии «Волхвы»</h4></a></div>
             </div>
             <div class="w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/jAv2O6VEDqs"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Светлана, г. Архангельск — отзыв о курсе «Формула Карьеры»</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/jAv2O6VEDqs/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=jAv2O6VEDqs" target="_blank" class="youtube">
+                    <h4>Светлана, г. Архангельск — отзыв о курсе «Формула Карьеры»</h4></a></div>
             </div>
         </div>
         <div class="plate-inner not-first">
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/iA8OEeNmHao"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="text">
-                    <h4>Ирина Кузнецова, г. Архангельск — отзыв о курсе «Формула Карьеры»</h4>
-                </div>
+                <img src="https://img.youtube.com/vi/iA8OEeNmHao/0.jpg"/>
+                <div class="text"><a href="https://www.youtube.com/watch?v=iA8OEeNmHao" target="_blank" class="youtube">
+                    <h4>Ирина Кузнецова, г. Архангельск — отзыв о курсе «Формула Карьеры»</h4></a></div>
             </div>
             <div class="left w30">
-                <iframe width="100%" height="180" src="https://www.youtube.com/embed/QcLmwh7ftsg"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
-                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <img src="https://img.youtube.com/vi/QcLmwh7ftsg/0.jpg"/>
                 <div class="text">
                     <h4>Отзыв группы из Екатеринбурга о курсе «Формула Души»,
                         обучение в Летней Школе Александра Астрогора</h4>
