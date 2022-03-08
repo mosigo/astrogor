@@ -41,18 +41,13 @@ def get_bool_param_value(param_name: str, param_default_value: bool) -> bool:
     return param_default_value
 
 
-@app.route('/', methods=['POST', 'GET'])
-def index():
-    return render_template('old.html')
-
-
 @app.route('/fd', methods=['GET'])
 def fd():
     return redirect('/card')
 
 
-@app.route('/new', methods=['GET'])
-def new():
+@app.route('/', methods=['GET'])
+def index():
     return render_template('index.html')
 
 
