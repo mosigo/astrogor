@@ -238,7 +238,7 @@ def create_transit():
     next_link_hour = '/transit?' + params + '&transit-day=' + unquote(next_transit_hour)
     prev_link_hour = '/transit?' + params + '&transit-day=' + unquote(prev_transit_hour)
 
-    link = '/download-transit?' + params + '&transit-day=' + unquote(transit_day)
+    link = '/download-tr?' + params + '&transit-day=' + unquote(transit_day)
 
     fd_link = '/card?' + \
               unquote_str_param('fio', fio) + unquote_str_param('birthday', birthday) + unquote_str_param('city', city)
@@ -263,9 +263,9 @@ def create_transit():
                                planet_to_connection=planet_to_connection_res, planet_to_connection_view=planet_to_view)
 
 
-@app.route('/download-transit', methods=['GET'])
+@app.route('/download-tr', methods=['GET'])
 def download_transit():
-    print('download-transit', request.headers.get('X-Real-IP'))
+    print('download-tr', request.headers.get('X-Real-IP'))
     fio, birthday_dt, city, transit_dt, cur_city, show_source, show_source_to_transit, show_transit = \
         get_transit_params()
 
