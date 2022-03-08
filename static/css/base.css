@@ -93,6 +93,10 @@ body {
     border: 1px solid #D6D6D8;
 }
 
+.btn.second:hover {
+    background-color: #D6D6D8;
+}
+
 /*Логотип*/
 
 a.logo {
