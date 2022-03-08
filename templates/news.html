@@ -40,7 +40,7 @@ img.pic {
 
 <!--Новый сайт-->
 <div class="plate-base">
-    <a id="001"></a>
+    <a id="002"></a>
     <div class="plate w100">
         <h1>Новый сайт</h1>
         <div class="label">08.03.2022</div>
@@ -78,12 +78,9 @@ img.pic {
                 </div>
                 <div class="text">
                     <p>Мы собрали на <a href="/videos">одной странице</a> и все «Видео». Они разделены по тематикам:
-                        <a href="/videos#fd">Формула Души</a>, <a href="/videos#astro">астрология</a>,
-                        <a href="/videos#karma">кармическая медицина</a>. Отдельно собраны
-                        <a href="/videos#books">презентации книг и творческие встречи</a>. Выложены записи с
-                        <a href="/videos#svetloyar">летней школы</a> на озере Светлояр. Есть видео с передач
-                        «<a href="/videos#expert">Совет эксперта</a>» и «<a href="/videos#labirint">Лабиринты жизни»</a>
-                        телеканала «Семья». </p>
+                        Формула Души, астрология, кармическая медицина. Отдельно собраны презентации книг
+                        и творческие встречи. Выложены записи с летней школы на озере Светлояр. Есть видео с передач
+                        «Совет эксперта» и «Лабиринты жизни» телеканала «Семья». </p>
                 </div>
             </div>
         </div>
@@ -115,7 +112,44 @@ img.pic {
             </div>
         </div>
 
+        <div class="action">
+            <a href="/new">
+                <button class="btn second">На Главную</button>
+            </a>
+        </div>
+    </div>
+</div>
 
+<!--Глава из книги «Монолог Вакцины»-->
+<div class="plate-base">
+    <a id="001"></a>
+    <div class="plate w100">
+        <h1>Статья «Монолог вакцины»</h1>
+        <div class="label">17.02.2022</div>
+
+        <div class="plate-inner">
+            <div class="left w75">
+                <div class="text">
+                    <p>Предлагаем ознакомиться с главой из книги «Кармическая медицина».</p>
+                </div>
+                <div class="contacts">
+                    <span>
+                        <a href="https://vk.com/wall95920566_3844" target="_blank">
+                            <img src="{{ url_for('static', filename='pic/contacts/Vk.png') }}"/>
+                        </a>
+                    </span>
+                </div>
+                <div class="action">
+                    <a href="{{ url_for('static', filename='pic/downloads/Monolog_Vaktsiny.docx') }}"
+                       download="Monolog_Vaktsiny.docx">
+                        <button class="btn">Скачать</button>
+                    </a>
+                    <a href="/new">
+                        <button class="btn second">На Главную</button>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

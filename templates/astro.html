@@ -3,7 +3,13 @@
 {{ super() }}
 <meta name="Keywords" content="астрогор, астрология, обучение, душа, астрологам, транзиты"/>
 <style>
+    a.downloads div.img {
+        border-color: #D6D6D8;
+    }
 
+    a.downloads div.img:hover {
+        border-color: #6E69EB;
+    }
 </style>
 {% endblock %}
 {% block body %}
@@ -95,45 +101,45 @@
         <h1>Материалы для скачивания</h1>
         <div class="plate-inner">
             <div class="left w25">
-                <div class="img">
-                    <a href="{{ url_for('static', filename='pic/downloads/01.jpg') }}"
-                       download="moon_houses.jpg">
+                <a href="{{ url_for('static', filename='pic/downloads/01.jpg') }}" class="downloads"
+                   download="moon_houses.jpg">
+                    <div class="img">
                         <img src="{{ url_for('static', filename='pic/downloads/01_small.png') }}"/>
-                    </a>
-                </div>
+                    </div>
+                </a>
                 <div class="text">
                     <h4>Лунные дома</h4>
                 </div>
             </div>
             <div class="left w25">
-                <div class="img">
-                    <a href="{{ url_for('static', filename='pic/downloads/02.jpeg') }}"
-                       download="medical_horar_and_zodiac.jpeg">
+                <a href="{{ url_for('static', filename='pic/downloads/02.jpeg') }}" class="downloads"
+                   download="medical_horar_and_zodiac.jpeg">
+                    <div class="img">
                         <img src="{{ url_for('static', filename='pic/downloads/02_small.png') }}"/>
-                    </a>
-                </div>
+                    </div>
+                </a>
                 <div class="text">
                     <h4>Медицинский хорар и зодиак</h4>
                 </div>
             </div>
             <div class="left w25">
-                <div class="img">
-                    <a href="{{ url_for('static', filename='pic/downloads/10.jpeg') }}"
-                       download="personal_horoscope_and_soul_formula.jpeg">
+                <a href="{{ url_for('static', filename='pic/downloads/10.jpeg') }}" class="downloads"
+                   download="personal_horoscope_and_soul_formula.jpeg">
+                    <div class="img">
                         <img src="{{ url_for('static', filename='pic/downloads/10_small.png') }}"/>
-                    </a>
-                </div>
+                    </div>
+                </a>
                 <div class="text">
                     <h4>Бланк «Личный гороскоп и Формула Души»</h4>
                 </div>
             </div>
             <div class="w25">
-                <div class="img">
-                    <a href="{{ url_for('static', filename='pic/downloads/04.jpg') }}"
-                       download="astrology_for_beginners.jpg">
+                <a href="{{ url_for('static', filename='pic/downloads/04.jpg') }}" class="downloads"
+                   download="astrology_for_beginners.jpg">
+                    <div class="img">
                         <img src="{{ url_for('static', filename='pic/downloads/04_small.png') }}"/>
-                    </a>
-                </div>
+                    </div>
+                </a>
                 <div class="text">
                     <h4>Астрология начинающим с нуля</h4>
                 </div>
@@ -141,45 +147,45 @@
         </div>
         <div class="plate-inner not-first">
             <div class="left w25">
-                <div class="img">
-                    <a href="{{ url_for('static', filename='pic/downloads/05.jpg') }}"
-                       download="cosmogram_form_and_formula_of_the_soul.jpg">
+                <a href="{{ url_for('static', filename='pic/downloads/05.jpg') }}" class="downloads"
+                   download="cosmogram_form_and_formula_of_the_soul.jpg">
+                    <div class="img">
                         <img src="{{ url_for('static', filename='pic/downloads/05_small.png') }}"/>
-                    </a>
-                </div>
+                    </div>
+                </a>
                 <div class="text">
                     <h4>Бланк «космограмма и формула души»</h4>
                 </div>
             </div>
             <div class="left w25">
-                <div class="img">
-                    <a href="{{ url_for('static', filename='pic/downloads/06.jpg') }}"
-                       download="god_and_the_12_zodiac_signs.jpg">
+                <a href="{{ url_for('static', filename='pic/downloads/06.jpg') }}" class="downloads"
+                   download="god_and_the_12_zodiac_signs.jpg">
+                    <div class="img">
                         <img src="{{ url_for('static', filename='pic/downloads/06_small.png') }}"/>
-                    </a>
-                </div>
+                    </div>
+                </a>
                 <div class="text">
                     <h4>Бог и 12 знаков зодиака</h4>
                 </div>
             </div>
             <div class="left w25">
-                <div class="img">
-                    <a href="{{ url_for('static', filename='pic/downloads/07.jpg') }}"
-                       download="crosses_and_zodiac_houses.jpg">
+                <a href="{{ url_for('static', filename='pic/downloads/07.jpg') }}" class="downloads"
+                   download="crosses_and_zodiac_houses.jpg">
+                    <div class="img">
                         <img src="{{ url_for('static', filename='pic/downloads/07_small.png') }}"/>
-                    </a>
-                </div>
+                    </div>
+                </a>
                 <div class="text">
                     <h4>Кресты и дома зодиака. Пособие</h4>
                 </div>
             </div>
             <div class="w25">
-                <div class="img">
-                    <a href="{{ url_for('static', filename='pic/downloads/08.jpeg') }}"
-                       download="zodiac_table_of_chemical_elements.jpeg">
+                <a href="{{ url_for('static', filename='pic/downloads/08.jpeg') }}" class="downloads"
+                   download="zodiac_table_of_chemical_elements.jpeg">
+                    <div class="img">
                         <img src="{{ url_for('static', filename='pic/downloads/08_small.png') }}"/>
-                    </a>
-                </div>
+                    </div>
+                </a>
                 <div class="text">
                     <h4>Зодиакальная таблица химических элементов</h4>
                 </div>
@@ -187,12 +193,12 @@
         </div>
         <div class="plate-inner not-first">
             <div class="left w25">
-                <div class="img">
-                    <a href="{{ url_for('static', filename='pic/downloads/09.jpg') }}"
-                       download="cosmogram.jpg">
+                <a href="{{ url_for('static', filename='pic/downloads/09.jpg') }}" class="downloads"
+                   download="cosmogram.jpg">
+                    <div class="img">
                         <img src="{{ url_for('static', filename='pic/downloads/09_small.png') }}"/>
-                    </a>
-                </div>
+                    </div>
+                </a>
                 <div class="text">
                     <h4>Бланк для построения космограммы</h4>
                 </div>

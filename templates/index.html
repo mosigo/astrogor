@@ -5,7 +5,19 @@
       content="вебинары, учебный, курс, обучение, занятия, формула, душа, души, астрогор, астрология, космограмма, планета, гороскоп, сила, метод, цепочка, диспозитор, владение, astrogor, astrology, astrological, soul, formula, planet, horoscope, method"/>
 
 <style>
-
+a.news {
+    text-decoration: none;
+    color: unset;
+}
+a.news:hover {
+    color: unset;
+}
+a.news div.img {
+    border-color: #D6D6D8;
+}
+a.news div.img:hover {
+    border-color: #6E69EB;
+}
 </style>
 {% endblock %}
 {% block body %}
@@ -24,23 +36,27 @@
         <h1>Новости</h1>
         <div class="plate-inner">
             <div class="w50">
-                <div class="img">
-                    <div class="text">
-                        <p>08.03.2022</p>
-                        <h4>Новый сайт</h4>
-                        <p>Мы обновили сайт! Теперь здесь гораздо больше информации,
-                            а также появился <a href="/card">новый инструмент</a> для построения Формулы Души.</p>
+                <a href="/news#002" class="news">
+                    <div class="img">
+                        <div class="text">
+                            <p>08.03.2022</p>
+                            <h4>Новый сайт</h4>
+                            <p>Мы обновили сайт! Теперь здесь гораздо больше информации,
+                                а также появился новый инструмент для построения Формулы Души.</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="right w50">
-                <div class="img">
-                    <div class="text">
-                        <p>01.03.2022</p>
-                        <h4>Статья «Монолог вакцины»</h4>
-                        <p>Александр Астрогор, глава из книги «Кармическая медицина».<br/> <br/> </p>
+                <a href="/news#001" class="news">
+                    <div class="img">
+                        <div class="text">
+                            <p>17.02.2022</p>
+                            <h4>Статья «Монолог вакцины»</h4>
+                            <p>Делимся главой из книги Александра Астрогора «Кармическая медицина».<br/> </p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
         <div class="action">
