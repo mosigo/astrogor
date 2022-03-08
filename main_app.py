@@ -43,91 +43,91 @@ def get_bool_param_value(param_name: str, param_default_value: bool) -> bool:
 
 @app.route('/fd', methods=['GET'])
 def fd():
-    print('fd', request.remote_addr)
+    print('fd', request.access_route)
     return redirect('/card')
 
 
 @app.route('/', methods=['GET'])
 def index():
-    print('/', request.remote_addr)
+    print('/', request.access_route)
     return render_template('index.html')
 
 
 @app.route('/edu', methods=['GET'])
 def edu():
-    print('edu', request.remote_addr)
+    print('edu', request.access_route)
     return render_template('edu.html')
 
 
 @app.route('/contacts', methods=['GET'])
 def contacts():
-    print('contacts', request.remote_addr)
+    print('contacts', request.access_route)
     return render_template('contacts.html')
 
 
 @app.route('/books', methods=['GET'])
 def books():
-    print('books', request.remote_addr)
+    print('books', request.access_route)
     return render_template('books.html')
 
 
 @app.route('/videos', methods=['GET'])
 def videos():
-    print('videos', request.remote_addr)
+    print('videos', request.access_route)
     return render_template('videos.html')
 
 
 @app.route('/astro', methods=['GET'])
 def astro():
-    print('astro', request.remote_addr)
+    print('astro', request.access_route)
     return render_template('astro.html')
 
 
 @app.route('/others', methods=['GET'])
 def others():
-    print('others', request.remote_addr)
+    print('others', request.access_route)
     return render_template('others.html')
 
 
 @app.route('/consultations', methods=['GET'])
 def consultations():
-    print('consultations', request.remote_addr)
+    print('consultations', request.access_route)
     return render_template('consultations.html')
 
 
 @app.route('/news', methods=['GET'])
 def news():
-    print('news', request.remote_addr)
+    print('news', request.access_route)
     return render_template('news.html')
 
 
 @app.route('/courses/fd', methods=['GET'])
 def course_fd():
-    print('courses/fd', request.remote_addr)
+    print('courses/fd', request.access_route)
     return render_template('courses/fd.html')
 
 
 @app.route('/courses/astro', methods=['GET'])
 def course_astro():
-    print('courses/astro', request.remote_addr)
+    print('courses/astro', request.access_route)
     return render_template('courses/astro.html')
 
 
 @app.route('/courses/karma', methods=['GET'])
 def course_karma():
-    print('courses/karma', request.remote_addr)
+    print('courses/karma', request.access_route)
     return render_template('courses/karma.html')
 
 
 @app.route('/courses/palmistry', methods=['GET'])
 def course_palmistry():
-    print('courses/palmistry', request.remote_addr)
+    print('courses/palmistry', request.access_route)
     return render_template('courses/palmistry.html')
 
 
 @app.route('/download-card', methods=['GET'])
 def download_card():
-    print('download-card', request.remote_addr)
+    print('download-card', request.access_route)
     fio, birthday, city, age_units = get_card_params()
 
     birthday_unified = birthday.strftime('%Y-%m-%d %H:%M')
@@ -148,7 +148,7 @@ def get_card_params():
 
 @app.route('/card', methods=['GET'])
 def create_card():
-    print('card', request.remote_addr)
+    print('card', request.access_route)
     fio, birthday, city, age_units = get_card_params()
 
     birthday_as_str = birthday.strftime('%d.%m.%Y %H:%M')
@@ -204,7 +204,7 @@ def unquote_bool_param(param_name: str, param_value: bool) -> str:
 
 @app.route('/transit', methods=['GET'])
 def create_transit():
-    print('transit', request.remote_addr)
+    print('transit', request.access_route)
     fio, birthday_dt, city, transit_dt, cur_city, show_source, show_source_to_transit, show_transit = \
         get_transit_params()
 
@@ -265,7 +265,7 @@ def create_transit():
 
 @app.route('/download-transit', methods=['GET'])
 def download_transit():
-    print('download-transit', request.remote_addr)
+    print('download-transit', request.access_route)
     fio, birthday_dt, city, transit_dt, cur_city, show_source, show_source_to_transit, show_transit = \
         get_transit_params()
 
