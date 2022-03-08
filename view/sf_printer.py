@@ -611,3 +611,165 @@ class OneCirclePrinter:
         numeric_drawer.draw_fate_number(numeric_info.fate_number, cr0)
         cr0.restore()
         cr0.stroke()
+
+
+class TransitPrinter:
+
+    def __init__(self, width=210, height=297, border_offset=5,
+                 title_height=8, subtitle_height=4, text_offset=2,
+                 add_info_radius=18, add_info_overlap=2.5, qr_width=25,
+                 draw_profile: DrawProfile = DrawProfile.DEFAULT) -> None:
+        self.draw_profile = draw_profile
+        self.add_info_overlap = add_info_overlap
+        self.add_info_radius = add_info_radius
+        self.subtitle_height = subtitle_height
+        self.title_height = title_height
+        self.text_offset = text_offset
+        self.border_offset = border_offset
+        self.height = height - 2 * border_offset
+        self.width = width - 2 * border_offset
+        self.qr_width = qr_width
+
+        self.circle_radius = int(self.width / 2)
+        space = self.add_info_radius * 1.7
+        self.x, self.y = self.circle_radius, self.circle_radius + \
+                         self.title_height + self.subtitle_height * 3 + self.text_offset * 3 + space
+
+        alpha = math.acos((self.circle_radius - self.add_info_radius) / (self.circle_radius + self.add_info_radius))
+        add_info_x2, add_info_y2 = self.x, self.y - self.circle_radius - self.add_info_radius
+        add_info_x2, add_info_y2 = rotate_point(self.x, self.y, add_info_x2, add_info_y2, math.pi / 2 - alpha)
+        self.add_info_x2 = add_info_x2 - self.add_info_overlap * math.cos(alpha)
+        self.add_info_y2 = add_info_y2 + self.add_info_overlap * math.sin(alpha)
+        self.add_info_alpha = \
+            2 * math.asin(self.add_info_radius / (self.circle_radius + self.add_info_radius - self.add_info_overlap)) \
+            - 0.5 * math.pi / 180
+        add_info_x1, add_info_y1 = self.x, self.y + self.circle_radius + self.add_info_radius
+        add_info_x1, add_info_y1 = rotate_point(self.x, self.y, add_info_x1, add_info_y1, math.pi / 2 - alpha)
+        self.add_info_x1 = add_info_x1 + self.add_info_overlap * math.cos(alpha)
+        self.add_info_y1 = add_info_y1 - self.add_info_overlap * math.sin(alpha)
+
+        self.title_x, self.title_y = 0, self.title_height
+        self.subtitle1_x, self.subtitle1_y = 0, self.title_y + self.text_offset + self.subtitle_height
+        self.subtitle2_x, self.subtitle2_y = 0, self.subtitle1_y + self.text_offset * 2 + self.subtitle_height
+        self.subtitle3_x, self.subtitle3_y = 0, self.subtitle2_y + self.text_offset + self.subtitle_height
+        self.subtitle4_x, self.subtitle4_y = 0, self.subtitle3_y + self.text_offset * 2 + self.subtitle_height
+
+    def _add_text(self, cr0: cairo.Context, font_size, x, y, max_width, text):
+        cr0.move_to(x, y)
+        cr0.set_font_size(font_size)
+        te = cr0.text_extents(text)
+        while te.width > max_width:
+            font_size *= 0.99
+            cr0.set_font_size(font_size)
+            te = cr0.text_extents(text)
+        cr0.show_text(text)
+        cr0.stroke()
+
+    def _print_titles(self, cr0: cairo.Context,
+                      cosmogram: Cosmogram, fio: str, city: str):
+        x, y = cr0.device_to_user(self.title_x, self.title_y)
+        cr0.move_to(x, y)
+        cr0.set_font_size(self.title_height / self.width)
+        cr0.select_font_face(self.draw_profile.font_header, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
+        cr0.set_source_rgb(0, 0, 0)
+
+        title = 'Транзит космограммы на дату'.upper()
+        title_te = cr0.text_extents(title)
+        cr0.show_text(title)
+        cr0.stroke()
+
+        cr0.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr0.set_font_size(self.subtitle_height / self.width)
+
+        cr0.set_line_width(0.001)
+        line_y = y + self.text_offset * 3 / self.width
+        cr0.move_to(0, line_y)
+        cr0.line_to(title_te.width, line_y)
+        cr0.stroke()
+
+        # x, y = cr0.device_to_user(self.subtitle1_x, self.subtitle1_y)
+        # cr0.move_to(x, y)
+        # cr0.show_text('Снаружи — положение планет на момент рождения, внутри — на указанную дату.')
+        # cr0.stroke()
+
+        x, y = cr0.device_to_user(self.subtitle2_x, self.subtitle2_y)
+        cr0.move_to(x, y)
+        cr0.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        user_dates = 'Дата: ' if not cosmogram.death_dt else 'Годы жизни: '
+        cr0.show_text(user_dates)
+        x += cr0.text_extents(user_dates).width + self.text_offset / self.width
+        user_dates = cosmogram.dt.strftime("%d.%m.%Y %H:%M")
+        if cosmogram.death_dt:
+            user_dates += ' — ' + cosmogram.death_dt.strftime("%d.%m.%Y %H:%M")
+        cr0.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr0.show_text(user_dates)
+
+        x, y = cr0.device_to_user(self.subtitle3_x, self.subtitle3_y)
+        cr0.move_to(x, y)
+        cr0.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr0.show_text('Место: ')
+        x += cr0.text_extents('Место: ').width + self.text_offset / self.width
+        cr0.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        self._add_text(cr0, self.subtitle_height / self.width, x, y, title_te.width, city)
+
+        x, y = cr0.device_to_user(self.subtitle4_x, self.subtitle4_y)
+        cr0.move_to(x, y)
+        cr0.select_font_face(self.draw_profile.font_header, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
+        fio_font_size = (self.title_height + self.subtitle_height) / 2 / self.width
+        self._add_text(cr0, fio_font_size, x, y, title_te.width, fio.upper())
+        te = cr0.text_extents(fio.upper())
+        cr0.set_line_width(0.001)
+        cr0.set_source_rgb(0.9, 0.9, 0.9)
+        space_x, space_y = 0.005, te.height * 0.3
+        cr0.rectangle(x - space_x, y - te.height - space_y, te.width + space_x * 2, te.height + space_y * 2.5)
+        cr0.fill()
+
+        cr0.set_source_rgb(0, 0, 0)
+        cr0.move_to(x, y)
+        cr0.show_text(fio.upper())
+        cr0.stroke()
+
+        qr_x2 = self.width - self.qr_width
+        self.__draw_qr_code(cr0, "https://astrogor.online/transit", qr_x2, 0)
+
+        qr_font_size = 0.017
+        cr0.select_font_face(self.draw_profile.font_text, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cr0.set_font_size(qr_font_size)
+        x, y = cr0.device_to_user(qr_x2, self.qr_width + qr_font_size * self.width)
+        cr0.move_to(x, y)
+        cr0.show_text('astrogor.online')
+        cr0.stroke()
+
+    def print_info(self, fio: str, city: str,
+                   cosmo1: Cosmogram, cosmo2: Cosmogram,
+                   surface: cairo.Surface, show_source, show_source_to_transit, show_transit):
+        surface.set_device_offset(self.border_offset, self.border_offset)
+        cr0 = cairo.Context(surface)
+        cr0.scale(self.width, self.width)
+
+        self._print_titles(cr0, cosmo1, fio, city)
+
+        cr = cairo.Context(surface.create_for_rectangle(
+            self.x - self.circle_radius, self.y - self.circle_radius, self.circle_radius * 2, self.circle_radius * 2))
+        cr.scale(self.circle_radius * 2, self.circle_radius * 2)
+
+        c_drawer = DefaultCosmogramDrawer(planet_ruler_place='in_sign', life_years=0)
+        c_drawer.draw_transit(cosmo1, cosmo2, cr, show_source, show_source_to_transit, show_transit)
+
+    def __draw_qr_code(self, cr0: cairo.Context, url: str, x: float, y: float):
+        qr = qrcode.QRCode(border=0)
+        qr.add_data(url)
+        m = qr.get_matrix()
+        qr_size = len(m)
+        x0, y0 = cr0.device_to_user(x, y)
+        cell_width, _ = cr0.device_to_user_distance(self.qr_width / qr_size, 0)
+        x, y = x0, y0
+        cr0.move_to(x, y)
+        for i in range(len(m)):
+            for j in range(len(m[0])):
+                if m[i][j]:
+                    cr0.rectangle(x, y, cell_width, cell_width)
+                    cr0.fill()
+                x += cell_width
+            x = x0
+            y += cell_width

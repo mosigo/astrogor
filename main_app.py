@@ -256,7 +256,7 @@ def download_transit():
     fio, birthday_dt, city, transit_dt, cur_city, show_source, show_source_to_transit, show_transit = \
         get_transit_params()
 
-    filename = generate_full_transit(geocoder, birthday_dt, city, transit_dt, cur_city,
+    filename = generate_full_transit(geocoder, fio, birthday_dt, city, transit_dt, cur_city,
                                      show_source, show_source_to_transit, show_transit)
     return send_file(filename)
 

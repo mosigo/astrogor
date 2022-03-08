@@ -239,7 +239,7 @@ class DefaultCosmogramDrawer(CosmogramDrawer):
         cr.fill()
 
     def __draw_life_year(self, i: int, cr: cairo.Context) -> None:
-        s = str(i + self.first_life_year)
+        s = str(i + self.first_life_year + 1)
         if len(s) == 1:
             cr.move_to(0.3, 0.68)
         else:

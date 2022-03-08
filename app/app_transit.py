@@ -13,9 +13,10 @@ from model.sf_flatlib import FlatlibBuilder
 from model.sf_transit import find_nearest_connections
 from view.planet_label import PlanetLabelDrawer
 from view.sf_cosmogram import DefaultCosmogramDrawer
+from view.sf_printer import TransitPrinter
 
 
-def generate_full_transit(geocoder, birthday_time: datetime, city: str, dt: datetime, cur_city: str,
+def generate_full_transit(geocoder, name: str, birthday_time: datetime, city: str, dt: datetime, cur_city: str,
                           show_source: bool, show_source_to_transit: bool, show_transit: bool) -> str:
     birthday_as_str = birthday_time.strftime('%Y-%m-%d %H:%M')
     dt_as_str = dt.strftime('%Y-%m-%d %H:%M')
@@ -31,15 +32,18 @@ def generate_full_transit(geocoder, birthday_time: datetime, city: str, dt: date
 
     new_file, filename = tempfile.mkstemp(suffix='.pdf', prefix='transit_')
     print(f'Создан временный файл для вывода космограммы: {filename}')
-    surface_pdf = cairo.PDFSurface(filename, 200, 200)
+
+    printer = TransitPrinter()
+    surface_pdf = cairo.PDFSurface(
+        filename, printer.width + 2 * printer.border_offset, printer.height + 2 * printer.border_offset)
     cr = cairo.Context(surface_pdf)
     cr.scale(200, 200)
 
     cosmo2 = builder.build_cosmogram(dt_transit, lat=geo_res_now.lat, lon=geo_res_now.lon,
                                      planets_to_exclude=[const.PARS_FORTUNA])
 
-    drawer = DefaultCosmogramDrawer(planet_ruler_place='in_sign', life_years=0)
-    drawer.draw_transit(cosmo1, cosmo2, cr, show_source, show_source_to_transit, show_transit)
+    printer.print_info(name, geo_res.address, cosmo1, cosmo2, surface_pdf,
+                       show_source, show_source_to_transit, show_transit)
     surface_pdf.finish()
     os.close(new_file)
 
