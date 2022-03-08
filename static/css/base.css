@@ -28,6 +28,14 @@ h3 {
     line-height: 24px;
 }
 
+.text-header-inner {
+    font-family: AstrogorHeader;
+    font-size: 18px;
+    color: #6E69EB;
+    margin-top: 30px;
+    line-height: 24px;
+}
+
 a {
     color: #6356F8;
 }
