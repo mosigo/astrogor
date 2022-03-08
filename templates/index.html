@@ -18,6 +18,9 @@ a.news div.img {
 a.news div.img:hover {
     border-color: #6E69EB;
 }
+h4 {
+    height: 30px;
+}
 </style>
 {% endblock %}
 {% block body %}
@@ -202,6 +205,76 @@ a.news div.img:hover {
 {% include "blocks/soft.html" %}
 
 {% include "blocks/others.html" %}
+
+<!--Творчество наших друзей-->
+<div class="plate-base">
+    <div class="plate w100">
+        <h1>Творчество наших друзей</h1>
+        <div class="plate-inner">
+            <div class="left w30">
+                <div class="img plate-fixed-height350">
+                    <img src="{{ url_for('static', filename='pic/art/01.png') }}" class="w100"/>
+                </div>
+                <div class="text">
+                    <h4>Подарок</h4>
+                    <p>Портрет Астрогора А.А., 2016 г.</p>
+                </div>
+            </div>
+            <div class="left w30">
+                <div class="img plate-fixed-height350">
+                    <img src="{{ url_for('static', filename='pic/art/02.png') }}" class="w100"/>
+                </div>
+                <div class="text">
+                    <h4>Нина Ежова</h4>
+                    <p>Рисунок</p>
+                </div>
+            </div>
+            <div class="w30">
+                <div class="img plate-fixed-height350">
+                    <img src="{{ url_for('static', filename='pic/art/03.png') }}" class="w100"/>
+                </div>
+                <div class="text">
+                    <h4>Святослав Клиндухов</h4>
+                    <p>Скульптура</p>
+                </div>
+            </div>
+        </div>
+        <div class="plate-inner not-first">
+            <div class="left w30">
+                <div class="img plate-fixed-height350">
+                    <img src="{{ url_for('static', filename='pic/art/04.png') }}" class="w100"/>
+                </div>
+                <div class="text">
+                    <h4>Заслуж. художник РФ Людмила Кузнецова</h4>
+                    <p>Рисунок, г. Пенза</p>
+                </div>
+            </div>
+            <div class="left w30">
+                <div class="img plate-fixed-height350">
+                    <img src="{{ url_for('static', filename='pic/art/05.png') }}" class="w100"/>
+                </div>
+                <div class="text">
+                    <h4>Майя Никитенко</h4>
+                    <p>Рисунок, г. Житомир</p>
+                </div>
+            </div>
+            <div class="w30">
+                <div class="img plate-fixed-height350">
+                    <img src="{{ url_for('static', filename='pic/art/06.png') }}" class="w100"/>
+                </div>
+                <div class="text">
+                    <h4>Вячеслав Клиндухов</h4>
+                    <p>Графика</p>
+                </div>
+            </div>
+        </div>
+<!--        <div class="action">-->
+<!--            <a href="/photos">-->
+<!--                <button class="btn">Все фотографии</button>-->
+<!--            </a>-->
+<!--        </div>-->
+    </div>
+</div>
 
 <!--Блок про кармическую медицину-->
 <div class="plate-base">
