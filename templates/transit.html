@@ -46,7 +46,7 @@
             <div>
                 <input type="submit" value="Построить!" class="sbm btn" tabindex="9">
                 <a href="/transit" tabindex="10">Сбросить</a>
-                <a href="{{ fd_link }}" tabindex="11">Формула Души</a>
+                <a href="{{ fd_link }}" rel="nofollow" tabindex="11">Формула Души</a>
             </div>
         </form>
 
@@ -55,13 +55,13 @@
             {% for planet, planet_to, dt_as_str, link, dt in planet_to_connection %}
             <div class="nearest-connection">
                 <img src="data:image/gif;base64,{{ planet_to_connection_view[planet] }}"/>
-                <a href="{{ link }}">{{ dt_as_str }}</a>
+                <a href="{{ link }}" rel="nofollow">{{ dt_as_str }}</a>
             </div>
             {% endfor %}
         </div>
 
         <div class="download">
-            <a href="{{download_link}}" download="{{out_file_name}}">PDF</a>
+            <a href="{{download_link}}" rel="nofollow" download="{{out_file_name}}">PDF</a>
         </div>
 
         <div class="full-img">
