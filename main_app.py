@@ -5,7 +5,7 @@ from urllib.parse import unquote
 
 import pytz
 
-from flask import Flask, request, render_template, send_file, redirect
+from flask import Flask, request, render_template, send_file, redirect, send_from_directory
 from datetime import datetime, timedelta
 
 from transliterate import translit
@@ -147,6 +147,12 @@ def course_karma():
 def course_palmistry():
     print_real_ip('courses/palmistry')
     return render_template('courses/palmistry.html')
+
+
+@app.route('/robots.txt', methods=['GET'])
+def robots_txt():
+    print_real_ip('robots.txt')
+    return send_from_directory('templates', 'robots.txt')
 
 
 @app.route('/download-card', methods=['GET'])
