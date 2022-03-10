@@ -79,6 +79,10 @@ body {
     cursor: pointer;
 }
 
+.btn.corner {
+    float: right;
+}
+
 .btn.w50 {
     width: 49%;
 }
@@ -482,6 +486,11 @@ ul li:before {
     }
 
     /*Кнопки*/
+
+    .btn.corner {
+        float: unset;
+        margin-bottom: 20px;
+    }
 
     .btn.w50 {
         width: 100%;
