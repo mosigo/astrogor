@@ -303,6 +303,7 @@ ul li:before {
     padding: 24px 38px;
     vertical-align: middle;
     display: table-cell;
+    width: 100%;
 }
 
 .img img {
