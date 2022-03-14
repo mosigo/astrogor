@@ -3,7 +3,14 @@
 {{ super() }}
 <meta name="Keywords" content="астрогор, астрология, обучение, душа"/>
 <style>
-
+.inner-block.empty {
+    border-color: white;
+}
+@media (max-width: 1000px) {
+    .inner-block.empty {
+        display: none;
+    }
+}
 </style>
 {% endblock %}
 {% block body %}
@@ -105,18 +112,6 @@
                 </div>
             </div>
             <div class="w25 inner-block">
-                <div class="text-header">Классическая астрология</div>
-                <div class="label">Объём</div>
-                <div class="text">12 видеозаписей</div>
-                <div class="label">Продолжительность</div>
-                <div class="text">24 часа</div>
-                <div class="action">
-                    <a href="/courses/astro">
-                        <button class="btn">Подробнее</button>
-                    </a>
-                </div>
-            </div>
-            <div class="w25 inner-block">
                 <div class="text-header">Кармическая медицина</div>
                 <div class="label">Объём</div>
                 <div class="text">12 видеозаписей</div>
@@ -128,17 +123,11 @@
                     </a>
                 </div>
             </div>
-            <div class="w25 inner-block">
-                <div class="text-header">Хиромантия</div>
-                <div class="label">Объём</div>
-                <div class="text">8 видеозаписей</div>
-                <div class="label">Продолжительность</div>
-                <div class="text">16 часов</div>
-                <div class="action">
-                    <a href="/courses/palmistry">
-                        <button class="btn">Подробнее</button>
-                    </a>
-                </div>
+            <div class="w25 inner-block empty">
+                <div class="text"> </div>
+            </div>
+            <div class="w25 inner-block empty">
+                <div class="text"> </div>
             </div>
         </div>
         <p>Курсы представляют собой видеозаписи занятий с курсов очного обучения.</p>
