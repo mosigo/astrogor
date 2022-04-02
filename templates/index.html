@@ -18,9 +18,6 @@ a.news div.img {
 a.news div.img:hover {
     border-color: #6E69EB;
 }
-h4 {
-    height: 30px;
-}
 </style>
 {% endblock %}
 {% block body %}
@@ -42,7 +39,23 @@ h4 {
         <h1>Новости</h1>
 
         <div class="plate-inner">
-            <div class="w50">
+            <div class="w50 left">
+                <a href="/news#004" class="news">
+                    <div class="img">
+                        <div class="text">
+                            <p>28.03.2022</p>
+                            <h4>Завершился очный курс по Формуле Души</h4>
+                            <p>Ещё один выпуск учеников! Ещё несколько человек стали знакомы с Формулой Души.</p>
+                        </div>
+                        <div class="action">
+                            <a href="/news#005">
+                                <button class="btn">Подробнее</button>
+                            </a>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="w50 right">
                 <a href="/news#004" class="news">
                     <div class="img">
                         <div class="text">
@@ -59,25 +72,6 @@ h4 {
                     </div>
                 </a>
             </div>
-            <div class="w50 right">
-                <a href="/news#003" class="news">
-                    <div class="img">
-                        <div class="text">
-                            <p>08.03.2022</p>
-                            <h4>Мастер-класс 9–10 апреля 2022</h4>
-                            <p>В Москве 9–10 апреля у Зоопарка на м. Краснопресненская пройдёт
-                                мастер-класс по Формуле Души. Приглашаем всех желающих!</p>
-                        </div>
-                        <div class="action">
-                            <a href="/news#003">
-                                <button class="btn">Подробнее</button>
-                            </a>
-                        </div>
-                    </div>
-
-                </a>
-
-            </div>
         </div>
     </div>
 </div>
@@ -85,24 +79,26 @@ h4 {
 <!--Блок с баннерами -->
 <div class="plate-base">
     <div class="plate w50">
-        <h1>Сейчас идёт</h1>
+        <h1>Мастер-класс по Формуле Души</h1>
         <div class="img">
             <img src="{{ url_for('static', filename='pic/sf.png') }}"/>
         </div>
-        <div class="text-header">Очный курс «Формула Души»</div>
+        <div class="text-header">Москва, м. Краснопресненская,<br/>9–10 апреля 2022 г.</div>
         <div class="text">
-            <p>21 февраля 2022 г. — 28 марта 2022 г.</p>
-            <p>16 занятий, 3 раза в неделю с 19 до 21 часа.</p>
-            <p>Москва, м. Краснопресненская.</p>
+            <p>Астрогор А.А. разберёт трудные формулы, расскажет про аспекты.</p>
+            <p>Для тех, кто изучает Формулу Души прямо сейчас или уже знаком с этим методом.<br/> </p>
         </div>
         <div class="action">
             <a href="/contacts#offline-edu">
-                <button class="btn">Связаться с администратором</button>
+                <button class="btn w50">Записаться</button>
+            </a>
+            <a href="/news#003">
+                <button class="btn second w50">Подробности</button>
             </a>
         </div>
     </div>
     <div class="plate w50">
-        <h1>Вышла новая книга</h1>
+        <h1>Вышла новая книга<br/> </h1>
         <div class="img">
             <img src="{{ url_for('static', filename='pic/last_book.png') }}"/>
         </div>
@@ -111,6 +107,7 @@ h4 {
         <div class="text">
             <p>Вышла первая книга из новой серии. Первая из 12-ти: «Овен, голова, ум и мозг, зрение и слух, нос, зубы,
                 физиогномика».</p>
+            <p>Также доступны для изучения <a href="/books#chapters">отдельные главы</a> ещё не вышедших книг.</p>
         </div>
         <div class="action">
             <a href="https://www.ozon.ru/product/karmicheskaya-meditsina-golova-mozg-i-um-glaza-i-sluh-pod-znakom-zodiaka-oven-407617901/"
