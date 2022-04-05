@@ -3,6 +3,21 @@
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}" type="text/css"/>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/card.css') }}" type="text/css"/>
+<style>
+h1 {
+  margin-bottom: 0;
+}
+
+p {
+    margin-top: 0.5em;
+}
+
+hr {
+    margin-bottom: 1em;
+    border-top: 0.5px solid #D6D6D8;
+}
+</style>
+
 {% endblock %}
 
 {% block header %}
@@ -33,6 +48,8 @@
 <div class="plate-base">
     <div class="plate w100">
         <h1>Космограмма и Формула Души</h1>
+        <p>Авторский метод Александра Астрогора</p>
+        <hr/>
         <form action="/card" method="get">
 
             {{ marcos.render_text_input('birthday', birthday, 'Дата', '01.01.2000 12:00', 1) }}
