@@ -30,6 +30,52 @@ a.news div.img:hover {
     </div>
 </div>
 
+<!--Блок с баннерами -->
+<div class="plate-base">
+    <div class="plate w50">
+        <h1>Летняя школа 2022</h1>
+        <div class="img">
+            <img src="{{ url_for('static', filename='pic/svetloyar_04.png') }}"/>
+        </div>
+        <div class="text-header">С 21 мая по 14 сентября очное обучение на озере Светлояр</div>
+        <div class="text">
+            <p>В летнее время все очные курсы Астрогора А.А. проходят на озере Светлояр.
+                В этом году обучение начнётся 21 мая.</p>
+            <p>Формула Души, Классическая астрология, Кармическая медицина, Хиромантия.</p>
+        </div>
+        <div class="action">
+            <a href="/contacts#offline-edu">
+                <button class="btn w50">Записаться</button>
+            </a>
+            <a href="/edu#svetloyar">
+                <button class="btn second w50">Подробнее</button>
+            </a>
+        </div>
+    </div>
+    <div class="plate w50">
+        <h1>Вышла новая книга</h1>
+        <div class="img">
+            <img src="{{ url_for('static', filename='pic/last_book.png') }}"/>
+        </div>
+        <div class="text-header">Кармическая медицина. Голова, мозг и ум, глаза и слух... под знаком Зодиака — Овен
+        </div>
+        <div class="text">
+            <p>Вышла первая книга из новой серии. Первая из 12-ти: «Овен, голова, ум и мозг, зрение и слух, нос, зубы,
+                физиогномика».</p>
+            <p>Также доступны для изучения <a href="/books#chapters">отдельные главы</a> ещё не вышедших книг.</p>
+        </div>
+        <div class="action">
+            <a href="https://www.ozon.ru/product/karmicheskaya-meditsina-golova-mozg-i-um-glaza-i-sluh-pod-znakom-zodiaka-oven-407617901/"
+               target="_blank">
+                <button class="btn w50">Купить на Ozon</button>
+            </a>
+            <a href="/books">
+                <button class="btn second w50">Все книги</button>
+            </a>
+        </div>
+    </div>
+</div>
+
 <!--Блок с новостями-->
 <div class="plate-base">
     <div class="plate w100">
@@ -77,51 +123,7 @@ a.news div.img:hover {
     </div>
 </div>
 
-<!--Блок с баннерами -->
-<div class="plate-base">
-    <div class="plate w50">
-        <h1>Летняя школа 2022</h1>
-        <div class="img">
-            <img src="{{ url_for('static', filename='pic/svetloyar_04.png') }}"/>
-        </div>
-        <div class="text-header">С 21 мая по 14 сентября очное обучение на озере Светлояр</div>
-        <div class="text">
-            <p>В летнее время все очные курсы Астрогора А.А. проходят на озере Светлояр.
-                В этом году обучение начнётся 21 мая.</p>
-            <p>Формула Души, Классическая астрология, Кармическая медицина, Хиромантия.</p>
-        </div>
-        <div class="action">
-            <a href="/contacts#offline-edu">
-                <button class="btn w50">Записаться</button>
-            </a>
-            <a href="/edu#svetloyar">
-                <button class="btn second w50">Подробности</button>
-            </a>
-        </div>
-    </div>
-    <div class="plate w50">
-        <h1>Вышла новая книга</h1>
-        <div class="img">
-            <img src="{{ url_for('static', filename='pic/last_book.png') }}"/>
-        </div>
-        <div class="text-header">Кармическая медицина. Голова, мозг и ум, глаза и слух... под знаком Зодиака — Овен
-        </div>
-        <div class="text">
-            <p>Вышла первая книга из новой серии. Первая из 12-ти: «Овен, голова, ум и мозг, зрение и слух, нос, зубы,
-                физиогномика».</p>
-            <p>Также доступны для изучения <a href="/books#chapters">отдельные главы</a> ещё не вышедших книг.</p>
-        </div>
-        <div class="action">
-            <a href="https://www.ozon.ru/product/karmicheskaya-meditsina-golova-mozg-i-um-glaza-i-sluh-pod-znakom-zodiaka-oven-407617901/"
-               target="_blank">
-                <button class="btn w50">Купить на Ozon</button>
-            </a>
-            <a href="/books">
-                <button class="btn second w50">Все книги</button>
-            </a>
-        </div>
-    </div>
-</div>
+
 
 {% include "blocks/astrogor.html" %}
 
