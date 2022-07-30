@@ -152,7 +152,53 @@ img.border {
 <div class="plate-base">
     <a id="svetloyar"></a>
     <div class="plate w100">
-        <h1>Летняя школа на Светлояре</h1>
+        <h1>Летняя школа на Светлояре 2022</h1>
+
+        <!-- Расписание -->
+        <!--<div class="plate-inner not-first">
+            <div class="w50">
+                <h3>Расписание на 2022 год</h3>
+            </div>
+        </div>-->
+        <div class="plate-inner no-header">
+            <div class="w50 left">
+                <div class="text-header">Май</div>
+                <ul>
+                    <li>21–28 мая — Формула Души</li>
+                </ul>
+                <div class="text-header">Июнь</div>
+                <ul>
+                    <li>4–10 июня — Классическая астрология</li>
+                    <li>18–23 июня — Кармическая медицина</li>
+                    <li>28 июня — 5 июля — Формула Души</li>
+                </ul>
+                <div class="text-header">Июль</div>
+                <ul>
+                    <li>28–31 июля — Хиромантия</li>
+                </ul>
+            </div>
+            <div class="w50 right">
+                <div class="text-header">Август</div>
+                <ul>
+                    <li>6–13 августа — Формула Души</li>
+                    <li>15–21 августа — Классическая астрология</li>
+                    <li>23–28 августа — Кармическая медицина</li>
+                </ul>
+                <div class="text-header">Сентябрь</div>
+                <ul>
+                    <li>30 августа — 2 сентября — Хиромантия</li>
+                    <li>7–14 сентября — Формула Души</li>
+                </ul>
+
+            </div>
+        </div>
+
+        <!-- Карточки курсов -->
+        <div class="plate-inner not-first">
+            <div class="w50">
+                <h3>Курсы</h3>
+            </div>
+        </div>
         <div class="plate-inner">
             <div class="w25 inner-block">
                 <div class="text-header">Формула души</div>
@@ -204,14 +250,15 @@ img.border {
             </div>
         </div>
 
-
+        <!-- Картинка с картой -->
         <div class="plate-inner not-first">
             <div class="w100">
                 <p><img src="{{ url_for('static', filename='pic/svetloyar_01.png') }}" class="border"/></p>
             </div>
         </div>
 
-         <div class="plate-inner">
+        <!-- Пояснение -->
+        <div class="plate-inner">
             <div class="w100">
                 <div class="text">
                     <p>Все курсы читает Астрогор А.А. Занятия два раза в день:
@@ -220,6 +267,7 @@ img.border {
             </div>
         </div>
 
+        <!-- Где проходит -->
         <div class="plate-inner not-first">
             <div class="left w50">
                 <h3>Где проходит</h3>
@@ -235,6 +283,7 @@ img.border {
             </div>
         </div>
 
+        <!-- Как добраться -->
         <div class="plate-inner not-first">
             <div class="left w50">
                 <h3>Как добраться</h3>
@@ -254,43 +303,8 @@ img.border {
                 <img src="{{ url_for('static', filename='pic/svetloyar_03.png') }}" class="border"/>
             </div>
         </div>
-        <div class="plate-inner not-first">
-            <div class="w50">
-                <h3>Расписание на 2022 год</h3>
-            </div>
-        </div>
-        <div class="plate-inner no-header">
-            <div class="w50 left">
-                <div class="text-header">Май</div>
-                <ul>
-                    <li>21–28 мая — Формула Души</li>
-                </ul>
-                <div class="text-header">Июнь</div>
-                <ul>
-                    <li>4–10 июня — Классическая астрология</li>
-                    <li>18–23 июня — Кармическая медицина</li>
-                    <li>28 июня — 5 июля — Формула Души</li>
-                </ul>
-                <div class="text-header">Июль</div>
-                <ul>
-                    <li>28–31 июля — Хиромантия</li>
-                </ul>
-            </div>
-            <div class="w50 right">
-                <div class="text-header">Август</div>
-                <ul>
-                    <li>6–13 августа — Формула Души</li>
-                    <li>15–21 августа — Классическая астрология</li>
-                    <li>23–28 августа — Кармическая медицина</li>
-                </ul>
-                <div class="text-header">Сентябрь</div>
-                <ul>
-                    <li>30 августа — 2 сентября — Хиромантия</li>
-                    <li>7–14 сентября — Формула Души</li>
-                </ul>
 
-            </div>
-        </div>
+        <!-- Кнопка «записаться» -->
         <div class="action">
             <a href="/contacts#offline-edu">
                 <button class="btn ">Записаться у администратора</button>
