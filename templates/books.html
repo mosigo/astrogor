@@ -302,4 +302,32 @@ a.downloads div.img:hover {
     </div>
 </div>
 
+<!--Интервью-->
+<div class="plate-base">
+    <div class="plate w100">
+        <a id="interview"></a>
+        <h1>Интервью</h1>
+        <div class="plate-inner">
+            <div class="left w30">
+                <a href="{{ url_for('static', filename='pic/downloads/i_01.pdf') }}" class="downloads"
+                   download="astrogor_interview_tabloid_news_2022.pdf">
+                    <div class="img">
+                        <img src="{{ url_for('static', filename='pic/books/interview_01.png') }}"/>
+                    </div>
+                </a>
+                <div class="text">
+                    <h4>Интервью в&nbsp;газете &laquo;Бульварные новости&raquo;</h4>
+                    <p>Интервью Астрогора А.&nbsp;А. &laquo;Понимая смысл жизни&raquo; в&nbsp;&#8470;&nbsp;32&nbsp;за&nbsp;август 2022.</p>
+                </div>
+                <div class="action">
+                    <a href="{{ url_for('static', filename='pic/downloads/i_01.pdf') }}"
+                       download="astrogor_interview_tabloid_news_2022.pdf">
+                        <button class="btn">Скачать</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
