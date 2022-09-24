@@ -47,10 +47,50 @@ def mars_in_exclusion_zone(formula, from_day, to_day):
     return False
 
 
+class ExclusionZoneFinder:
+
+    def __init__(self, planet) -> None:
+        self.planet = planet
+
+    def search_function(self, formula, from_day, to_day):
+        to_planet_links = formula.reverse_links.get(self.planet, [])
+        if self.planet in formula.retro and \
+                self.planet in formula.center_set and \
+                len(to_planet_links) == 1 and \
+                to_planet_links[0] == self.planet:  # планета должна ссылаться на себя
+            return True
+        return False
+
+
+class HolidaysZoneFinder:
+
+    def __init__(self, planet) -> None:
+        self.planet = planet
+
+    def search_function(self, formula, from_day, to_day):
+        to_planet_links = formula.reverse_links.get(self.planet, [])
+        if self.planet not in formula.retro and \
+                self.planet in formula.center_set and \
+                len(to_planet_links) == 1 and \
+                to_planet_links[0] == self.planet:  # планета должна ссылаться на себя
+            return True
+        return False
+
+
+class PlanetInOrbitFinder:
+
+    def __init__(self, planet, orbit_num) -> None:
+        self.planet = planet
+        self.orbit_num = orbit_num
+
+    def search_function(self, formula, from_day, to_day):
+        return self.planet in formula.orbits.get(self.orbit_num, [])
+
+
 def all_in_center_circle(formula, from_day, to_day):
     if len(formula.center) == 1 and len(formula.center_set) == 10:
-        print(from_day, '–', to_day)
-        print(formula)
+        # print(from_day, '–', to_day)
+        # print(formula)
         return True
     return False
 

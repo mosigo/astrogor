@@ -33,26 +33,6 @@ a.news div.img:hover {
 <!--Блок с баннерами -->
 <div class="plate-base">
     <div class="plate w50">
-        <h1>Летняя школа 2022</h1>
-        <div class="img">
-            <img src="{{ url_for('static', filename='pic/svetloyar_04.png') }}"/>
-        </div>
-        <div class="text-header">С 21 мая по 14 сентября очное обучение на озере Светлояр</div>
-        <div class="text">
-            <p>В летнее время все очные курсы Астрогора А.А. проходят на озере Светлояр.
-                В этом году обучение продлится до 14 сентября.</p>
-            <p>Формула Души, Классическая астрология, Кармическая медицина, Хиромантия.</p>
-        </div>
-        <div class="action">
-            <a href="/edu#svetloyar">
-                <button class="btn w50">Расписание</button>
-            </a>
-            <a href="/contacts#offline-edu">
-                <button class="btn second w50">Записаться</button>
-            </a>
-        </div>
-    </div>
-    <div class="plate w50">
         <h1>Очные занятия</h1>
         <div class="img">
             <img src="{{ url_for('static', filename='pic/offline_photo.png') }}"/>
@@ -72,6 +52,28 @@ a.news div.img:hover {
             </a>
         </div>
     </div>
+    <div class="plate w50">
+        <h1>Вышла новая книга</h1>
+        <div class="img">
+            <img src="{{ url_for('static', filename='pic/last_book.png') }}"/>
+        </div>
+        <div class="text-header">Кармическая медицина. Голова, мозг и ум, глаза и слух... под знаком Зодиака — Овен
+        </div>
+        <div class="text">
+            <p>Вышла первая книга из новой серии. Первая из 12-ти: «Овен, голова, ум и мозг, зрение и слух, нос, зубы,
+                физиогномика».</p>
+            <p>Также доступны для изучения <a href="/books#chapters">отдельные главы</a> ещё не вышедших книг.</p>
+        </div>
+        <div class="action">
+            <a href="https://www.ozon.ru/product/karmicheskaya-meditsina-golova-mozg-i-um-glaza-i-sluh-pod-znakom-zodiaka-oven-407617901/"
+               target="_blank">
+                <button class="btn w50">Купить на Ozon</button>
+            </a>
+            <a href="/books">
+                <button class="btn second w50">Все книги</button>
+            </a>
+        </div>
+    </div>
 </div>
 
 <!--Блок с новостями-->
@@ -83,17 +85,17 @@ a.news div.img:hover {
         <h1>Новости</h1>
 
         <div class="plate-inner">
-            <div class="w50 left">
-                <a href="/news#008" class="news">
+            <div class="left w50">
+                <a href="/news#009" class="news">
                     <div class="img">
                         <div class="text">
-                            <p>31.07.2022</p>
-                            <h4>Завершился курс по&nbsp;хиромантии в&nbsp;летней школе на&nbsp;Светлояре</h4>
-                            <p>Прошёл курс &laquo;Рука и&nbsp;космическая тайна души&raquo;,
-                                ряды наших выпускников снова пополнись!<br/> </p>
+                            <p>19.09.2022</p>
+                            <h4>Новая глава «Манна небесная и здоровье»</h4>
+                            <p>Делимся новой главой для книги «Водолей» серии «Кармическая медицина»
+                                Александра Астрогора.<br/> </p>
                         </div>
                         <div class="action">
-                            <a href="/news#008">
+                            <a href="/news#009">
                                 <button class="btn">Подробнее</button>
                             </a>
                         </div>
