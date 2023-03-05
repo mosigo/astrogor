@@ -18,6 +18,9 @@ a.news div.img {
 a.news div.img:hover {
     border-color: #6E69EB;
 }
+b {
+    font-family: AstrogorHeader;
+}
 </style>
 {% endblock %}
 {% block body %}
@@ -33,16 +36,16 @@ a.news div.img:hover {
 <!--Блок с баннерами -->
 <div class="plate-base">
     <div class="plate w50">
-        <h1>Очные занятия</h1>
+        <h1>Формула Души в Москве</h1>
         <div class="img">
             <img src="{{ url_for('static', filename='pic/offline_photo.png') }}"/>
         </div>
-        <div class="text-header">Очные занятия в Москве<br/> </div>
+        <div class="text-header">Очные занятия в Москве</div>
         <div class="text">
             <p>Идут очные занятия в&nbsp Москве. Ближайший курс — «Формула Души»,
-                начало — 13 марта 2023.</p>
+                начало — <b>13 марта 2023.</b></p>
             <p>Занятия три раза в неделю по&nbsp;понедельникам,
-                средам и пятницам. С 19:00 до 21:00.<br/> </p>
+                средам и пятницам. С 19:00 до 21:00.</p>
         </div>
         <div class="action">
             <a href="/edu#moscow">
@@ -54,27 +57,44 @@ a.news div.img:hover {
         </div>
     </div>
     <div class="plate w50">
-        <h1>Вышла новая книга</h1>
+        <h1>Очная встреча с читателями</h1>
         <div class="img">
-            <img src="{{ url_for('static', filename='pic/last_book.png') }}"/>
+            <img src="{{ url_for('static', filename='pic/meeting_01.png') }}"/>
         </div>
-        <div class="text-header">Кармическая медицина. Голова, мозг и ум, глаза и слух... под знаком Зодиака — Овен
-        </div>
+        <div class="text-header">Встреча с Сан Санычем</div>
         <div class="text">
-            <p>Вышла первая книга из новой серии. Первая из 12-ти: «Овен, голова, ум и мозг, зрение и слух, нос, зубы,
-                физиогномика».</p>
-            <p>Также доступны для изучения <a href="/books#chapters">отдельные главы</a> ещё не вышедших книг.</p>
-        </div>
-        <div class="action">
-            <a href="https://www.ozon.ru/product/karmicheskaya-meditsina-golova-mozg-i-um-glaza-i-sluh-pod-znakom-zodiaka-oven-407617901/"
-               target="_blank">
-                <button class="btn w50">Купить на Ozon</button>
-            </a>
-            <a href="/books">
-                <button class="btn second w50">Все книги</button>
-            </a>
+            <p><b>25 марта 2023</b> пройдет авторская встреча с читателями,
+                Сан Саныч будет знакомить со своими книгами и раздавать автографы.</p>
+            <p>Встреча состоится в <b>20:00</b> в эзотерическом магазине «Белые облака»
+                на ул. Покровка, 4.</p>
         </div>
     </div>
+
+<!--    <div class="plate w50">-->
+<!--        <h1>Очная встреча с читателями</h1>-->
+<!--        <div class="img">-->
+<!--            <img src="{{ url_for('static', filename='pic/last_book.png') }}"/>-->
+<!--        </div>-->
+<!--        <div class="text-header">Астрология в схемах и таблицах, 3-е издание</div>-->
+<!--        <div class="text">-->
+<!--            <p>Вышло новое издание книги-альбома «Астрология в схемах и таблицах»,-->
+<!--                теперь она содержит <b>128</b> цветных таблиц и схем по астрологии!-->
+<!--                Спрашивайте в «Читай-город», Ozon и Wildberries.</p>-->
+<!--            <p><b>25 марта 2023</b> пройдет авторская встреча с читателями,-->
+<!--                Сан Саныч будет знакомить со своими книгами и раздавать автографы.-->
+<!--                Встреча состоится в <b>20:00</b> в эзотерическом магазине «Белые облака» на ул. Покровка, 4.</p>-->
+<!--&lt;!&ndash;            <p>Также доступны для изучения <a href="/books#chapters">отдельные главы</a> ещё не вышедших книг.</p>&ndash;&gt;-->
+<!--        </div>-->
+<!--        <div class="action">-->
+<!--            <a href="https://www.ozon.ru/product/karmicheskaya-meditsina-golova-mozg-i-um-glaza-i-sluh-pod-znakom-zodiaka-oven-407617901/"-->
+<!--               target="_blank">-->
+<!--                <button class="btn w50">Купить на Ozon</button>-->
+<!--            </a>-->
+<!--            <a href="/books">-->
+<!--                <button class="btn second w50">Все книги</button>-->
+<!--            </a>-->
+<!--        </div>-->
+<!--    </div>-->
 </div>
 
 <!--Блок с новостями-->
