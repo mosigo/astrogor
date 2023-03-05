@@ -60,6 +60,10 @@ body {
     padding: 0 6px;
 }
 
+b {
+    font-family: AstrogorHeader;
+}
+
 /* Кнопки */
 
 .btn {
