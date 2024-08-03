@@ -104,7 +104,6 @@ class DefaultSFGeocoder(SFGeocoder):
                 tz = pytz.timezone(tz_name)
                 dt = tz.localize(datetime.strptime(dt_str, '%Y-%m-%d %H:%M'))
                 offset = dt.strftime('%z')
-                print(address, lat, lon, offset)
                 return GeocoderResult(address, lat, lon, offset)
         except Exception as e:
             print(f'Геокодер вернул ошибку: {e}')

@@ -2,6 +2,63 @@
 {% block head %}
 {{ super() }}
 <meta name="Keywords" content="астрогор, астрология, обучение, душа"/>
+<script src="https://api-maps.yandex.ru/v3/?apikey=32bf9279-b0ab-4784-b02e-0b65e0e5aac0&lang=ru_RU"></script>
+<script>
+initMap();
+
+async function initMap() {
+    // Промис `ymaps3.ready` будет зарезолвлен, когда загрузятся все компоненты основного модуля API
+    await ymaps3.ready;
+
+    const {YMap, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer, YMapControls} = ymaps3;
+    const {YMapDefaultMarker} = await ymaps3.import('@yandex/ymaps3-markers@0.0.1');
+    const {YMapZoomControl} = await ymaps3.import('@yandex/ymaps3-controls@0.0.1');
+
+    // Иницилиазируем карту
+    const map = new YMap(
+        // Передаём ссылку на HTMLElement контейнера
+        document.getElementById('map'),
+
+        // Передаём параметры инициализации карты
+        {
+            location: {
+                // Координаты центра карты
+                center: [45.062225, 56.817075],
+
+                // Уровень масштабирования
+                zoom: 14
+            },
+            showScaleInCopyrights: true
+        }
+    );
+
+    // Добавляем слой для отображения схематической карты
+    map.addChild(new YMapDefaultSchemeLayer());
+    map.addChild(new YMapDefaultFeaturesLayer({}));
+
+    // Using YMapControls you can change the position of the control.
+    map.addChild(
+      // Here we place the control on the right
+      new YMapControls({position: 'right'})
+        // Add the first zoom control to the map
+        .addChild(new YMapZoomControl({}))
+    );
+
+    map.addChild(new YMapDefaultMarker(
+      {
+        coordinates: [45.031386, 56.817075],
+        title: 'Поместье Астрогора',
+        subtitle: 'Здесь проходят занятия'
+      }
+    ));
+    map.addChild(new YMapDefaultMarker(
+      {
+        coordinates: [45.093065, 56.818784],
+        title: 'Озеро Светлояр'
+      }
+    ));
+}
+</script>
 <style>
 .inner-block.empty {
     border-color: white;
@@ -16,6 +73,13 @@
 }
 img.border {
     border: 1px solid #D6D6D8;
+}
+
+#map {
+    width: 95%;
+    height: 600px;
+    border: 1px solid #D6D6D8;
+    border-radius: 8px;
 }
 </style>
 {% endblock %}
@@ -134,11 +198,13 @@ img.border {
         </div>
 
         <!-- Картинка с картой -->
-        <div class="plate-inner not-first">
-            <div class="w100">
-                <p><img src="{{ url_for('static', filename='pic/svetloyar_01.png') }}" class="border"/></p>
-            </div>
-        </div>
+        <div id="map" class="plate-inner not-first"></div>
+
+<!--        <div class="plate-inner not-first">-->
+<!--            <div class="w100">-->
+<!--                <p><img src="{{ url_for('static', filename='pic/svetloyar_01.png') }}" class="border"/></p>-->
+<!--            </div>-->
+<!--        </div>-->
 
         <!-- Пояснение -->
         <div class="plate-inner">
@@ -163,6 +229,7 @@ img.border {
             </div>
             <div class="right w50">
                 <img src="{{ url_for('static', filename='pic/svetloyar_02.png') }}" class="border"/>
+
             </div>
         </div>
 
