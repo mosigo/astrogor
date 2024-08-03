@@ -95,14 +95,19 @@ class DefaultSFGeocoder(SFGeocoder):
 
     def get_geo_position(self, src_address: str, dt_str: str) -> GeocoderResult:
 
-        ya_geocoder_result = self.ya_geocoder.geocode(src_address)
-        if ya_geocoder_result:
-            address, (lat, lon) = ya_geocoder_result
-            tz_finder = TimezoneFinder()
-            tz_name = tz_finder.timezone_at(lng=lon, lat=lat)
-            tz = pytz.timezone(tz_name)
-            dt = tz.localize(datetime.strptime(dt_str, '%Y-%m-%d %H:%M'))
-            offset = dt.strftime('%z')
-            return GeocoderResult(address, lat, lon, offset)
-        return None
+        try:
+            ya_geocoder_result = self.ya_geocoder.geocode(src_address)
+            if ya_geocoder_result:
+                address, (lat, lon) = ya_geocoder_result
+                tz_finder = TimezoneFinder()
+                tz_name = tz_finder.timezone_at(lng=lon, lat=lat)
+                tz = pytz.timezone(tz_name)
+                dt = tz.localize(datetime.strptime(dt_str, '%Y-%m-%d %H:%M'))
+                offset = dt.strftime('%z')
+                print(address, lat, lon, offset)
+                return GeocoderResult(address, lat, lon, offset)
+        except Exception as e:
+            print(f'Геокодер вернул ошибку: {e}')
+
+        return GeocoderResult('(не получилось распознать адрес) Россия, Москва', 55.755864, 37.617698, '+0300')
 
